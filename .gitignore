@@ -1,0 +1,34 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+
+# n8n runtime data and local exports containing credentials
+n8n_data/
+n8n/backups/
+n8n/credentials/
+n8n/*.local.json
+
+# Database runtime data and backups
+postgres_data/
+backups/
+*.sql
+*.dump
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+temp/
+
+# Editor and OS files
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
