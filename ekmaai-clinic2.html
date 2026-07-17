@@ -1,0 +1,2978 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>بیمارستان هوشمند اکما | EkmaAI Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1020;--bg-2:#0f1530;--card:#121a38;--card-2:#162044;
+  --text:#e8ecff;--muted:#9aa3c7;
+  --primary:#6c8cff;--primary-2:#8b5cf6;--accent:#22d3ee;
+  --success:#10b981;--warn:#f59e0b;--danger:#ef4444;--rose:#f43f5e;
+  --border:rgba(255,255,255,.08);--shadow:0 20px 60px rgba(0,0,0,.35);--radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Vazirmatn',sans-serif}
+html,body{background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
+body{
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(108,140,255,.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(139,92,246,.15), transparent 60%),
+    radial-gradient(700px 400px at 50% 110%, rgba(34,211,238,.10), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none}
+
+/* ============ NAVBAR ============ */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(11,16,32,.7);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1300px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+.logo-badge{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;box-shadow:0 10px 30px rgba(108,140,255,.35);position:relative}
+.logo-badge::after{content:"";position:absolute;inset:-2px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--accent));filter:blur(10px);opacity:.4;z-index:-1}
+.logo-badge svg{width:20px;height:20px;color:#fff}
+.logo small{display:block;color:var(--muted);font-size:10px;font-weight:400}
+.nav-links{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav-links a{padding:9px 13px;border-radius:10px;color:var(--muted);font-weight:500;font-size:14px;transition:.25s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.btn{padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;transition:transform .2s, box-shadow .2s, background .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 10px 30px rgba(108,140,255,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(108,140,255,.5)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-icon{width:40px;height:40px;padding:0;justify-content:center;border-radius:12px}
+.btn-success{background:linear-gradient(135deg,var(--success),#059669);color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.35)}
+.btn-danger{background:linear-gradient(135deg,var(--danger),var(--rose));color:#fff}
+.btn-block{width:100%;justify-content:center}
+
+/* ============ HERO ============ */
+.hero{max-width:1300px;margin:0 auto;padding:70px 22px 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);color:var(--accent);font-size:13px;font-weight:500;margin-bottom:18px}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.25;font-weight:800;margin-bottom:18px;letter-spacing:-.5px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:17px;line-height:1.9;margin-bottom:28px;max-width:560px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .num{font-size:26px;font-weight:800;background:linear-gradient(135deg,#fff,var(--muted));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{color:var(--muted);font-size:13px}
+
+.hero-visual{position:relative;height:520px}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:float 8s ease-in-out infinite}
+.orb-1{width:260px;height:260px;background:var(--primary);top:10%;left:10%}
+.orb-2{width:200px;height:200px;background:var(--primary-2);bottom:10%;right:10%;animation-delay:-3s}
+.orb-3{width:160px;height:160px;background:var(--accent);top:40%;right:20%;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+
+.hero-card{position:absolute;background:rgba(22,32,68,.75);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow);animation:cardFloat 6s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hc-1{top:8%;left:5%;width:220px;animation-delay:-1s}
+.hc-2{top:38%;right:0;width:240px;animation-delay:-2s}
+.hc-3{bottom:5%;left:15%;width:230px;animation-delay:-3s}
+.hc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.hc-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;font-weight:700;color:#fff;font-size:14px}
+.hc-name{font-weight:600;font-size:14px}
+.hc-sub{color:var(--muted);font-size:12px}
+.hc-status{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(16,185,129,.15);color:var(--success);font-size:11px;font-weight:600}
+.hc-status .dot{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)}
+
+/* ============ SECTIONS ============ */
+section{padding:60px 0}
+.container{max-width:1300px;margin:0 auto;padding:0 22px}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head .eyebrow{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-head h2{font-size:clamp(26px,3.5vw,38px);font-weight:800;margin-bottom:12px}
+.section-head p{color:var(--muted);max-width:600px;margin:0 auto;line-height:1.9}
+
+/* ============ DEPARTMENTS ============ */
+.depts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.dept{
+  background:linear-gradient(180deg,var(--card),var(--card-2));
+  border:1px solid var(--border);border-radius:var(--radius);padding:22px;
+  transition:.3s;position:relative;overflow:hidden;cursor:pointer;
+}
+.dept::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 0% 0%, rgba(108,140,255,.12), transparent 60%);opacity:0;transition:.3s}
+.dept:hover{transform:translateY(-6px);border-color:rgba(108,140,255,.3)}
+.dept:hover::before{opacity:1}
+.dept-icon{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(108,140,255,.2),rgba(139,92,246,.2));border:1px solid rgba(108,140,255,.3);display:grid;place-items:center;margin-bottom:14px;transition:.3s}
+.dept:hover .dept-icon{transform:scale(1.08) rotate(-5deg)}
+.dept-icon svg{width:26px;height:26px;color:var(--primary)}
+.dept h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.dept p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:10px}
+.dept-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);padding-top:10px;border-top:1px solid var(--border)}
+.dept-meta .tag{padding:3px 8px;border-radius:999px;background:rgba(34,211,238,.1);color:var(--accent);font-weight:600}
+
+/* ============ AI DIAGNOSIS ============ */
+.ai-section{background:linear-gradient(180deg,rgba(108,140,255,.05),rgba(139,92,246,.03));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ai-wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch}
+.ai-info{padding:10px}
+.ai-info h2{font-size:32px;font-weight:800;margin-bottom:14px;line-height:1.3}
+.ai-info h2 .grad{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ai-info p{color:var(--muted);line-height:1.9;margin-bottom:20px}
+.ai-features{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.ai-feat{display:flex;gap:12px;align-items:flex-start}
+.ai-feat-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(34,211,238,.15),rgba(108,140,255,.15));border:1px solid rgba(34,211,238,.25);display:grid;place-items:center;flex-shrink:0}
+.ai-feat-icon svg{width:18px;height:18px;color:var(--accent)}
+.ai-feat strong{display:block;margin-bottom:2px;font-size:14px}
+.ai-feat p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+
+.ai-upload{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.ai-upload-head{display:flex;justify-content:space-between;align-items:center}
+.ai-upload-head h3{font-size:18px;font-weight:700}
+.ai-live{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(16,185,129,.15);color:var(--success);font-size:11px;font-weight:600}
+.ai-live .dot{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulse 2s infinite}
+
+.ai-type{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ai-type-btn{padding:10px 8px;border-radius:10px;background:var(--bg-2);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:.2s;text-align:center}
+.ai-type-btn:hover{border-color:var(--primary);color:#fff}
+.ai-type-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.35)}
+
+.drop-zone{border:2px dashed var(--border);border-radius:14px;padding:30px 20px;text-align:center;transition:.3s;cursor:pointer;background:var(--bg-2)}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--primary);background:rgba(108,140,255,.05)}
+.drop-zone svg{width:40px;height:40px;color:var(--muted);margin-bottom:10px}
+.drop-zone strong{display:block;margin-bottom:4px;font-size:14px}
+.drop-zone small{color:var(--muted);font-size:12px}
+.drop-zone.has-file{border-style:solid;border-color:var(--success);background:rgba(16,185,129,.05)}
+.drop-zone.has-file svg{color:var(--success)}
+
+.ai-preview{display:none;margin-top:10px;border-radius:12px;overflow:hidden;background:var(--bg-2);border:1px solid var(--border)}
+.ai-preview.show{display:block}
+.ai-preview img{width:100%;height:200px;object-fit:cover;display:block}
+.ai-preview-info{padding:12px;display:flex;justify-content:space-between;align-items:center}
+.ai-preview-info .name{font-size:13px;font-weight:600}
+.ai-preview-info .size{font-size:11px;color:var(--muted)}
+.ai-preview-info .remove{color:var(--danger);cursor:pointer;font-size:12px}
+
+.ai-analyze-btn{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-weight:700;font-size:15px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.ai-analyze-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 40px rgba(108,140,255,.5)}
+.ai-analyze-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.ai-result{display:none;background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-top:10px;animation:fadeIn .4s}
+.ai-result.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ai-result-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ai-result-head strong{font-size:15px;display:flex;align-items:center;gap:8px}
+.ai-confidence{padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.ai-confidence.high{background:rgba(16,185,129,.15);color:var(--success)}
+.ai-confidence.med{background:rgba(245,158,11,.15);color:var(--warn)}
+
+.ai-finding{margin-bottom:12px}
+.ai-finding-label{font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600}
+.ai-finding-bar{height:8px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+.ai-finding-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--success),var(--accent));transition:width 1s ease-out}
+.ai-finding-val{font-size:11px;color:var(--muted);margin-top:4px;text-align:left}
+
+.ai-summary{padding:12px;border-radius:10px;background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.2);font-size:13px;line-height:1.8;color:var(--text)}
+.ai-summary strong{color:var(--accent);display:block;margin-bottom:4px}
+
+.ai-actions{display:flex;gap:8px;margin-top:12px}
+.ai-actions .btn{flex:1;padding:10px;font-size:13px}
+
+.ai-loading{display:none;text-align:center;padding:30px 20px}
+.ai-loading.show{display:block}
+.ai-spinner{width:60px;height:60px;border-radius:50%;border:3px solid rgba(108,140,255,.2);border-top-color:var(--primary);animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-loading-steps{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.ai-loading-step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);justify-content:center}
+.ai-loading-step.active{color:var(--accent)}
+.ai-loading-step.done{color:var(--success)}
+.ai-loading-step .check{width:16px;height:16px;border-radius:50%;background:var(--border);display:grid;place-items:center;font-size:10px}
+.ai-loading-step.done .check{background:var(--success);color:#fff}
+.ai-loading-step.active .check{background:var(--accent);color:#fff;animation:pulse 1s infinite}
+
+/* ============ DOCTORS ============ */
+.doctors{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.doctor-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:.3s;position:relative}
+.doctor-card:hover{transform:translateY(-6px);border-color:rgba(108,140,255,.3);box-shadow:var(--shadow)}
+.doctor-img{height:220px;position:relative;overflow:hidden}
+.doctor-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.doctor-card:hover .doctor-img img{transform:scale(1.05)}
+.doctor-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,16,32,.9))}
+.doctor-status{position:absolute;top:14px;right:14px;z-index:2;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;backdrop-filter:blur(10px)}
+.doctor-status.online{background:rgba(16,185,129,.2);color:var(--success);border:1px solid rgba(16,185,129,.3)}
+.doctor-status.busy{background:rgba(245,158,11,.2);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.doctor-status .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.doctor-body{padding:20px}
+.doctor-body h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.doctor-spec{color:var(--primary);font-size:13px;font-weight:600;margin-bottom:10px}
+.doctor-meta{display:flex;gap:14px;color:var(--muted);font-size:12px;margin-bottom:16px;flex-wrap:wrap}
+.doctor-meta span{display:flex;align-items:center;gap:4px}
+.doctor-btn{width:100%;padding:12px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-weight:600;font-size:14px;transition:.2s}
+.doctor-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,140,255,.35)}
+
+/* ============ APPOINTMENT ============ */
+.appt-wrap{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+.appt-steps{display:flex;justify-content:space-between;margin-bottom:30px;position:relative}
+.appt-steps::before{content:"";position:absolute;top:20px;right:40px;left:40px;height:2px;background:var(--border)}
+.appt-step{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;flex:1}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--bg-2);border:2px solid var(--border);display:grid;place-items:center;font-weight:700;font-size:14px;transition:.3s}
+.step-label{font-size:12px;color:var(--muted);font-weight:500;text-align:center}
+.appt-step.active .step-num{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.4)}
+.appt-step.active .step-label{color:#fff}
+.appt-step.done .step-num{background:var(--success);border-color:transparent;color:#fff}
+.appt-step.done .step-label{color:var(--success)}
+
+.appt-panel{display:none;animation:fadeIn .4s}
+.appt-panel.active{display:block}
+
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.service-card{padding:16px;border-radius:14px;background:var(--bg-2);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
+.service-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.service-card.selected{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));border-color:var(--primary);box-shadow:0 8px 24px rgba(108,140,255,.2)}
+.service-card .ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(108,140,255,.2),rgba(139,92,246,.2));display:grid;place-items:center;margin:0 auto 10px}
+.service-card .ico svg{width:22px;height:22px;color:var(--primary)}
+.service-card strong{display:block;font-size:13px;margin-bottom:4px}
+.service-card small{color:var(--muted);font-size:11px;display:block}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:13px;font-weight:600;color:var(--muted)}
+.form-input,.form-select,.form-textarea{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;font-family:inherit;transition:.2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,140,255,.15)}
+.form-textarea{resize:vertical;min-height:90px}
+
+.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
+.time-slot{padding:12px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.time-slot:hover{border-color:var(--primary)}
+.time-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.35)}
+.time-slot.disabled{opacity:.4;cursor:not-allowed}
+
+.appt-nav{display:flex;justify-content:space-between;margin-top:24px;gap:10px}
+
+/* ============ PAYMENT ============ */
+.payment-wrap{background:var(--bg-2);border-radius:14px;padding:20px;border:1px solid var(--border)}
+.invoice-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
+.invoice-head h3{font-size:16px;margin-bottom:4px}
+.invoice-head small{color:var(--muted);font-size:12px}
+.invoice-code{padding:6px 12px;border-radius:8px;background:rgba(34,211,238,.1);color:var(--accent);font-family:monospace;font-size:13px;font-weight:700}
+
+.invoice-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.invoice-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--card);border-radius:10px;font-size:13px}
+.invoice-item .name{display:flex;flex-direction:column;gap:2px}
+.invoice-item .name small{color:var(--muted);font-size:11px}
+.invoice-item .price{font-weight:700;color:var(--accent)}
+
+.invoice-summary{padding:14px;background:var(--card);border-radius:12px;margin-bottom:16px}
+.invoice-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--muted)}
+.invoice-row.total{padding-top:10px;margin-top:8px;border-top:1px dashed var(--border);color:#fff;font-size:18px;font-weight:800}
+.invoice-row.total .val{color:var(--accent)}
+
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.pay-method{padding:14px 10px;border-radius:12px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
+.pay-method:hover{border-color:var(--primary)}
+.pay-method.selected{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));border-color:var(--primary)}
+.pay-method .ico{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;margin:0 auto 8px;color:#fff}
+.pay-method .ico svg{width:18px;height:18px}
+.pay-method strong{display:block;font-size:12px;margin-bottom:2px}
+.pay-method small{color:var(--muted);font-size:10px}
+
+.card-form{background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;display:none}
+.card-form.show{display:block}
+.card-form .form-grid{grid-template-columns:1fr 1fr}
+.card-input{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:#fff;font-family:monospace;font-size:14px;letter-spacing:1px;text-align:center;direction:ltr}
+.card-input:focus{outline:none;border-color:var(--primary)}
+
+/* Success receipt */
+.receipt{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;position:relative;overflow:hidden}
+.receipt::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--success),var(--accent))}
+.receipt-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:grid;place-items:center;margin:0 auto 16px;box-shadow:0 15px 40px rgba(16,185,129,.35);animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+.receipt-icon svg{width:40px;height:40px;color:#fff}
+.receipt h3{font-size:22px;margin-bottom:8px}
+.receipt > p{color:var(--muted);line-height:1.8;margin-bottom:16px}
+.receipt-details{background:var(--bg-2);border-radius:12px;padding:16px;text-align:right;margin-bottom:16px}
+.receipt-details .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.receipt-details .row:last-child{border-bottom:none}
+.receipt-details .row span:first-child{color:var(--muted)}
+.receipt-details .row span:last-child{font-weight:600}
+.receipt-code{padding:12px;border-radius:10px;background:rgba(34,211,238,.1);border:1px dashed rgba(34,211,238,.3);font-family:monospace;font-size:16px;font-weight:700;color:var(--accent);letter-spacing:2px;margin-bottom:16px}
+.receipt-actions{display:flex;gap:10px}
+.receipt-actions .btn{flex:1}
+
+/* ============ CHATBOT ============ */
+.chat-fab{position:fixed;bottom:24px;left:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;box-shadow:0 15px 40px rgba(108,140,255,.5);cursor:pointer;transition:.3s;animation:fabPulse 3s infinite}
+@keyframes fabPulse{0%,100%{box-shadow:0 15px 40px rgba(108,140,255,.5)}50%{box-shadow:0 15px 60px rgba(108,140,255,.8)}}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab svg{width:28px;height:28px}
+.chat-fab .badge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--danger);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid var(--bg)}
+
+.chat-window{position:fixed;bottom:100px;left:24px;z-index:91;width:380px;max-width:calc(100vw - 48px);height:540px;max-height:calc(100vh - 140px);background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;transform:scale(0);transform-origin:bottom left;opacity:0;pointer-events:none;transition:.3s cubic-bezier(.4,0,.2,1)}
+.chat-window.open{transform:scale(1);opacity:1;pointer-events:auto}
+
+.chat-header{padding:16px 18px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;gap:12px;color:#fff}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;position:relative}
+.chat-avatar svg{width:22px;height:22px}
+.chat-avatar .online-dot{position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--success);border:2px solid var(--primary)}
+.chat-title{flex:1}
+.chat-title strong{display:block;font-size:15px}
+.chat-title small{font-size:11px;opacity:.85;display:flex;align-items:center;gap:4px}
+.chat-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s}
+.chat-close:hover{background:rgba(255,255,255,.25)}
+
+.chat-body{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:radial-gradient(600px 300px at 100% 0%, rgba(108,140,255,.05), transparent 60%),var(--bg-2)}
+.chat-body::-webkit-scrollbar{width:6px}
+.chat-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+
+.msg{display:flex;gap:8px;max-width:85%;animation:msgIn .3s ease-out}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:12px;font-weight:700}
+.msg.bot .msg-avatar{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
+.msg.user .msg-avatar{background:rgba(255,255,255,.1);color:#fff}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.7}
+.msg.bot .msg-bubble{background:var(--card);border:1px solid var(--border);border-top-right-radius:4px}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-top-left-radius:4px}
+.msg-time{font-size:10px;color:var(--muted);margin-top:4px;padding:0 4px}
+.msg.user .msg-time{text-align:left}
+
+.quick-replies{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.quick-reply{padding:7px 12px;border-radius:999px;background:rgba(108,140,255,.1);border:1px solid rgba(108,140,255,.25);color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
+.quick-reply:hover{background:rgba(108,140,255,.2)}
+
+.typing{display:flex;gap:4px;padding:12px 14px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typing 1.4s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+
+.chat-input{padding:14px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;background:var(--card)}
+.chat-input input{flex:1;background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:#fff;font-size:14px;font-family:inherit}
+.chat-input input:focus{outline:none;border-color:var(--primary)}
+.chat-send{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;transition:.2s}
+.chat-send:hover{transform:scale(1.05)}
+.chat-send svg{width:18px;height:18px}
+
+/* ============ ADMIN PANEL ============ */
+.admin-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}
+.admin-overlay.open{display:flex;animation:fadeIn .3s}
+.admin-panel{width:100%;max-width:1200px;height:90vh;background:var(--bg-2);border:1px solid var(--border);border-radius:20px;display:grid;grid-template-columns:240px 1fr;overflow:hidden}
+.admin-sidebar{background:var(--card);border-left:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column}
+.admin-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.admin-logo .logo-badge{width:34px;height:34px}
+.admin-logo strong{font-size:15px;display:block}
+.admin-logo small{color:var(--muted);font-size:11px}
+.admin-menu{flex:1;padding:0 10px;display:flex;flex-direction:column;gap:4px}
+.admin-item{padding:10px 14px;border-radius:10px;color:var(--muted);font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.2s}
+.admin-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.admin-item.active{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));color:#fff;border:1px solid rgba(108,140,255,.3)}
+.admin-item svg{width:18px;height:18px}
+.admin-footer{padding:14px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+
+.admin-main{display:flex;flex-direction:column;overflow:hidden}
+.admin-topbar{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.admin-topbar h2{font-size:18px;font-weight:700}
+.admin-topbar .status{display:flex;gap:10px;align-items:center}
+.status-pill{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.status-pill.ok{background:rgba(16,185,129,.15);color:var(--success);border:1px solid rgba(16,185,129,.3)}
+.status-pill.warn{background:rgba(245,158,11,.15);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.status-pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;animation:pulse 2s infinite}
+
+.admin-content{flex:1;overflow-y:auto;padding:24px}
+.admin-content::-webkit-scrollbar{width:8px}
+.admin-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.admin-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.admin-stat::before{content:"";position:absolute;top:0;right:0;width:60px;height:60px;background:radial-gradient(circle,rgba(108,140,255,.15),transparent 70%)}
+.admin-stat .label{color:var(--muted);font-size:12px;margin-bottom:8px}
+.admin-stat .value{font-size:26px;font-weight:800;margin-bottom:4px}
+.admin-stat .trend{font-size:12px;color:var(--success);font-weight:600}
+.admin-stat .trend.down{color:var(--danger)}
+
+.admin-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
+.admin-section h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.admin-section h3 .live{padding:3px 8px;border-radius:999px;background:rgba(239,68,68,.15);color:var(--danger);font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px}
+.admin-section h3 .live .dot{width:5px;height:5px;border-radius:50%;background:var(--danger);animation:pulse 1.5s infinite}
+
+.log-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;font-family:monospace;font-size:12px}
+.log-item{padding:8px 12px;background:var(--bg-2);border-radius:8px;border-right:3px solid transparent;display:flex;gap:10px;align-items:flex-start}
+.log-item.info{border-right-color:var(--primary)}
+.log-item.success{border-right-color:var(--success)}
+.log-item.warn{border-right-color:var(--warn)}
+.log-item.ai{border-right-color:var(--accent)}
+.log-time{color:var(--muted);flex-shrink:0}
+.log-tag{padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0}
+.log-tag.info{background:rgba(108,140,255,.2);color:var(--primary)}
+.log-tag.success{background:rgba(16,185,129,.2);color:var(--success)}
+.log-tag.warn{background:rgba(245,158,11,.2);color:var(--warn)}
+.log-tag.ai{background:rgba(34,211,238,.2);color:var(--accent)}
+.log-msg{color:var(--text);flex:1;word-break:break-all}
+
+.admin-close{position:absolute;top:20px;left:20px;z-index:10;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s}
+.admin-close:hover{background:rgba(255,255,255,.15)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;background:rgba(11,16,32,.5)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px}
+.footer-col h4{font-size:14px;font-weight:700;margin-bottom:14px}
+.footer-col p,.footer-col a{color:var(--muted);font-size:13px;line-height:1.9;display:block;margin-bottom:6px;transition:.2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;flex-wrap:wrap;gap:10px}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .hero-visual{height:400px}
+  .nav-links{display:none}
+  .ai-wrap{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .admin-panel{grid-template-columns:1fr}
+  .admin-sidebar{display:none}
+  .ai-type{grid-template-columns:repeat(2,1fr)}
+  .payment-methods{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .chat-window{left:12px;right:12px;bottom:90px;width:auto;max-width:none}
+  .chat-fab{left:16px;bottom:16px}
+  .service-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <div>
+        <div>بیمارستان هوشمند اکما</div>
+        <small>هوش مصنوعی در خدمت سلامتی</small>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#home">خانه</a>
+      <a href="#departments">بخش‌ها</a>
+      <a href="#ai-diagnosis">تشخیص هوشمند</a>
+      <a href="#doctors">پزشکان</a>
+      <a href="#appointment">نوبت‌دهی</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-icon" onclick="openAdmin()" title="پنل مدیریت">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <a href="#appointment" class="btn btn-primary">
+        دریافت نوبت
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div>
+    <div class="hero-tag">
+      <span class="dot"></span>
+      بیمارستان هوشمند · تشخیص AI · ۲۴/۷
+    </div>
+    <h1>سلامتی شما،<br><span class="grad">در دستان هوشمندی</span> ماست.</h1>
+    <p>اکما، اولین مرکز درمانی یکپارچه با هوش مصنوعی. از آزمایشگاه و تصویربرداری پیشرفته تا تشخیص هوشمند MRI و CT — همه در یک پلتفرم.</p>
+    <div class="hero-actions">
+      <a href="#appointment" class="btn btn-primary">
+        رزرو نوبت آنلاین
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#ai-diagnosis" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        تشخیص هوشمند
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="num">+۱۲</span><span class="lbl">بخش تخصصی</span></div>
+      <div class="stat"><span class="num">+۴۰</span><span class="lbl">پزشک متخصص</span></div>
+      <div class="stat"><span class="num">۹۸٪</span><span class="lbl">دقت تشخیص AI</span></div>
+      <div class="stat"><span class="num">۲۴/۷</span><span class="lbl">پشتیبانی هوشمند</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-card hc-1">
+      <div class="hc-row">
+        <div class="hc-avatar">🧠</div>
+        <div>
+          <div class="hc-name">تشخیص MRI</div>
+          <div class="hc-sub">هوش مصنوعی فعال</div>
+        </div>
+      </div>
+      <div class="hc-status"><span class="dot"></span> در حال پردازش</div>
+    </div>
+
+    <div class="hero-card hc-2">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">🔬 نتیجه آزمایش</div>
+      <div style="color:var(--muted);font-size:12px;margin-bottom:10px">آزمایش خون کامل</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px"><span>هموگلوبین</span><span style="color:var(--success)">نرمال</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)"><span>قند ناشتا</span><span style="color:var(--warn)">مرزی</span></div>
+    </div>
+
+    <div class="hero-card hc-3">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:grid;place-items:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <strong style="font-size:13px">پرداخت موفق</strong>
+      </div>
+      <p style="color:var(--muted);font-size:12px;line-height:1.6">کد پیگیری: #EK-9921 ✓</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPARTMENTS ============ -->
+<section id="departments">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">بخش‌های بیمارستان</div>
+      <h2>مرکز جامع درمانی اکما</h2>
+      <p>تمامی خدمات پزشکی و تشخیصی در یک مکان، با بالاترین استانداردها و فناوری روز دنیا.</p>
+    </div>
+    <div class="depts">
+      <div class="dept" onclick="selectService('ویزیت پزشک')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h3>ویزیت پزشک</h3>
+        <p>مشاوره با بیش از ۴۰ متخصص در رشته‌های مختلف</p>
+        <div class="dept-meta"><span>۴۰+ پزشک</span><span class="tag">آنلاین</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('آزمایشگاه')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12l-4 4h14l-4-4V3"/><line x1="9" y1="3" x2="15" y2="3"/></svg></div>
+        <h3>آزمایشگاه</h3>
+        <p>آزمایش‌های خون، ادرار، هورمون، ژنتیک و بیوشیمی</p>
+        <div class="dept-meta"><span>۲۰۰+ تست</span><span class="tag">۲۴/۷</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('تصویربرداری')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>تصویربرداری</h3>
+        <p>MRI، CT Scan، رادیولوژی، سونوگرافی، ماموگرافی</p>
+        <div class="dept-meta"><span>دستگاه‌های نسل ۴</span><span class="tag">پیشرفته</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('داروخانه')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.5 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M18 14v7"/><path d="M15 17h6"/></svg></div>
+        <h3>داروخانه</h3>
+        <p>تامین داروهای کمیاب، مشاوره دارویی و ارسال به منزل</p>
+        <div class="dept-meta"><span>۵۰۰۰+ قلم</span><span class="tag">ارسال رایگان</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('اورژانس')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 7v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V7l-8-5z"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <h3>اورژانس ۲۴/۷</h3>
+        <p>تیم پزشکی آماده در تمام ساعات شبانه‌روز</p>
+        <div class="dept-meta"><span>آمبولانس</span><span class="tag" style="background:rgba(239,68,68,.15);color:var(--danger)">فوری</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('اتاق عمل')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>اتاق عمل</h3>
+        <p>جراحی‌های تخصصی با تجهیزات مدرن و تیم مجرب</p>
+        <div class="dept-meta"><span>۸ اتاق</span><span class="tag">تخصصی</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('فیزیوتراپی')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>فیزیوتراپی</h3>
+        <p>توانبخشی، ماساژ درمانی، لیزر و الکتروتراپی</p>
+        <div class="dept-meta"><span>۱۲ جلسه</span><span class="tag">بیمه</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('دندانپزشکی')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5.5c-2.5-2-6-2-7.5.5s-1 6 .5 8.5 4 3 5 2 2-3 2-3 1 2 2 3 3.5.5 5-2 1-6-.5-8.5-5-2.5-7.5-.5z"/></svg></div>
+        <h3>دندانپزشکی</h3>
+        <p>ترمیم، ایمپلنت، ارتودنسی، جراحی و زیبایی</p>
+        <div class="dept-meta"><span>۶ یونیت</span><span class="tag">تخصصی</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('چشم‌پزشکی')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>چشم‌پزشکی</h3>
+        <p>معاینه، لیزیک، آب مروارید، شبکیه و قرنیه</p>
+        <div class="dept-meta"><span>OCT + لیزر</span><span class="tag">پیشرفته</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('روانپزشکی')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <h3>روانپزشکی</h3>
+        <p>مشاوره، روان‌درمانی، درمان افسردگی و اضطراب</p>
+        <div class="dept-meta"><span>محرمانه</span><span class="tag">آنلاین</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('زنان و زایمان')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M9 18h6"/></svg></div>
+        <h3>زنان و زایمان</h3>
+        <p>مراقبت بارداری، زایمان طبیعی و سزارین، نازایی</p>
+        <div class="dept-meta"><span>۴D سونوگرافی</span><span class="tag">VIP</span></div>
+      </div>
+
+      <div class="dept" onclick="selectService('کودکان')">
+        <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="6" r="4"/><path d="M8 14h8l-2 8h-4z"/></svg></div>
+        <h3>کودکان</h3>
+        <p>اطفال، نوزادان، واکسیناسیون و رشد و تکامل</p>
+        <div class="dept-meta"><span>NICU</span><span class="tag">تخصصی</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI DIAGNOSIS ============ -->
+<section class="ai-section" id="ai-diagnosis">
+  <div class="container">
+    <div class="ai-wrap">
+      <div class="ai-info">
+        <div class="eyebrow" style="color:var(--accent);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">تشخیص هوشمند</div>
+        <h2>تحلیل <span class="grad">تصاویر پزشکی</span> با هوش مصنوعی</h2>
+        <p>تصویر MRI، CT Scan، X-Ray یا هر تصویر پزشکی خود را آپلود کنید. سیستم هوشمند ما در چند ثانیه آن را تحلیل کرده و گزارش اولیه را ارائه می‌دهد.</p>
+        
+        <div class="ai-features">
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><strong>تحلیل در کمتر از ۳۰ ثانیه</strong><p>پردازش سریع با الگوریتم‌های پیشرفته یادگیری عمیق</p></div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><strong>محرمانگی کامل</strong><p>تمامی تصاویر با رمزنگاری end-to-end پردازش می‌شوند</p></div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><strong>دقت ۹۸٪</strong><p>تایید شده توسط پزشکان متخصص رادیولوژی</p></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="document.querySelector('.ai-upload').scrollIntoView({behavior:'smooth'})">
+          شروع تحلیل تصویر
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div class="ai-upload">
+        <div class="ai-upload-head">
+          <h3>🧠 آپلود تصویر</h3>
+          <div class="ai-live"><span class="dot"></span> AI آنلاین</div>
+        </div>
+
+        <div class="ai-type" id="aiType">
+          <div class="ai-type-btn active" data-type="mri">MRI</div>
+          <div class="ai-type-btn" data-type="ct">CT Scan</div>
+          <div class="ai-type-btn" data-type="xray">X-Ray</div>
+          <div class="ai-type-btn" data-type="other">سایر</div>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <strong>تصویر را اینجا بکشید یا کلیک کنید</strong>
+          <small>فرمت‌های مجاز: JPG, PNG, DICOM · حداکثر ۲۰MB</small>
+          <input type="file" id="fileInput" accept="image/*" style="display:none">
+        </div>
+
+        <div class="ai-preview" id="aiPreview">
+          <img id="previewImg" src="" alt="preview">
+          <div class="ai-preview-info">
+            <div>
+              <div class="name" id="fileName">image.jpg</div>
+              <div class="size" id="fileSize">2.4 MB</div>
+            </div>
+            <span class="remove" onclick="removeFile(event)">✕ حذف</span>
+          </div>
+        </div>
+
+        <button class="ai-analyze-btn" id="analyzeBtn" onclick="startAnalysis()" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          شروع تحلیل هوشمند
+        </button>
+
+        <div class="ai-loading" id="aiLoading">
+          <div class="ai-spinner"></div>
+          <strong>در حال تحلیل تصویر...</strong>
+          <div class="ai-loading-steps">
+            <div class="ai-loading-step" data-step="1"><span class="check">1</span> پیش‌پردازش تصویر</div>
+            <div class="ai-loading-step" data-step="2"><span class="check">2</span> استخراج ویژگی‌ها</div>
+            <div class="ai-loading-step" data-step="3"><span class="check">3</span> اجرای مدل تشخیصی</div>
+            <div class="ai-loading-step" data-step="4"><span class="check">4</span> تهیه گزارش نهایی</div>
+          </div>
+        </div>
+
+        <div class="ai-result" id="aiResult">
+          <div class="ai-result-head">
+            <strong>📊 گزارش تشخیص</strong>
+            <span class="ai-confidence high" id="aiConfidence">اطمینان ۹۴٪</span>
+          </div>
+          <div class="ai-finding">
+            <div class="ai-finding-label">یافت‌های اصلی</div>
+            <div class="ai-finding-bar"><div class="ai-finding-bar-fill" id="finding1" style="width:0%"></div></div>
+            <div class="ai-finding-val" id="finding1Label">—</div>
+          </div>
+          <div class="ai-finding">
+            <div class="ai-finding-label">یافت‌های ثانویه</div>
+            <div class="ai-finding-bar"><div class="ai-finding-bar-fill" id="finding2" style="width:0%"></div></div>
+            <div class="ai-finding-val" id="finding2Label">—</div>
+          </div>
+          <div class="ai-summary">
+            <strong>💡 خلاصه و توصیه</strong>
+            <span id="aiSummary">در حال آماده‌سازی...</span>
+          </div>
+          <div class="ai-actions">
+            <button class="btn btn-ghost" onclick="resetAnalysis()">تحلیل جدید</button>
+            <button class="btn btn-primary" onclick="bookWithDiagnosis()">رزرو ویزیت پزشک</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCTORS ============ -->
+<section id="doctors">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">تیم پزشکی</div>
+      <h2>پزشکان برتر اکما</h2>
+      <p>با بهترین متخصصین کشور در ارتباط باشید و از مشاوره تخصصی بهره‌مند شوید.</p>
+    </div>
+    <div class="doctors">
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=400&fit=crop" alt="دکتر سارا محمدی">
+          <div class="doctor-status online"><span class="dot"></span> آنلاین</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر سارا محمدی</h3>
+          <div class="doctor-spec">فوق تخصص قلب و عروق</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۹</span><span>📅 ۱۵ سال</span><span>👥 +۲۰۰۰</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر سارا محمدی','قلب و عروق','ویزیت پزشک')">دریافت نوبت</button>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=400&fit=crop" alt="دکتر علی رضایی">
+          <div class="doctor-status busy"><span class="dot"></span> در حال ویزیت</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر علی رضایی</h3>
+          <div class="doctor-spec">فوق تخصص مغز و اعصاب</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۸</span><span>📅 ۱۲ سال</span><span>👥 +۱۵۰۰</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر علی رضایی','مغز و اعصاب','ویزیت پزشک')">دریافت نوبت</button>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1594824476967-48c8b9640f?w=600&h=400&fit=crop" alt="دکتر مریم کریمی">
+          <div class="doctor-status online"><span class="dot"></span> آنلاین</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر مریم کریمی</h3>
+          <div class="doctor-spec">فوق تخصص ریه و آلرژی</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۹</span><span>📅 ۱۰ سال</span><span>👥 +۱۲۰۰</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر مریم کریمی','ریه و آلرژی','ویزیت پزشک')">دریافت نوبت</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPOINTMENT ============ -->
+<section id="appointment">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">رزرو نوبت و پرداخت</div>
+      <h2>در چند قدم ساده، نوبت خود را ثبت کنید</h2>
+      <p>انتخاب خدمت، زمان مراجعه، پرداخت آنلاین و دریافت رسید فوری.</p>
+    </div>
+
+    <div class="appt-wrap">
+      <div class="appt-steps">
+        <div class="appt-step active" data-step="1"><div class="step-num">۱</div><div class="step-label">انتخاب خدمت</div></div>
+        <div class="appt-step" data-step="2"><div class="step-num">۲</div><div class="step-label">زمان مراجعه</div></div>
+        <div class="appt-step" data-step="3"><div class="step-num">۳</div><div class="step-label">اطلاعات شما</div></div>
+        <div class="appt-step" data-step="4"><div class="step-num">۴</div><div class="step-label">پرداخت</div></div>
+        <div class="appt-step" data-step="5"><div class="step-num">۵</div><div class="step-label">رسید</div></div>
+      </div>
+
+      <!-- Step 1: Service -->
+      <div class="appt-panel active" data-panel="1">
+        <label class="form-label" style="margin-bottom:12px;display:block">نوع خدمت مورد نظر</label>
+        <div class="service-grid" id="serviceGrid">
+          <div class="service-card" data-service="ویزیت پزشک" data-price="۳۵۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <strong>ویزیت پزشک</strong><small>از ۳۵۰,۰۰۰ تومان</small>
+          </div>
+          <div class="service-card" data-service="آزمایشگاه" data-price="۱۸۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12l-4 4h14l-4-4V3"/><line x1="9" y1="3" x2="15" y2="3"/></svg></div>
+            <strong>آزمایشگاه</strong><small>از ۱۸۰,۰۰۰ تومان</small>
+          </div>
+          <div class="service-card" data-service="تصویربرداری" data-price="۸۵۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <strong>تصویربرداری</strong><small>از ۸۵۰,۰۰۰ تومان</small>
+          </div>
+          <div class="service-card" data-service="تشخیص هوشمند AI" data-price="۲۵۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></div>
+            <strong>تشخیص AI</strong><small>۲۵۰,۰۰۰ تومان</small>
+          </div>
+          <div class="service-card" data-service="فیزیوتراپی" data-price="۲۲۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <strong>فیزیوتراپی</strong><small>۲۲۰,۰۰۰ تومان</small>
+          </div>
+          <div class="service-card" data-service="دندانپزشکی" data-price="۴۰۰,۰۰۰">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5.5c-2.5-2-6-2-7.5.5s-1 6 .5 8.5 4 3 5 2 2-3 2-3 1 2 2 3 3.5.5 5-2 1-6-.5-8.5-5-2.5-7.5-.5z"/></svg></div>
+            <strong>دندانپزشکی</strong><small>از ۴۰۰,۰۰۰ تومان</small>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top:16px">
+          <div class="form-group">
+            <label class="form-label">تخصص / زیربخش</label>
+            <select class="form-select" id="specSelect">
+              <option value="">ابتدا خدمت را انتخاب کنید</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">پزشک / مسئول (اختیاری)</label>
+            <select class="form-select" id="docSelect">
+              <option value="">بدون ترجیح</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="appt-nav">
+          <div></div>
+          <button class="btn btn-primary" onclick="nextStep(2)">مرحله بعد ←</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Time -->
+      <div class="appt-panel" data-panel="2">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">تاریخ مراجعه</label>
+            <input type="text" class="form-input" value="۱۴۰۳/۰۵/۱۵">
+          </div>
+          <div class="form-group">
+            <label class="form-label">بازه زمانی</label>
+            <select class="form-select">
+              <option>صبح (۸ تا ۱۲)</option>
+              <option>بعدازظهر (۱۲ تا ۱۶)</option>
+              <option>عصر (۱۶ تا ۲۰)</option>
+            </select>
+          </div>
+        </div>
+        <label class="form-label" style="margin-top:20px;display:block">ساعت پیشنهادی</label>
+        <div class="time-slots" id="timeSlots">
+          <div class="time-slot" data-time="08:30">۰۸:۳۰</div>
+          <div class="time-slot" data-time="09:00">۰۹:۰۰</div>
+          <div class="time-slot" data-time="09:30">۰۹:۳۰</div>
+          <div class="time-slot" data-time="10:00">۱۰:۰۰</div>
+          <div class="time-slot disabled">۱۰:۳۰</div>
+          <div class="time-slot" data-time="11:00">۱۱:۰۰</div>
+          <div class="time-slot" data-time="11:30">۱۱:۳۰</div>
+        </div>
+        <div class="appt-nav">
+          <button class="btn btn-ghost" onclick="nextStep(1)">→ بازگشت</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">مرحله بعد ←</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Info -->
+      <div class="appt-panel" data-panel="3">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">نام و نام خانوادگی</label><input type="text" class="form-input" id="patientName" placeholder="مثلاً: علی احمدی"></div>
+          <div class="form-group"><label class="form-label">شماره موبایل</label><input type="tel" class="form-input" id="patientPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹"></div>
+          <div class="form-group"><label class="form-label">کد ملی</label><input type="text" class="form-input" placeholder="۰۰۱۲۳۴۵۶۷۸"></div>
+          <div class="form-group"><label class="form-label">سن</label><input type="number" class="form-input" placeholder="۳۵"></div>
+          <div class="form-group full"><label class="form-label">علائم و توضیحات (اختیاری)</label><textarea class="form-textarea" placeholder="در صورت تمایل، علائم یا سوابق خود را شرح دهید..."></textarea></div>
+        </div>
+        <div class="appt-nav">
+          <button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button>
+          <button class="btn btn-primary" onclick="nextStep(4)">ادامه به پرداخت ←</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Payment -->
+      <div class="appt-panel" data-panel="4">
+        <div class="payment-wrap">
+          <div class="invoice-head">
+            <div>
+              <h3>فاکتور خدمات</h3>
+              <small>شناسه فاکتور: <span id="invoiceId">INV-2024-0821</span></small>
+            </div>
+            <div class="invoice-code">#EK-9921</div>
+          </div>
+
+          <div class="invoice-items" id="invoiceItems">
+            <div class="invoice-item">
+              <div class="name"><strong id="sumService">ویزیت پزشک</strong><small id="sumDetail">دکتر سارا محمدی · قلب و عروق</small></div>
+              <div class="price" id="sumPrice">۳۵۰,۰۰۰ تومان</div>
+            </div>
+            <div class="invoice-item">
+              <div class="name"><strong>هزینه سیستم</strong><small>پردازش و نگهداری</small></div>
+              <div class="price">۱۵,۰۰۰ تومان</div>
+            </div>
+          </div>
+
+          <div class="invoice-summary">
+            <div class="invoice-row"><span>جمع خدمات</span><span id="sumSubtotal">۳۵۰,۰۰۰ تومان</span></div>
+            <div class="invoice-row"><span>مالیات (۹٪)</span><span id="sumTax">۳۱,۵۰۰ تومان</span></div>
+            <div class="invoice-row"><span>تخفیف</span><span style="color:var(--success)">- ۰ تومان</span></div>
+            <div class="invoice-row total"><span>مبلغ قابل پرداخت</span><span class="val" id="sumTotal">۳۸۱,۵۰۰ تومان</span></div>
+          </div>
+
+          <label class="form-label" style="display:block;margin-bottom:10px">روش پرداخت</label>
+          <div class="payment-methods" id="payMethods">
+            <div class="pay-method selected" data-method="card">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+              <strong>کارت بانکی</strong><small>درگاه شاپرک</small>
+            </div>
+            <div class="pay-method" data-method="wallet">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
+              <strong>کیف پول</strong><small>موجودی: ۵۰۰,۰۰۰</small>
+            </div>
+            <div class="pay-method" data-method="installment">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <strong>اقساطی</strong><small>۳ تا ۱۲ ماه</small>
+            </div>
+          </div>
+
+          <div class="card-form show" id="cardForm">
+            <div class="form-grid">
+              <div class="form-group full"><label class="form-label">شماره کارت</label><input type="text" class="card-input" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19"></div>
+              <div class="form-group"><label class="form-label">تاریخ انقضا</label><input type="text" class="card-input" placeholder="MM/YY" maxlength="5"></div>
+              <div class="form-group"><label class="form-label">CVV2</label><input type="text" class="card-input" placeholder="XXX" maxlength="4"></div>
+              <div class="form-group full"><label class="form-label">رمز دوم (پویا)</label><input type="password" class="card-input" placeholder="••••••"></div>
+            </div>
+          </div>
+
+          <div class="appt-nav">
+            <button class="btn btn-ghost" onclick="nextStep(3)">→ بازگشت</button>
+            <button class="btn btn-success" onclick="processPayment()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              پرداخت امن ۳۸۱,۵۰۰ تومان
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Receipt -->
+      <div class="appt-panel" data-panel="5">
+        <div class="receipt">
+          <div class="receipt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>پرداخت با موفقیت انجام شد 🎉</h3>
+          <p>نوبت شما ثبت و تایید شد. پیامک تایید به زودی ارسال می‌شود.</p>
+          
+          <div class="receipt-code" id="trackingCode">TRK-8A3F92K1</div>
+          
+          <div class="receipt-details">
+            <div class="row"><span>شناسه پیگیری</span><span id="recTrack">TRK-8A3F92K1</span></div>
+            <div class="row"><span>کد فاکتور</span><span id="recInvoice">INV-2024-0821</span></div>
+            <div class="row"><span>خدمت</span><span id="recService">ویزیت پزشک</span></div>
+            <div class="row"><span>پزشک / بخش</span><span id="recDoc">دکتر سارا محمدی</span></div>
+            <div class="row"><span>تاریخ مراجعه</span><span>۱۴۰۳/۰۵/۱۵</span></div>
+            <div class="row"><span>ساعت</span><span id="recTime">۰۹:۰۰</span></div>
+            <div class="row"><span>بیمار</span><span id="recPatient">علی احمدی</span></div>
+            <div class="row"><span>مبلغ پرداختی</span><span style="color:var(--success)" id="recAmount">۳۸۱,۵۰۰ تومان</span></div>
+            <div class="row"><span>روش پرداخت</span><span id="recMethod">کارت بانکی</span></div>
+            <div class="row"><span>زمان پرداخت</span><span id="recDate">—</span></div>
+          </div>
+
+          <div class="receipt-actions">
+            <button class="btn btn-ghost" onclick="window.print()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              چاپ رسید
+            </button>
+            <button class="btn btn-primary" onclick="resetBooking()">نوبت جدید</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:14px">
+          <div class="logo-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
+          <div><strong>بیمارستان هوشمند اکما</strong></div>
+        </div>
+        <p>اولین مرکز درمانی یکپارچه با هوش مصنوعی. از تشخیص تا درمان، همه در یک پلتفرم.</p>
+      </div>
+      <div class="footer-col">
+        <h4>دسترسی سریع</h4>
+        <a href="#home">خانه</a>
+        <a href="#departments">بخش‌ها</a>
+        <a href="#ai-diagnosis">تشخیص AI</a>
+        <a href="#doctors">پزشکان</a>
+        <a href="#appointment">نوبت‌دهی</a>
+      </div>
+      <div class="footer-col">
+        <h4>خدمات</h4>
+        <a href="#">آزمایشگاه</a>
+        <a href="#">تصویربرداری</a>
+        <a href="#">داروخانه</a>
+        <a href="#">اورژانس</a>
+        <a href="#">اتاق عمل</a>
+      </div>
+      <div class="footer-col">
+        <h4>تماس با ما</h4>
+        <p>📞 ۰۲۱-۹۱۰۷۰۸۰۸</p>
+        <p>✉ info@ekmaai.ir</p>
+        <p>📍 تهران، پارک فناوری</p>
+        <p>🚑 اورژانس: ۱۱۵</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© ۱۴۰۳ بیمارستان هوشمند اکما. تمامی حقوق محفوظ است.</div>
+      <div>ساخته شده با ❤️ برای سلامتی شما</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ CHATBOT ============ -->
+<button class="chat-fab" onclick="toggleChat()" id="chatFab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="badge" id="chatBadge">۱</span>
+</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><circle cx="12" cy="10" r="3"/><path d="M8 14l4 4 4-4"/></svg>
+      <span class="online-dot"></span>
+    </div>
+    <div class="chat-title">
+      <strong>دستیار هوشمند اکما</strong>
+      <small><span style="width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block"></span> آنلاین · پاسخ آنی</small>
+    </div>
+    <div class="chat-close" onclick="toggleChat()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="پیام خود را بنویسید..." onkeypress="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" onclick="sendMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel" style="position:relative">
+    <div class="admin-close" onclick="closeAdmin()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <div class="logo-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83"/></svg></div>
+        <div><strong>پنل مدیریت</strong><small>EkmaAI Hospital</small></div>
+      </div>
+      <div class="admin-menu">
+        <div class="admin-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>داشبورد کلی</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>نوبت‌ها</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>بیماران</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>پزشکان</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6"/></svg>تشخیص‌های AI</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>پرداخت‌ها</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>مانیتورینگ چت</div>
+        <div class="admin-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>تنظیمات</div>
+      </div>
+      <div class="admin-footer">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)"></span>
+          <strong style="color:#fff">سیستم فعال</strong>
+        </div>
+        <div>AI Agent: آنلاین</div>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <h2>داشبورد کلی</h2>
+        <div class="status">
+          <div class="status-pill ok"><span class="dot"></span> AI فعال</div>
+          <div class="status-pill warn"><span class="dot"></span> ۳ تحلیل در صف</div>
+        </div>
+      </div>
+      <div class="admin-content">
+        <div class="admin-grid">
+          <div class="admin-stat"><div class="label">نوبت‌های امروز</div><div class="value">۲۴۸</div><div class="trend">↑ ۱۲٪</div></div>
+          <div class="admin-stat"><div class="label">بیماران فعال</div><div class="value">۱,۴۰۲</div><div class="trend">↑ ۵٪</div></div>
+          <div class="admin-stat"><div class="label">تشخیص‌های AI</div><div class="value">۸۷</div><div class="trend">↑ ۲۳٪</div></div>
+          <div class="admin-stat"><div class="label">پرداخت‌های امروز</div><div class="value">۱۲۴</div><div class="trend">↑ ۸٪</div></div>
+          <div class="admin-stat"><div class="label">درآمد (تومان)</div><div class="value">۴۸.۲M</div><div class="trend">↑ ۱۵٪</div></div>
+          <div class="admin-stat"><div class="label">گفتگوهای امروز</div><div class="value">۳۲</div><div class="trend down">↓ ۸٪</div></div>
+        </div>
+
+        <div class="admin-section">
+          <h3>📡 لاگ زنده سیستم <span class="live"><span class="dot"></span> LIVE</span></h3>
+          <div class="log-list" id="logList">
+            <div class="log-item info"><span class="log-time">11:29:01</span><span class="log-tag info">INFO</span><span class="log-msg">درخواست نوبت جدید · بیمار #u_9921</span></div>
+            <div class="log-item ai"><span class="log-time">11:30:42</span><span class="log-tag ai">AI</span><span class="log-msg">تحلیل MRI مغز تکمیل شد · دقت ۹۴٪</span></div>
+            <div class="log-item success"><span class="log-time">11:31:05</span><span class="log-tag success">OK</span><span class="log-msg">پرداخت موفق · TRK-8A3F92K1</span></div>
+            <div class="log-item warn"><span class="log-time">11:32:18</span><span class="log-tag warn">WARN</span><span class="log-msg">زمان پاسخ چت‌بات بیش از ۳ ثانیه</span></div>
+            <div class="log-item ai"><span class="log-time">11:33:40</span><span class="log-tag ai">AI</span><span class="log-msg">درخواست تحلیل CT Scan دریافت شد</span></div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>🔗 نقاط اتصال (Endpoints)</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="padding:12px 14px;background:var(--bg-2);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-weight:600;font-size:13px;margin-bottom:2px">نوبت‌های جدید</div><div style="font-family:monospace;font-size:11px;color:var(--muted);direction:ltr">POST /api/v1/appointments</div></div>
+              <div style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;background:rgba(16,185,129,.15);color:var(--success)">● فعال</div>
+            </div>
+            <div style="padding:12px 14px;background:var(--bg-2);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-weight:600;font-size:13px;margin-bottom:2px">تحلیل هوشمند تصاویر</div><div style="font-family:monospace;font-size:11px;color:var(--muted);direction:ltr">POST /api/v1/ai/diagnosis</div></div>
+              <div style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;background:rgba(16,185,129,.15);color:var(--success)">● فعال</div>
+            </div>
+            <div style="padding:12px 14px;background:var(--bg-2);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-weight:600;font-size:13px;margin-bottom:2px">درگاه پرداخت</div><div style="font-family:monospace;font-size:11px;color:var(--muted);direction:ltr">POST /api/v1/payment/process</div></div>
+              <div style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;background:rgba(245,158,11,.15);color:var(--warn)">● در انتظار اتصال</div>
+            </div>
+            <div style="padding:12px 14px;background:var(--bg-2);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-weight:600;font-size:13px;margin-bottom:2px">پیام‌های چت‌بات</div><div style="font-family:monospace;font-size:11px;color:var(--muted);direction:ltr">POST /api/v1/chat/messages</div></div>
+              <div style="padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;background:rgba(16,185,129,.15);color:var(--success)">● فعال</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ STATE ============ */
+const state = {
+  selectedService: null,
+  selectedPrice: 0,
+  selectedSpec: '',
+  selectedDoc: '',
+  selectedTime: '',
+  patientName: '',
+  patientPhone: '',
+  payMethod: 'card',
+  uploadedFile: null,
+  aiType: 'mri'
+};
+
+const serviceSpecs = {
+  'ویزیت پزشک': ['قلب و عروق','مغز و اعصاب','ریه و آلرژی','ارتوپدی','کودکان','پوست و مو','زنان','چشم'],
+  'آزمایشگاه': ['خون','ادرار','هورمون','ژنتیک','بیوشیمی'],
+  'تصویربرداری': ['MRI','CT Scan','X-Ray','سونوگرافی','ماموگرافی'],
+  'تشخیص هوشمند AI': ['MRI مغز','CT Scan','X-Ray قفسه سینه','پوست','چشم'],
+  'فیزیوتراپی': ['ستون فقرات','زانو','شانه','دست و پا'],
+  'دندانپزشکی': ['ترمیم','ایمپلنت','ارتودنسی','جراحی','زیبایی']
+};
+
+const servicePrices = {
+  'ویزیت پزشک': 350000,
+  'آزمایشگاه': 180000,
+  'تصویربرداری': 850000,
+  'تشخیص هوشمند AI': 250000,
+  'فیزیوتراپی': 220000,
+  'دندانپزشکی': 400000
+};
+
+/* ============ NAVIGATION ============ */
+function selectService(name){
+  document.getElementById('appointment').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    const card = document.querySelector(`.service-card[data-service="${name}"]`);
+    if(card) card.click();
+  }, 500);
+}
+
+/* ============ SERVICE SELECTION ============ */
+document.querySelectorAll('.service-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    document.querySelectorAll('.service-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.selectedService = card.dataset.service;
+    state.selectedPrice = parseInt(card.dataset.price.replace(/[^\d]/g,''));
+    
+    const specSel = document.getElementById('specSelect');
+    specSel.innerHTML = '<option value="">انتخاب کنید...</option>';
+    const specs = serviceSpecs[state.selectedService] || [];
+    specs.forEach(s=>{
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      specSel.appendChild(opt);
+    });
+  });
+});
+
+document.getElementById('specSelect').addEventListener('change', e=>{
+  state.selectedSpec = e.target.value;
+  const docSel = document.getElementById('docSelect');
+  docSel.innerHTML = '<option value="">بدون ترجیح</option>';
+  if(state.selectedSpec){
+    const docs = ['دکتر سارا محمدی','دکتر علی رضایی','دکتر مریم کریمی'];
+    docs.forEach(d=>{
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d;
+      docSel.appendChild(opt);
+    });
+  }
+});
+
+document.getElementById('docSelect').addEventListener('change', e=>{
+  state.selectedDoc = e.target.value;
+});
+
+/* ============ TIME SLOTS ============ */
+document.querySelectorAll('.time-slot').forEach(slot=>{
+  slot.addEventListener('click',()=>{
+    if(slot.classList.contains('disabled'))return;
+    document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+    slot.classList.add('selected');
+    state.selectedTime = slot.dataset.time;
+  });
+});
+
+/* ============ STEP NAVIGATION ============ */
+function nextStep(n){
+  if(n===2 && !state.selectedService){
+    alert('لطفاً ابتدا نوع خدمت را انتخاب کنید');
+    return;
+  }
+  if(n===3 && !state.selectedTime){
+    alert('لطفاً ساعت مراجعه را انتخاب کنید');
+    return;
+  }
+  if(n===4){
+    state.patientName = document.getElementById('patientName').value || 'مهمان';
+    state.patientPhone = document.getElementById('patientPhone').value || '—';
+    updateInvoice();
+  }
+  
+  document.querySelectorAll('.appt-step').forEach(s=>{
+    const step = +s.dataset.step;
+    s.classList.remove('active','done');
+    if(step<n)s.classList.add('done');
+    if(step===n)s.classList.add('active');
+  });
+  document.querySelectorAll('.appt-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`[data-panel="${n}"]`).classList.add('active');
+}
+
+function updateInvoice(){
+  document.getElementById('sumService').textContent = state.selectedService;
+  document.getElementById('sumDetail').textContent = `${state.selectedDoc || 'بدون ترجیح'} · ${state.selectedSpec || '—'}`;
+  
+  const price = state.selectedPrice;
+  const systemFee = 15000;
+  const subtotal = price;
+  const tax = Math.round(subtotal * 0.09);
+  const total = subtotal + systemFee + tax;
+  
+  document.getElementById('sumPrice').textContent = price.toLocaleString('fa-IR') + ' تومان';
+  document.getElementById('sumSubtotal').textContent = subtotal.toLocaleString('fa-IR') + ' تومان';
+  document.getElementById('sumTax').textContent = tax.toLocaleString('fa-IR') + ' تومان';
+  document.getElementById('sumTotal').textContent = total.toLocaleString('fa-IR') + ' تومان';
+  
+  const payBtn = document.querySelector('.appt-panel[data-panel="4"] .btn-success');
+  if(payBtn) payBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> پرداخت امن ${total.toLocaleString('fa-IR')} تومان`;
+  
+  state.totalAmount = total;
+}
+
+/* ============ PAYMENT METHODS ============ */
+document.querySelectorAll('.pay-method').forEach(m=>{
+  m.addEventListener('click',()=>{
+    document.querySelectorAll('.pay-method').forEach(x=>x.classList.remove('selected'));
+    m.classList.add('selected');
+    state.payMethod = m.dataset.method;
+    document.getElementById('cardForm').classList.toggle('show', state.payMethod==='card');
+  });
+});
+
+/* ============ PROCESS PAYMENT ============ */
+function processPayment(){
+  const btn = event.target.closest('button');
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite"></span> در حال پردازش...';
+  btn.disabled = true;
+  
+  setTimeout(()=>{
+    btn.innerHTML = originalHTML;
+    btn.disabled = false;
+    generateReceipt();
+    nextStep(5);
+  }, 2000);
+}
+
+function generateReceipt(){
+  const trackingCode = 'TRK-' + Math.random().toString(36).substring(2,10).toUpperCase();
+  const invoiceId = 'INV-' + new Date().getFullYear() + '-' + Math.floor(Math.random()*9000+1000);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('fa-IR') + ' · ' + now.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+  
+  document.getElementById('trackingCode').textContent = trackingCode;
+  document.getElementById('recTrack').textContent = trackingCode;
+  document.getElementById('recInvoice').textContent = invoiceId;
+  document.getElementById('recService').textContent = state.selectedService;
+  document.getElementById('recDoc').textContent = state.selectedDoc || state.selectedSpec || '—';
+  document.getElementById('recTime').textContent = state.selectedTime || '۰۹:۰۰';
+  document.getElementById('recPatient').textContent = state.patientName;
+  document.getElementById('recAmount').textContent = state.totalAmount.toLocaleString('fa-IR') + ' تومان';
+  document.getElementById('recMethod').textContent = state.payMethod==='card'?'کارت بانکی':state.payMethod==='wallet'?'کیف پول':'اقساطی';
+  document.getElementById('recDate').textContent = dateStr;
+}
+
+/* ============ BOOKING FROM DOCTOR ============ */
+function startBooking(doc,spec,service){
+  state.selectedService = service;
+  state.selectedDoc = doc;
+  state.selectedSpec = spec;
+  
+  const card = document.querySelector(`.service-card[data-service="${service}"]`);
+  if(card){
+    document.querySelectorAll('.service-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.selectedPrice = parseInt(card.dataset.price.replace(/[^\d]/g,''));
+  }
+  
+  document.getElementById('appointment').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>nextStep(2), 400);
+}
+
+function resetBooking(){
+  state.selectedService = null;
+  state.selectedPrice = 0;
+  state.selectedSpec = '';
+  state.selectedDoc = '';
+  state.selectedTime = '';
+  
+  document.querySelectorAll('.service-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+  document.getElementById('specSelect').innerHTML = '<option value="">ابتدا خدمت را انتخاب کنید</option>';
+  document.getElementById('docSelect').innerHTML = '<option value="">بدون ترجیح</option>';
+  document.getElementById('patientName').value = '';
+  document.getElementById('patientPhone').value = '';
+  
+  nextStep(1);
+}
+
+function bookWithDiagnosis(){
+  selectService('ویزیت پزشک');
+}
+
+/* ============ AI DIAGNOSIS ============ */
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('click',()=>fileInput.click());
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop',e=>{
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change',e=>{
+  if(e.target.files.length) handleFile(e.target.files[0]);
+});
+
+function handleFile(file){
+  if(!file.type.startsWith('image/')){
+    alert('لطفاً فقط فایل تصویری آپلود کنید');
+    return;
+  }
+  if(file.size > 20*1024*1024){
+    alert('حجم فایل بیش از ۲۰ مگابایت است');
+    return;
+  }
+  
+  state.uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    document.getElementById('previewImg').src = e.target.result;
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('fileSize').textContent = (file.size/1024/1024).toFixed(2) + ' MB';
+    document.getElementById('aiPreview').classList.add('show');
+    dropZone.classList.add('has-file');
+    document.getElementById('analyzeBtn').disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeFile(e){
+  e.stopPropagation();
+  state.uploadedFile = null;
+  fileInput.value = '';
+  document.getElementById('aiPreview').classList.remove('show');
+  dropZone.classList.remove('has-file');
+  document.getElementById('analyzeBtn').disabled = true;
+}
+
+document.querySelectorAll('.ai-type-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ai-type-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.aiType = btn.dataset.type;
+  });
+});
+
+function startAnalysis(){
+  if(!state.uploadedFile) return;
+  
+  document.getElementById('analyzeBtn').style.display = 'none';
+  document.getElementById('aiLoading').classList.add('show');
+  document.getElementById('aiResult').classList.remove('show');
+  
+  const steps = document.querySelectorAll('.ai-loading-step');
+  let current = 0;
+  
+  const interval = setInterval(()=>{
+    if(current > 0) steps[current-1].classList.remove('active');
+    if(current > 0) steps[current-1].classList.add('done');
+    if(current < steps.length){
+      steps[current].classList.add('active');
+      current++;
+    } else {
+      clearInterval(interval);
+      setTimeout(showAiResult, 500);
+    }
+  }, 800);
+}
+
+function showAiResult(){
+  document.getElementById('aiLoading').classList.remove('show');
+  document.getElementById('aiResult').classList.add('show');
+  
+  const results = {
+    mri: {
+      findings: [{label:'بافت طبیعی مغز',val:92},{label:'بدون ضایعه قابل توجه',val:88}],
+      confidence: 94,
+      summary: 'تصویر MRI مغز در محدوده طبیعی ارزیابی شد. هیچ ضایعه فضاگیر، خونریزی یا علائم غیرطبیعی مشاهده نشد. توصیه می‌شود در صورت ادامه علائم، با پزشک متخصص مغز و اعصاب مشورت شود.'
+    },
+    ct: {
+      findings: [{label:'ساختار قفسه سینه نرمال',val:89},{label:'ریه‌ها بدون infiltrate',val:85}],
+      confidence: 91,
+      summary: 'CT Scan قفسه سینه در محدوده طبیعی است. هیچ توده، آمبولی یا مایع پلورال مشاهده نشد. عملکرد ریوی به نظر طبیعی می‌رسد.'
+    },
+    xray: {
+      findings: [{label:'استخوان‌بندی سالم',val:87},{label:'بدون شکستگی',val:93}],
+      confidence: 89,
+      summary: 'X-Ray بدون نشانه شکستگی یا دررفتگی است. تراکم استخوان در محدوده طبیعی ارزیابی شد.'
+    },
+    other: {
+      findings: [{label:'تصویر قابل تحلیل',val:85},{label:'یافت‌های اولیه نرمال',val:82}],
+      confidence: 86,
+      summary: 'تصویر با موفقیت پردازش شد. برای تحلیل دقیق‌تر، توصیه می‌شود با پزشک متخصص مشورت شود.'
+    }
+  };
+  
+  const r = results[state.aiType] || results.other;
+  document.getElementById('aiConfidence').textContent = `اطمینان ${r.confidence}٪`;
+  document.getElementById('aiConfidence').className = 'ai-confidence ' + (r.confidence > 90 ? 'high' : 'med');
+  
+  setTimeout(()=>{
+    document.getElementById('finding1').style.width = r.findings[0].val + '%';
+    document.getElementById('finding1Label').textContent = r.findings[0].label + ' · ' + r.findings[0].val + '%';
+    document.getElementById('finding2').style.width = r.findings[1].val + '%';
+    document.getElementById('finding2Label').textContent = r.findings[1].label + ' · ' + r.findings[1].val + '%';
+  }, 200);
+  
+  document.getElementById('aiSummary').textContent = r.summary;
+}
+
+function resetAnalysis(){
+  state.uploadedFile = null;
+  fileInput.value = '';
+  document.getElementById('aiPreview').classList.remove('show');
+  document.getElementById('aiResult').classList.remove('show');
+  document.getElementById('aiLoading').classList.remove('show');
+  document.getElementById('analyzeBtn').style.display = 'flex';
+  document.getElementById('analyzeBtn').disabled = true;
+  dropZone.classList.remove('has-file');
+  document.querySelectorAll('.ai-loading-step').forEach(s=>s.classList.remove('active','done'));
+  document.getElementById('finding1').style.width = '0%';
+  document.getElementById('finding2').style.width = '0%';
+}
+
+/* ============ CHATBOT ============ */
+let chatOpen = false;
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const chatBadge = document.getElementById('chatBadge');
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+  if(chatOpen && chatBody.children.length===0) initChat();
+  chatBadge.style.display='none';
+}
+
+function initChat(){
+  addMsg('bot','سلام! 👋 من دستیار هوشمند اکما هستم. چطور می‌تونم کمکتون کنم؟',[
+    {text:'🗓️ رزرو نوبت',action:()=>{addMsg('user','می‌خوام نوبت بگیرم');setTimeout(()=>addMsg('bot','چه نوع خدمتی نیاز دارید؟',[
+      {text:'👨‍⚕️ ویزیت پزشک',action:()=>selectSpecChat('ویزیت پزشک')},
+      {text:'🔬 آزمایشگاه',action:()=>selectSpecChat('آزمایشگاه')},
+      {text:'📸 تصویربرداری',action:()=>selectSpecChat('تصویربرداری')},
+      {text:'🧠 تشخیص AI',action:()=>selectSpecChat('تشخیص هوشمند AI')}
+    ])},400)}},
+    {text:'🧠 تشخیص هوشمند',action:()=>{addMsg('user','درباره تشخیص هوشمند توضیح بده');setTimeout(()=>addMsg('bot','سیستم تشخیص هوشمند ما می‌تواند تصاویر MRI، CT Scan و X-Ray را در کمتر از ۳۰ ثانیه تحلیل کند. برای شروع به بخش <a href="#ai-diagnosis" style="color:var(--accent)">تشخیص هوشمند</a> بروید 😊'),400)}},
+    {text:'🏥 بخش‌های بیمارستان',action:()=>{addMsg('user','بخش‌های بیمارستان رو می‌خوام');setTimeout(()=>addMsg('bot','ما ۱۲ بخش تخصصی داریم:<br>• ویزیت پزشک<br>• آزمایشگاه<br>• تصویربرداری (MRI, CT, X-Ray)<br>• داروخانه<br>• اورژانس ۲۴/۷<br>• اتاق عمل<br>• فیزیوتراپی<br>• دندانپزشکی<br>• چشم‌پزشکی<br>• روانپزشکی<br>• زنان و زایمان<br>• کودکان<br><br>برای اطلاعات بیشتر به <a href="#departments" style="color:var(--accent)">بخش‌ها</a> مراجعه کنید 🎯'),400)}}
+  ]);
+}
+
+function selectSpecChat(service){
+  addMsg('user',service);
+  setTimeout(()=>{
+    addMsg('bot',`عالی! برای رزرو ${service}، شما را به فرم نوبت‌دهی هدایت می‌کنم.`,[
+      {text:'✅ بله، ادامه بده',action:()=>{addMsg('user','بله لطفاً');setTimeout(()=>{addMsg('bot','در حال انتقال...');setTimeout(()=>{selectService(service);toggleChat()},800)},300)}},
+      {text:'❌ فعلاً نه',action:()=>addMsg('bot','باشه، هر وقت خواستید من اینجام 😊')}
+    ]);
+  },400);
+}
+
+function addMsg(who,text,quickReplies=[]){
+  const div = document.createElement('div');
+  div.className = `msg ${who}`;
+  const avatar = who==='bot'?'🤖':'👤';
+  const time = new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+  let qr = '';
+  if(quickReplies.length){
+    qr = '<div class="quick-replies">'+quickReplies.map((r,i)=>`<button class="quick-reply" data-idx="${i}">${r.text}</button>`).join('')+'</div>';
+  }
+  div.innerHTML = `<div class="msg-avatar">${avatar}</div><div><div class="msg-bubble">${text}</div>${qr}<div class="msg-time">${time}</div></div>`;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  
+  if(quickReplies.length){
+    div.querySelectorAll('.quick-reply').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const idx = +btn.dataset.idx;
+        btn.closest('.msg').querySelector('.quick-replies')?.remove();
+        quickReplies[idx].action();
+      });
+    });
+  }
+}
+
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.id = 'typingMsg';
+  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function removeTyping(){document.getElementById('typingMsg')?.remove()}
+
+function sendMsg(){
+  const text = chatInput.value.trim();
+  if(!text)return;
+  addMsg('user',text);
+  chatInput.value = '';
+  showTyping();
+  setTimeout(()=>{
+    removeTyping();
+    const lower = text.toLowerCase();
+    if(lower.includes('نوبت')||lower.includes('رزرو')){
+      addMsg('bot','برای رزرو نوبت می‌تونم کمکتون کنم. چه نوع خدمتی نیاز دارید؟',[
+        {text:'👨‍⚕️ ویزیت پزشک',action:()=>selectSpecChat('ویزیت پزشک')},
+        {text:'🔬 آزمایشگاه',action:()=>selectSpecChat('آزمایشگاه')},
+        {text:'📸 تصویربرداری',action:()=>selectSpecChat('تصویربرداری')}
+      ]);
+    } else if(lower.includes('سلام')||lower.includes('درود')){
+      addMsg('bot','سلام! خوش اومدید 😊 چطور می‌تونم کمکتون کنم؟');
+    } else if(lower.includes('آزمایش')||lower.includes('خون')){
+      addMsg('bot','آزمایشگاه ما ۲۴/۷ فعال است. بیش از ۲۰۰ نوع تست شامل خون، ادرار، هورمون و ژنتیک. می‌خواید نوبت بگیرید؟',[
+        {text:'✅ بله',action:()=>selectSpecChat('آزمایشگاه')},
+        {text:'❌ نه',action:()=>addMsg('bot','باشه، هر وقت خواستید من اینجام')}
+      ]);
+    } else if(lower.includes('mri')||lower.includes('ام آر آی')||lower.includes('تشخیص')){
+      addMsg('bot','سیستم تشخیص هوشمند ما می‌تواند تصاویر MRI را در کمتر از ۳۰ ثانیه تحلیل کند. می‌خواید امتحان کنید؟',[
+        {text:'🧠 بله، شروع کنم',action:()=>{addMsg('user','بله');setTimeout(()=>{document.getElementById('ai-diagnosis').scrollIntoView({behavior:'smooth'});toggleChat()},600)}},
+        {text:'❌ نه',action:()=>addMsg('bot','باشه 😊')}
+      ]);
+    } else {
+      addMsg('bot','ممنون از پیامتون! برای راهنمایی بیشتر می‌تونید یکی از گزینه‌های زیر رو انتخاب کنید:',[
+        {text:'🗓️ رزرو نوبت',action:()=>addMsg('bot','لطفاً نوع خدمت را انتخاب کنید.')},
+        {text:'📞 تماس با ما',action:()=>addMsg('bot','شماره تماس: ۰۲۱-۹۱۰۷۰۸۰۸')}
+      ]);
+    }
+  },900);
+}
+
+/* ============ ADMIN ============ */
+function openAdmin(){document.getElementById('adminOverlay').classList.add('open')}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open')}
+
+/* Simulate live logs */
+setInterval(()=>{
+  const logList = document.getElementById('logList');
+  if(!logList)return;
+  const events = [
+    {type:'success',tag:'OK',msg:'پرداخت موفق · TRK-'+Math.random().toString(36).substring(2,10).toUpperCase()},
+    {type:'ai',tag:'AI',msg:'تحلیل تصویر تکمیل شد · دقت '+(Math.floor(Math.random()*10)+88)+'٪'},
+    {type:'info',tag:'INFO',msg:'نوبت جدید · بیمار #u_'+Math.floor(Math.random()*9000+1000)},
+    {type:'ai',tag:'AI',msg:'درخواست تحلیل MRI دریافت شد'},
+    {type:'success',tag:'OK',msg:'پیامک تایید ارسال شد'},
+  ];
+  const e = events[Math.floor(Math.random()*events.length)];
+  const time = new Date().toLocaleTimeString('en-GB');
+  const item = document.createElement('div');
+  item.className = `log-item ${e.type}`;
+  item.style.animation = 'msgIn .3s';
+  item.innerHTML = `<span class="log-time">${time}</span><span class="log-tag ${e.type}">${e.tag}</span><span class="log-msg">${e.msg}</span>`;
+  logList.insertBefore(item,logList.firstChild);
+  if(logList.children.length>10)logList.removeChild(logList.lastChild);
+},5000);
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>کلینیک هوشمند اکما | EkmaAI Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1020;
+  --bg-2:#0f1530;
+  --card:#121a38;
+  --card-2:#162044;
+  --text:#e8ecff;
+  --muted:#9aa3c7;
+  --primary:#6c8cff;
+  --primary-2:#8b5cf6;
+  --accent:#22d3ee;
+  --success:#10b981;
+  --warn:#f59e0b;
+  --danger:#ef4444;
+  --border:rgba(255,255,255,.08);
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Vazirmatn',sans-serif}
+html,body{background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
+body{
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(108,140,255,.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(139,92,246,.15), transparent 60%),
+    radial-gradient(700px 400px at 50% 110%, rgba(34,211,238,.10), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none}
+
+/* ============ NAVBAR ============ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(18px);
+  background:rgba(11,16,32,.6);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.logo-badge{
+  width:38px;height:38px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  display:grid;place-items:center;box-shadow:0 10px 30px rgba(108,140,255,.35);
+  position:relative;
+}
+.logo-badge::after{
+  content:"";position:absolute;inset:-2px;border-radius:14px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  filter:blur(10px);opacity:.4;z-index:-1;
+}
+.logo-badge svg{width:20px;height:20px;color:#fff}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  padding:9px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:14px;
+  transition:.25s;
+}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-cta{
+  display:flex;gap:10px;align-items:center;
+}
+.btn{
+  padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;
+  transition:transform .2s, box-shadow .2s, background .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  color:#fff;box-shadow:0 10px 30px rgba(108,140,255,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(108,140,255,.5)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-icon{width:40px;height:40px;padding:0;justify-content:center;border-radius:12px}
+.mobile-toggle{display:none}
+
+/* ============ HERO ============ */
+.hero{
+  max-width:1200px;margin:0 auto;padding:70px 22px 40px;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
+  position:relative;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;
+  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);
+  color:var(--accent);font-size:13px;font-weight:500;margin-bottom:18px;
+}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(32px,5vw,54px);line-height:1.25;font-weight:800;
+  margin-bottom:18px;letter-spacing:-.5px;
+}
+.hero h1 .grad{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:var(--muted);font-size:17px;line-height:1.9;margin-bottom:28px;max-width:560px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .num{font-size:26px;font-weight:800;background:linear-gradient(135deg,#fff,var(--muted));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{color:var(--muted);font-size:13px}
+
+/* Hero visual */
+.hero-visual{position:relative;height:520px}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;
+  animation:float 8s ease-in-out infinite;
+}
+.orb-1{width:260px;height:260px;background:var(--primary);top:10%;left:10%}
+.orb-2{width:200px;height:200px;background:var(--primary-2);bottom:10%;right:10%;animation-delay:-3s}
+.orb-3{width:160px;height:160px;background:var(--accent);top:40%;right:20%;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+
+.hero-card{
+  position:absolute;background:rgba(22,32,68,.75);backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:20px;padding:18px;
+  box-shadow:var(--shadow);animation:cardFloat 6s ease-in-out infinite;
+}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.hc-1{top:8%;left:5%;width:220px;animation-delay:-1s}
+.hc-2{top:38%;right:0;width:240px;animation-delay:-2s}
+.hc-3{bottom:5%;left:15%;width:230px;animation-delay:-3s}
+
+.hc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.hc-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;font-weight:700;color:#fff;font-size:14px}
+.hc-name{font-weight:600;font-size:14px}
+.hc-sub{color:var(--muted);font-size:12px}
+.hc-status{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(16,185,129,.15);color:var(--success);font-size:11px;font-weight:600}
+.hc-status .dot{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)}
+
+.hc-progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:8px}
+.hc-progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;width:75%}
+
+/* ============ SECTIONS ============ */
+section{padding:60px 0}
+.container{max-width:1200px;margin:0 auto;padding:0 22px}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head .eyebrow{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-head h2{font-size:clamp(26px,3.5vw,38px);font-weight:800;margin-bottom:12px}
+.section-head p{color:var(--muted);max-width:600px;margin:0 auto;line-height:1.9}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.feature{
+  background:linear-gradient(180deg,var(--card),var(--card-2));
+  border:1px solid var(--border);border-radius:var(--radius);padding:26px;
+  transition:.3s;position:relative;overflow:hidden;
+}
+.feature::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(400px 200px at 0% 0%, rgba(108,140,255,.12), transparent 60%);
+  opacity:0;transition:.3s;
+}
+.feature:hover{transform:translateY(-6px);border-color:rgba(108,140,255,.3)}
+.feature:hover::before{opacity:1}
+.feature-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(108,140,255,.2),rgba(139,92,246,.2));
+  border:1px solid rgba(108,140,255,.3);
+  display:grid;place-items:center;margin-bottom:16px;
+}
+.feature-icon svg{width:24px;height:24px;color:var(--primary)}
+.feature h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.feature p{color:var(--muted);font-size:14px;line-height:1.8}
+
+/* Doctors */
+.doctors{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.doctor-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:.3s;position:relative;
+}
+.doctor-card:hover{transform:translateY(-6px);border-color:rgba(108,140,255,.3);box-shadow:var(--shadow)}
+.doctor-img{height:220px;position:relative;overflow:hidden}
+.doctor-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.doctor-card:hover .doctor-img img{transform:scale(1.05)}
+.doctor-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,16,32,.9))}
+.doctor-status{
+  position:absolute;top:14px;right:14px;z-index:2;
+  padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;
+  display:flex;align-items:center;gap:6px;backdrop-filter:blur(10px);
+}
+.doctor-status.online{background:rgba(16,185,129,.2);color:var(--success);border:1px solid rgba(16,185,129,.3)}
+.doctor-status.busy{background:rgba(245,158,11,.2);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.doctor-status .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.doctor-body{padding:20px}
+.doctor-body h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.doctor-spec{color:var(--primary);font-size:13px;font-weight:600;margin-bottom:10px}
+.doctor-meta{display:flex;gap:14px;color:var(--muted);font-size:12px;margin-bottom:16px}
+.doctor-meta span{display:flex;align-items:center;gap:4px}
+.doctor-btn{
+  width:100%;padding:12px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  color:#fff;font-weight:600;font-size:14px;transition:.2s;
+}
+.doctor-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,140,255,.35)}
+
+/* Appointment */
+.appt-wrap{
+  background:linear-gradient(180deg,var(--card),var(--card-2));
+  border:1px solid var(--border);border-radius:24px;padding:30px;
+  box-shadow:var(--shadow);
+}
+.appt-steps{display:flex;justify-content:space-between;margin-bottom:30px;position:relative}
+.appt-steps::before{content:"";position:absolute;top:20px;right:40px;left:40px;height:2px;background:var(--border)}
+.appt-step{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1}
+.step-num{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-2);border:2px solid var(--border);
+  display:grid;place-items:center;font-weight:700;font-size:14px;transition:.3s;
+}
+.step-label{font-size:12px;color:var(--muted);font-weight:500}
+.appt-step.active .step-num{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.4)}
+.appt-step.active .step-label{color:#fff}
+.appt-step.done .step-num{background:var(--success);border-color:transparent;color:#fff}
+.appt-step.done .step-label{color:var(--success)}
+
+.appt-panel{display:none;animation:fadeIn .4s}
+.appt-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:13px;font-weight:600;color:var(--muted)}
+.form-input,.form-select,.form-textarea{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;color:#fff;font-size:14px;font-family:inherit;transition:.2s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,140,255,.15)}
+.form-textarea{resize:vertical;min-height:90px}
+
+.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
+.time-slot{
+  padding:12px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);
+  text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;
+}
+.time-slot:hover{border-color:var(--primary)}
+.time-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.35)}
+.time-slot.disabled{opacity:.4;cursor:not-allowed}
+
+.ai-suggest{
+  margin-top:20px;padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(108,140,255,.08));
+  border:1px solid rgba(34,211,238,.2);
+  display:flex;gap:12px;align-items:flex-start;
+}
+.ai-suggest-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--primary));
+  display:grid;place-items:center;flex-shrink:0;
+}
+.ai-suggest-icon svg{width:18px;height:18px;color:#fff}
+.ai-suggest-text{flex:1}
+.ai-suggest-text strong{display:block;margin-bottom:4px;color:var(--accent);font-size:13px}
+.ai-suggest-text p{color:var(--muted);font-size:13px;line-height:1.7}
+
+.appt-nav{display:flex;justify-content:space-between;margin-top:24px;gap:10px}
+
+.success-box{
+  text-align:center;padding:30px 20px;
+}
+.success-icon{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--success),#059669);
+  display:grid;place-items:center;margin:0 auto 20px;
+  box-shadow:0 15px 40px rgba(16,185,129,.35);
+  animation:pop .5s ease-out;
+}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+.success-icon svg{width:40px;height:40px;color:#fff}
+.success-box h3{font-size:22px;margin-bottom:10px}
+.success-box p{color:var(--muted);line-height:1.8;margin-bottom:20px}
+.success-details{
+  background:var(--bg-2);border-radius:14px;padding:18px;text-align:right;margin-bottom:20px;
+}
+.success-details .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.success-details .row:last-child{border-bottom:none}
+.success-details .row span:first-child{color:var(--muted);font-size:13px}
+.success-details .row span:last-child{font-weight:600;font-size:14px}
+
+/* ============ CHATBOT ============ */
+.chat-fab{
+  position:fixed;bottom:24px;left:24px;z-index:90;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  display:grid;place-items:center;color:#fff;
+  box-shadow:0 15px 40px rgba(108,140,255,.5);
+  cursor:pointer;transition:.3s;
+  animation:fabPulse 3s infinite;
+}
+@keyframes fabPulse{0%,100%{box-shadow:0 15px 40px rgba(108,140,255,.5)}50%{box-shadow:0 15px 60px rgba(108,140,255,.8)}}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab svg{width:28px;height:28px}
+.chat-fab .badge{
+  position:absolute;top:-4px;right:-4px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--danger);color:#fff;font-size:11px;font-weight:700;
+  display:grid;place-items:center;border:2px solid var(--bg);
+}
+
+.chat-window{
+  position:fixed;bottom:100px;left:24px;z-index:91;
+  width:380px;max-width:calc(100vw - 48px);height:540px;max-height:calc(100vh - 140px);
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:scale(0);transform-origin:bottom left;opacity:0;pointer-events:none;
+  transition:.3s cubic-bezier(.4,0,.2,1);
+}
+.chat-window.open{transform:scale(1);opacity:1;pointer-events:auto}
+
+.chat-header{
+  padding:16px 18px;background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  display:flex;align-items:center;gap:12px;color:#fff;
+}
+.chat-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.2);display:grid;place-items:center;
+  position:relative;
+}
+.chat-avatar svg{width:22px;height:22px}
+.chat-avatar .online-dot{
+  position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;
+  background:var(--success);border:2px solid var(--primary);
+}
+.chat-title{flex:1}
+.chat-title strong{display:block;font-size:15px}
+.chat-title small{font-size:11px;opacity:.85;display:flex;align-items:center;gap:4px}
+.chat-close{
+  width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);
+  display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s;
+}
+.chat-close:hover{background:rgba(255,255,255,.25)}
+
+.chat-body{
+  flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;
+  background:
+    radial-gradient(600px 300px at 100% 0%, rgba(108,140,255,.05), transparent 60%),
+    var(--bg-2);
+}
+.chat-body::-webkit-scrollbar{width:6px}
+.chat-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+
+.msg{display:flex;gap:8px;max-width:85%;animation:msgIn .3s ease-out}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  display:grid;place-items:center;font-size:12px;font-weight:700;
+}
+.msg.bot .msg-avatar{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
+.msg.user .msg-avatar{background:rgba(255,255,255,.1);color:#fff}
+.msg-bubble{
+  padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.7;
+}
+.msg.bot .msg-bubble{background:var(--card);border:1px solid var(--border);border-top-right-radius:4px}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-top-left-radius:4px}
+
+.msg-time{font-size:10px;color:var(--muted);margin-top:4px;padding:0 4px}
+.msg.user .msg-time{text-align:left}
+
+.quick-replies{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.quick-reply{
+  padding:7px 12px;border-radius:999px;background:rgba(108,140,255,.1);
+  border:1px solid rgba(108,140,255,.25);color:var(--primary);
+  font-size:12px;font-weight:600;cursor:pointer;transition:.2s;
+}
+.quick-reply:hover{background:rgba(108,140,255,.2)}
+
+.typing{display:flex;gap:4px;padding:12px 14px}
+.typing span{
+  width:7px;height:7px;border-radius:50%;background:var(--muted);
+  animation:typing 1.4s infinite;
+}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+
+.chat-input{
+  padding:14px;border-top:1px solid var(--border);
+  display:flex;gap:8px;align-items:center;background:var(--card);
+}
+.chat-input input{
+  flex:1;background:var(--bg-2);border:1px solid var(--border);border-radius:12px;
+  padding:10px 14px;color:#fff;font-size:14px;font-family:inherit;
+}
+.chat-input input:focus{outline:none;border-color:var(--primary)}
+.chat-send{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  display:grid;place-items:center;color:#fff;transition:.2s;
+}
+.chat-send:hover{transform:scale(1.05)}
+.chat-send svg{width:18px;height:18px}
+
+/* ============ ADMIN PANEL ============ */
+.admin-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.admin-overlay.open{display:flex;animation:fadeIn .3s}
+.admin-panel{
+  width:100%;max-width:1200px;height:90vh;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:20px;
+  display:grid;grid-template-columns:240px 1fr;overflow:hidden;
+}
+.admin-sidebar{
+  background:var(--card);border-left:1px solid var(--border);
+  padding:20px 0;display:flex;flex-direction:column;
+}
+.admin-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.admin-logo .logo-badge{width:34px;height:34px}
+.admin-logo strong{font-size:15px}
+.admin-logo small{display:block;color:var(--muted);font-size:11px}
+.admin-menu{flex:1;padding:0 10px;display:flex;flex-direction:column;gap:4px}
+.admin-item{
+  padding:10px 14px;border-radius:10px;color:var(--muted);font-size:14px;font-weight:500;
+  display:flex;align-items:center;gap:10px;cursor:pointer;transition:.2s;
+}
+.admin-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.admin-item.active{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));color:#fff;border:1px solid rgba(108,140,255,.3)}
+.admin-item svg{width:18px;height:18px}
+.admin-footer{padding:14px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+
+.admin-main{display:flex;flex-direction:column;overflow:hidden}
+.admin-topbar{
+  padding:14px 24px;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.admin-topbar h2{font-size:18px;font-weight:700}
+.admin-topbar .status{display:flex;gap:10px;align-items:center}
+.status-pill{
+  padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+}
+.status-pill.ok{background:rgba(16,185,129,.15);color:var(--success);border:1px solid rgba(16,185,129,.3)}
+.status-pill.warn{background:rgba(245,158,11,.15);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.status-pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;animation:pulse 2s infinite}
+
+.admin-content{flex:1;overflow-y:auto;padding:24px}
+.admin-content::-webkit-scrollbar{width:8px}
+.admin-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.admin-stat{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;
+  position:relative;overflow:hidden;
+}
+.admin-stat::before{
+  content:"";position:absolute;top:0;right:0;width:60px;height:60px;
+  background:radial-gradient(circle,rgba(108,140,255,.15),transparent 70%);
+}
+.admin-stat .label{color:var(--muted);font-size:12px;margin-bottom:8px}
+.admin-stat .value{font-size:26px;font-weight:800;margin-bottom:4px}
+.admin-stat .trend{font-size:12px;color:var(--success);font-weight:600}
+.admin-stat .trend.down{color:var(--danger)}
+
+.admin-section{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:20px;margin-bottom:20px;
+}
+.admin-section h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.admin-section h3 .live{
+  padding:3px 8px;border-radius:999px;background:rgba(239,68,68,.15);color:var(--danger);
+  font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;
+}
+.admin-section h3 .live .dot{width:5px;height:5px;border-radius:50%;background:var(--danger);animation:pulse 1.5s infinite}
+
+.log-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;font-family:monospace;font-size:12px}
+.log-item{
+  padding:8px 12px;background:var(--bg-2);border-radius:8px;border-right:3px solid transparent;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.log-item.info{border-right-color:var(--primary)}
+.log-item.success{border-right-color:var(--success)}
+.log-item.warn{border-right-color:var(--warn)}
+.log-time{color:var(--muted);flex-shrink:0}
+.log-tag{padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0}
+.log-tag.info{background:rgba(108,140,255,.2);color:var(--primary)}
+.log-tag.success{background:rgba(16,185,129,.2);color:var(--success)}
+.log-tag.warn{background:rgba(245,158,11,.2);color:var(--warn)}
+.log-msg{color:var(--text);flex:1;word-break:break-all}
+
+.webhook-list{display:flex;flex-direction:column;gap:10px}
+.webhook-item{
+  padding:12px 14px;background:var(--bg-2);border-radius:10px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.webhook-item .name{font-weight:600;font-size:13px;margin-bottom:2px}
+.webhook-item .url{font-family:monospace;font-size:11px;color:var(--muted);direction:ltr}
+.webhook-status{
+  padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;
+  background:rgba(16,185,129,.15);color:var(--success);
+}
+
+.admin-close{
+  position:absolute;top:20px;left:20px;z-index:10;
+  width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.08);
+  display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s;
+}
+.admin-close:hover{background:rgba(255,255,255,.15)}
+
+/* ============ FOOTER ============ */
+footer{
+  border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;
+  background:rgba(11,16,32,.5);
+}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px}
+.footer-col h4{font-size:14px;font-weight:700;margin-bottom:14px}
+.footer-col p,.footer-col a{color:var(--muted);font-size:13px;line-height:1.9;display:block;margin-bottom:6px;transition:.2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  padding-top:20px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;flex-wrap:wrap;gap:10px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .hero-visual{height:400px}
+  .nav-links{display:none}
+  .mobile-toggle{display:grid}
+  .form-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .admin-panel{grid-template-columns:1fr}
+  .admin-sidebar{display:none}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .chat-window{left:12px;right:12px;bottom:90px;width:auto;max-width:none}
+  .chat-fab{left:16px;bottom:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <div>
+        <div>کلینیک اکما</div>
+        <small style="color:var(--muted);font-size:11px;font-weight:400">هوشمند · سریع · مطمئن</small>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#home">خانه</a>
+      <a href="#features">امکانات</a>
+      <a href="#doctors">پزشکان</a>
+      <a href="#appointment">نوبت‌دهی</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-icon" onclick="openAdmin()" title="پنل مدیریت">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <a href="#appointment" class="btn btn-primary">
+        دریافت نوبت
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div>
+    <div class="hero-tag">
+      <span class="dot"></span>
+      پذیرش ۲۴ ساعته · پاسخگویی آنی
+    </div>
+    <h1>سلامتی شما،<br><span class="grad">در دستان هوشمندی</span> ماست.</h1>
+    <p>کلینیک اکما، همراه هوشمند شما در مسیر سلامتی. از دریافت نوبت آنی تا پیگیری پرونده پزشکی، همه چیز در چند ثانیه و با ساده‌ترین تجربه ممکن.</p>
+    <div class="hero-actions">
+      <a href="#appointment" class="btn btn-primary">
+        رزرو نوبت آنلاین
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <button class="btn btn-ghost" onclick="openChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        گفتگو با دستیار هوشمند
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="num">+۴۰</span><span class="lbl">پزشک متخصص</span></div>
+      <div class="stat"><span class="num">۹۸٪</span><span class="lbl">رضایت بیماران</span></div>
+      <div class="stat"><span class="num">۲۴/۷</span><span class="lbl">پشتیبانی هوشمند</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-card hc-1">
+      <div class="hc-row">
+        <div class="hc-avatar">س.م</div>
+        <div>
+          <div class="hc-name">دکتر سارا محمدی</div>
+          <div class="hc-sub">قلب و عروق</div>
+        </div>
+      </div>
+      <div class="hc-status"><span class="dot"></span> آنلاین</div>
+    </div>
+
+    <div class="hero-card hc-2">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">📅 نوبت بعدی شما</div>
+      <div style="color:var(--muted);font-size:12px;margin-bottom:10px">سه‌شنبه · ساعت ۱۰:۳۰</div>
+      <div class="hc-progress"><div class="hc-progress-bar"></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">۷۵٪ تکمیل پرونده</div>
+    </div>
+
+    <div class="hero-card hc-3">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));display:grid;place-items:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <strong style="font-size:13px">تایید نوبت</strong>
+      </div>
+      <p style="color:var(--muted);font-size:12px;line-height:1.6">پیامک تایید برای شما ارسال شد ✓</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">چرا اکما؟</div>
+      <h2>تجربه‌ای متفاوت از مراقبت سلامت</h2>
+      <p>ما با ترکیب تخصص پزشکی و فناوری روز، تجربه‌ای سریع، هوشمند و شخصی‌سازی‌شده برای شما فراهم کرده‌ایم.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>نوبت‌دهی آنی</h3>
+        <p>در کمتر از ۳۰ ثانیه نوبت خود را رزرو کنید. بدون انتظار پشت خط، بدون کاغذبازی.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>دستیار هوشمند ۲۴/۷</h3>
+        <p>هر ساعت از شبانه‌روز سوال بپرسید، نوبت بگیرید یا پرونده خود را پیگیری کنید.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>پایش مستمر سلامت</h3>
+        <p>یادآورهای هوشمند دارو، پیگیری نتایج آزمایش و ارسال گزارش منظم به پزشک شما.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>امنیت کامل اطلاعات</h3>
+        <p>پرونده پزشکی شما با بالاترین استانداردهای رمزنگاری محافظت می‌شود. حریم خصوصی، اولویت ماست.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCTORS ============ -->
+<section id="doctors">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">تیم پزشکی</div>
+      <h2>پزشکان برتر اکما</h2>
+      <p>با بهترین متخصصین کشور در ارتباط باشید و از مشاوره تخصصی بهره‌مند شوید.</p>
+    </div>
+    <div class="doctors">
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=400&fit=crop" alt="دکتر سارا محمدی">
+          <div class="doctor-status online"><span class="dot"></span> آنلاین</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر سارا محمدی</h3>
+          <div class="doctor-spec">فوق تخصص قلب و عروق</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۹</span>
+            <span>📅 ۱۵ سال سابقه</span>
+            <span>👥 +۲۰۰۰ بیمار</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر سارا محمدی','قلب و عروق')">دریافت نوبت</button>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=400&fit=crop" alt="دکتر علی رضایی">
+          <div class="doctor-status busy"><span class="dot"></span> در حال ویزیت</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر علی رضایی</h3>
+          <div class="doctor-spec">فوق تخصص مغز و اعصاب</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۸</span>
+            <span>📅 ۱۲ سال سابقه</span>
+            <span>👥 +۱۵۰۰ بیمار</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر علی رضایی','مغز و اعصاب')">دریافت نوبت</button>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-img">
+          <img src="https://images.unsplash.com/photo-1594824476967-48c8b9640f?w=600&h=400&fit=crop" alt="دکتر مریم کریمی">
+          <div class="doctor-status online"><span class="dot"></span> آنلاین</div>
+        </div>
+        <div class="doctor-body">
+          <h3>دکتر مریم کریمی</h3>
+          <div class="doctor-spec">فوق تخصص ریه و آلرژی</div>
+          <div class="doctor-meta">
+            <span>⭐ ۴.۹</span>
+            <span>📅 ۱۰ سال سابقه</span>
+            <span>👥 +۱۲۰۰ بیمار</span>
+          </div>
+          <button class="doctor-btn" onclick="startBooking('دکتر مریم کریمی','ریه و آلرژی')">دریافت نوبت</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPOINTMENT ============ -->
+<section id="appointment">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">رزرو نوبت</div>
+      <h2>در سه قدم ساده، نوبت خود را ثبت کنید</h2>
+      <p>تجربه‌ای سریع و بدون پیچیدگی. فقط چند کلیک تا دریافت نوبت شما.</p>
+    </div>
+
+    <div class="appt-wrap">
+      <div class="appt-steps">
+        <div class="appt-step active" data-step="1">
+          <div class="step-num">۱</div>
+          <div class="step-label">انتخاب پزشک</div>
+        </div>
+        <div class="appt-step" data-step="2">
+          <div class="step-num">۲</div>
+          <div class="step-label">زمان مراجعه</div>
+        </div>
+        <div class="appt-step" data-step="3">
+          <div class="step-num">۳</div>
+          <div class="step-label">اطلاعات شما</div>
+        </div>
+        <div class="appt-step" data-step="4">
+          <div class="step-num">۴</div>
+          <div class="step-label">تایید نهایی</div>
+        </div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="appt-panel active" data-panel="1">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">تخصص مورد نظر</label>
+            <select class="form-select" id="specSelect">
+              <option value="">انتخاب کنید...</option>
+              <option>قلب و عروق</option>
+              <option>مغز و اعصاب</option>
+              <option>ریه و آلرژی</option>
+              <option>ارتوپدی</option>
+              <option>کودکان</option>
+              <option>پوست و مو</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">پزشک</label>
+            <select class="form-select" id="docSelect">
+              <option value="">ابتدا تخصص را انتخاب کنید</option>
+            </select>
+          </div>
+        </div>
+        <div class="appt-nav">
+          <div></div>
+          <button class="btn btn-primary" onclick="nextStep(2)">مرحله بعد ←</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="appt-panel" data-panel="2">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">تاریخ مراجعه</label>
+            <input type="text" class="form-input" placeholder="۱۴۰۳/۰۵/۱۵" value="۱۴۰۳/۰۵/۱۵">
+          </div>
+          <div class="form-group">
+            <label class="form-label">بازه زمانی</label>
+            <select class="form-select">
+              <option>صبح (۸ تا ۱۲)</option>
+              <option>بعدازظهر (۱۲ تا ۱۶)</option>
+              <option>عصر (۱۶ تا ۲۰)</option>
+            </select>
+          </div>
+        </div>
+        <label class="form-label" style="margin-top:20px;display:block">ساعت پیشنهادی</label>
+        <div class="time-slots" id="timeSlots">
+          <div class="time-slot" data-time="08:30">۰۸:۳۰</div>
+          <div class="time-slot" data-time="09:00">۰۹:۰۰</div>
+          <div class="time-slot" data-time="09:30">۰۹:۳۰</div>
+          <div class="time-slot" data-time="10:00">۱۰:۰۰</div>
+          <div class="time-slot disabled">۱۰:۳۰</div>
+          <div class="time-slot" data-time="11:00">۱۱:۰۰</div>
+          <div class="time-slot" data-time="11:30">۱۱:۳۰</div>
+        </div>
+        <div class="ai-suggest">
+          <div class="ai-suggest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="ai-suggest-text">
+            <strong>💡 پیشنهاد هوشمند</strong>
+            <p>بر اساس تحلیل شلوغی مطب، ساعت <strong style="color:var(--accent)">۰۹:۰۰</strong> بهترین زمان برای ویزیت با کیفیت‌تر است.</p>
+          </div>
+        </div>
+        <div class="appt-nav">
+          <button class="btn btn-ghost" onclick="nextStep(1)">→ بازگشت</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">مرحله بعد ←</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="appt-panel" data-panel="3">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">نام و نام خانوادگی</label>
+            <input type="text" class="form-input" placeholder="مثلاً: علی احمدی">
+          </div>
+          <div class="form-group">
+            <label class="form-label">شماره موبایل</label>
+            <input type="tel" class="form-input" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">علائم و توضیحات (اختیاری)</label>
+            <textarea class="form-textarea" placeholder="در صورت تمایل، علائم یا سوابق خود را شرح دهید..."></textarea>
+          </div>
+        </div>
+        <div class="appt-nav">
+          <button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button>
+          <button class="btn btn-primary" onclick="nextStep(4)">تایید و ثبت نوبت ←</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="appt-panel" data-panel="4">
+        <div class="success-box">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>نوبت شما با موفقیت ثبت شد! 🎉</h3>
+          <p>پیامک تایید به زودی برای شما ارسال می‌شود. همچنین می‌توانید از بخش پیگیری، وضعیت نوبت خود را مشاهده کنید.</p>
+          <div class="success-details">
+            <div class="row"><span>پزشک</span><span id="sumDoc">دکتر سارا محمدی</span></div>
+            <div class="row"><span>تخصص</span><span id="sumSpec">قلب و عروق</span></div>
+            <div class="row"><span>تاریخ</span><span>۱۴۰۳/۰۵/۱۵</span></div>
+            <div class="row"><span>ساعت</span><span id="sumTime">۰۹:۰۰</span></div>
+            <div class="row"><span>کد پیگیری</span><span style="color:var(--accent);font-family:monospace">#EK-9921</span></div>
+          </div>
+          <button class="btn btn-primary" onclick="resetBooking()">رزرو نوبت جدید</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:14px">
+          <div class="logo-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
+          </div>
+          <div><strong>کلینیک هوشمند اکما</strong></div>
+        </div>
+        <p>همراه هوشمند شما در مسیر سلامتی. با ما تجربه‌ای متفاوت از مراقبت پزشکی داشته باشید.</p>
+      </div>
+      <div class="footer-col">
+        <h4>دسترسی سریع</h4>
+        <a href="#home">خانه</a>
+        <a href="#doctors">پزشکان</a>
+        <a href="#appointment">نوبت‌دهی</a>
+      </div>
+      <div class="footer-col">
+        <h4>خدمات</h4>
+        <a href="#">مشاوره آنلاین</a>
+        <a href="#">آزمایش در منزل</a>
+        <a href="#">پرونده الکترونیک</a>
+      </div>
+      <div class="footer-col">
+        <h4>تماس با ما</h4>
+        <p>📞 ۰۲۱-۹۱۰۷۰۸۰۸</p>
+        <p>✉ info@ekmaai.ir</p>
+        <p>📍 تهران، پارک فناوری</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© ۱۴۰۳ کلینیک هوشمند اکما. تمامی حقوق محفوظ است.</div>
+      <div>ساخته شده با ❤️ برای سلامتی شما</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ CHATBOT ============ -->
+<button class="chat-fab" onclick="toggleChat()" id="chatFab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="badge" id="chatBadge">۱</span>
+</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><circle cx="12" cy="10" r="3"/><path d="M8 14l4 4 4-4"/></svg>
+      <span class="online-dot"></span>
+    </div>
+    <div class="chat-title">
+      <strong>دستیار هوشمند اکما</strong>
+      <small><span style="width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block"></span> آنلاین · پاسخ آنی</small>
+    </div>
+    <div class="chat-close" onclick="toggleChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <!-- Messages will be injected here -->
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="پیام خود را بنویسید..." onkeypress="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" onclick="sendMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel" style="position:relative">
+    <div class="admin-close" onclick="closeAdmin()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <div class="logo-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83"/></svg>
+        </div>
+        <div>
+          <strong>پنل مدیریت</strong>
+          <small>EkmaAI Admin</small>
+        </div>
+      </div>
+      <div class="admin-menu">
+        <div class="admin-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          داشبورد کلی
+        </div>
+        <div class="admin-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+          مدیریت نوبت‌ها
+        </div>
+        <div class="admin-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          بیماران
+        </div>
+        <div class="admin-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          پزشکان
+        </div>
+        <div class="admin-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          مانیتورینگ چت
+        </div>
+        <div class="admin-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+          ⚙️ تنظیمات اتوماسیون
+        </div>
+      </div>
+      <div class="admin-footer">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)"></span>
+          <strong style="color:#fff">اتصال برقرار</strong>
+        </div>
+        <div>Workflow: ۱۸ فعال</div>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <h2>داشبورد کلی</h2>
+        <div class="status">
+          <div class="status-pill ok"><span class="dot"></span> اتوماسیون فعال</div>
+          <div class="status-pill warn"><span class="dot"></span> ۳ پیام در صف</div>
+        </div>
+      </div>
+      <div class="admin-content">
+        <div class="admin-grid">
+          <div class="admin-stat">
+            <div class="label">نوبت‌های امروز</div>
+            <div class="value">۲۴۸</div>
+            <div class="trend">↑ ۱۲٪ نسبت به دیروز</div>
+          </div>
+          <div class="admin-stat">
+            <div class="label">بیماران فعال</div>
+            <div class="value">۱,۴۰۲</div>
+            <div class="trend">↑ ۵٪ این ماه</div>
+          </div>
+          <div class="admin-stat">
+            <div class="label">گردش‌کار فعال</div>
+            <div class="value">۱۸</div>
+            <div class="trend">+۳ جدید</div>
+          </div>
+          <div class="admin-stat">
+            <div class="label">گفتگوهای امروز</div>
+            <div class="value">۳۲</div>
+            <div class="trend down">↓ ۸٪</div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>📡 لاگ زنده اتوماسیون <span class="live"><span class="dot"></span> LIVE</span></h3>
+          <div class="log-list" id="logList">
+            <div class="log-item info">
+              <span class="log-time">11:29:01</span>
+              <span class="log-tag info">INFO</span>
+              <span class="log-msg">درخواست نوبت جدید دریافت شد · بیمار #u_9921</span>
+            </div>
+            <div class="log-item success">
+              <span class="log-time">11:30:42</span>
+              <span class="log-tag success">OK</span>
+              <span class="log-msg">گردش‌کار "appt_handler" با موفقیت اجرا شد</span>
+            </div>
+            <div class="log-item info">
+              <span class="log-time">11:31:05</span>
+              <span class="log-tag info">INFO</span>
+              <span class="log-msg">پیامک تایید به شماره 0912***6789 ارسال شد</span>
+            </div>
+            <div class="log-item warn">
+              <span class="log-time">11:32:18</span>
+              <span class="log-tag warn">WARN</span>
+              <span class="log-msg">زمان پاسخ چت‌بات بیش از ۳ ثانیه · بررسی عملکرد</span>
+            </div>
+            <div class="log-item success">
+              <span class="log-time">11:33:40</span>
+              <span class="log-tag success">OK</span>
+              <span class="log-msg">یادآوری دارو برای بیمار #u_4412 ارسال شد</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>🔗 نقاط اتصال اتوماسیون</h3>
+          <div class="webhook-list">
+            <div class="webhook-item">
+              <div>
+                <div class="name">نوبت‌های جدید</div>
+                <div class="url">POST /api/automation/appointments</div>
+              </div>
+              <div class="webhook-status">● فعال</div>
+            </div>
+            <div class="webhook-item">
+              <div>
+                <div class="name">پیام‌های چت‌بات</div>
+                <div class="url">POST /api/automation/chat-messages</div>
+              </div>
+              <div class="webhook-status">● فعال</div>
+            </div>
+            <div class="webhook-item">
+              <div>
+                <div class="name">بیماران جدید</div>
+                <div class="url">POST /api/automation/patients</div>
+              </div>
+              <div class="webhook-status">● فعال</div>
+            </div>
+            <div class="webhook-item">
+              <div>
+                <div class="name">یادآورهای خودکار</div>
+                <div class="url">POST /api/automation/reminders</div>
+              </div>
+              <div class="webhook-status">● فعال</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>💬 مانیتورینگ گفتگوها</h3>
+          <div class="log-list">
+            <div class="log-item info">
+              <span class="log-time">11:30</span>
+              <span class="log-tag info">BOT</span>
+              <span class="log-msg">سلام! چطور می‌تونم کمکتون کنم؟</span>
+            </div>
+            <div class="log-item info">
+              <span class="log-time">11:31</span>
+              <span class="log-tag success">USER</span>
+              <span class="log-msg">می‌خوام از دکتر محمدی نوبت بگیرم</span>
+            </div>
+            <div class="log-item info">
+              <span class="log-time">11:31</span>
+              <span class="log-tag info">SYS</span>
+              <span class="log-msg">تشخیص نیت: درخواست نوبت → هدایت به فرم</span>
+            </div>
+            <div class="log-item info">
+              <span class="log-time">11:31</span>
+              <span class="log-tag info">BOT</span>
+              <span class="log-msg">عالی! لطفاً از بخش نوبت‌دهی، پزشک و زمان دلخواه را انتخاب کنید.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ APPOINTMENT FLOW ============ */
+const doctorsBySpec = {
+  'قلب و عروق': ['دکتر سارا محمدی'],
+  'مغز و اعصاب': ['دکتر علی رضایی'],
+  'ریه و آلرژی': ['دکتر مریم کریمی'],
+  'ارتوپدی': ['دکتر رضا نوروزی'],
+  'کودکان': ['دکتر نازنین حسینی'],
+  'پوست و مو': ['دکتر لیلا عباسی']
+};
+
+document.getElementById('specSelect').addEventListener('change', e=>{
+  const docSel = document.getElementById('docSelect');
+  docSel.innerHTML = '';
+  const spec = e.target.value;
+  if(!spec){docSel.innerHTML='<option>ابتدا تخصص را انتخاب کنید</option>';return}
+  const docs = doctorsBySpec[spec] || [];
+  docSel.innerHTML = docs.map(d=>`<option>${d}</option>`).join('');
+});
+
+document.querySelectorAll('.time-slot').forEach(slot=>{
+  slot.addEventListener('click',()=>{
+    if(slot.classList.contains('disabled'))return;
+    document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+    slot.classList.add('selected');
+  });
+});
+
+function nextStep(n){
+  document.querySelectorAll('.appt-step').forEach(s=>{
+    const step = +s.dataset.step;
+    s.classList.remove('active','done');
+    if(step<n)s.classList.add('done');
+    if(step===n)s.classList.add('active');
+  });
+  document.querySelectorAll('.appt-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`[data-panel="${n}"]`).classList.add('active');
+  
+  if(n===4){
+    const doc = document.getElementById('docSelect').value || 'دکتر سارا محمدی';
+    const spec = document.getElementById('specSelect').value || 'قلب و عروق';
+    const time = document.querySelector('.time-slot.selected')?.dataset.time || '۰۹:۰۰';
+    document.getElementById('sumDoc').textContent = doc;
+    document.getElementById('sumSpec').textContent = spec;
+    document.getElementById('sumTime').textContent = time;
+  }
+}
+
+function startBooking(doc,spec){
+  document.getElementById('specSelect').value = spec;
+  document.getElementById('specSelect').dispatchEvent(new Event('change'));
+  setTimeout(()=>{
+    document.getElementById('docSelect').value = doc;
+    nextStep(2);
+    document.getElementById('appointment').scrollIntoView({behavior:'smooth'});
+  },100);
+}
+
+function resetBooking(){
+  nextStep(1);
+  document.getElementById('specSelect').value = '';
+  document.getElementById('docSelect').innerHTML = '<option>ابتدا تخصص را انتخاب کنید</option>';
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+}
+
+/* ============ CHATBOT ============ */
+let chatOpen = false;
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const chatBadge = document.getElementById('chatBadge');
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+  if(chatOpen && chatBody.children.length===0){
+    initChat();
+  }
+  chatBadge.style.display='none';
+}
+function openChat(){if(!chatOpen)toggleChat()}
+
+function initChat(){
+  addMsg('bot','سلام! 👋 من دستیار هوشمند اکما هستم. چطور می‌تونم کمکتون کنم؟',[
+    {text:'🗓️ رزرو نوبت',action:()=>{addMsg('user','می‌خوام نوبت بگیرم');setTimeout(()=>addMsg('bot','حتماً! لطفاً تخصص مورد نظرتون رو انتخاب کنید:',[{text:'❤️ قلب و عروق',action:()=>selectSpecChat('قلب و عروق','دکتر سارا محمدی')},{text:'🧠 مغز و اعصاب',action:()=>selectSpecChat('مغز و اعصاب','دکتر علی رضایی')},{text:'🫁 ریه و آلرژی',action:()=>selectSpecChat('ریه و آلرژی','دکتر مریم کریمی')}])},300)}},
+    {text:'👨‍⚕️ لیست پزشکان',action:()=>{addMsg('user','لیست پزشکان رو می‌خوام');setTimeout(()=>addMsg('bot','پزشکان فعال ما:<br>• دکتر سارا محمدی - قلب و عروق<br>• دکتر علی رضایی - مغز و اعصاب<br>• دکتر مریم کریمی - ریه و آلرژی<br><br>برای رزرو نوبت کافیه بگید! 🎯'),300)}}
+  ]);
+}
+
+function selectSpecChat(spec,doc){
+  addMsg('user',spec);
+  setTimeout(()=>{
+    addMsg('bot',`عالی! ${doc} در حال حاضر آنلاین هستند. می‌خواید نوبت رزرو کنم؟`,[
+      {text:'✅ بله، نوبت می‌خوام',action:()=>{addMsg('user','بله لطفاً');setTimeout(()=>{addMsg('bot','در حال انتقال به فرم نوبت‌دهی...');setTimeout(()=>{startBooking(doc,spec);toggleChat()},800)},300)}},
+      {text:'❌ فعلاً نه',action:()=>addMsg('bot','باشه، هر وقت خواستید من اینجام 😊')}
+    ]);
+  },400);
+}
+
+function addMsg(who,text,quickReplies=[]){
+  const div = document.createElement('div');
+  div.className = `msg ${who}`;
+  const avatar = who==='bot'?'🤖':'👤';
+  const time = new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+  let qr = '';
+  if(quickReplies.length){
+    qr = '<div class="quick-replies">'+quickReplies.map((r,i)=>`<button class="quick-reply" data-idx="${i}">${r.text}</button>`).join('')+'</div>';
+  }
+  div.innerHTML = `
+    <div class="msg-avatar">${avatar}</div>
+    <div>
+      <div class="msg-bubble">${text}</div>
+      ${qr}
+      <div class="msg-time">${time}</div>
+    </div>
+  `;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  
+  if(quickReplies.length){
+    div.querySelectorAll('.quick-reply').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const idx = +btn.dataset.idx;
+        const parent = btn.closest('.msg');
+        parent.querySelector('.quick-replies')?.remove();
+        quickReplies[idx].action();
+      });
+    });
+  }
+}
+
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.id = 'typingMsg';
+  div.innerHTML = `
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
+  `;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function removeTyping(){document.getElementById('typingMsg')?.remove()}
+
+function sendMsg(){
+  const text = chatInput.value.trim();
+  if(!text)return;
+  addMsg('user',text);
+  chatInput.value = '';
+  showTyping();
+  setTimeout(()=>{
+    removeTyping();
+    const lower = text.toLowerCase();
+    if(lower.includes('نوبت')||lower.includes('رزرو')){
+      addMsg('bot','برای رزرو نوبت می‌تونم کمکتون کنم. چه تخصصی نیاز دارید؟',[
+        {text:'❤️ قلب',action:()=>selectSpecChat('قلب و عروق','دکتر سارا محمدی')},
+        {text:'🧠 مغز و اعصاب',action:()=>selectSpecChat('مغز و اعصاب','دکتر علی رضایی')}
+      ]);
+    } else if(lower.includes('سلام')||lower.includes('درود')){
+      addMsg('bot','سلام! خوش اومدید 😊 چطور می‌تونم کمکتون کنم؟');
+    } else if(lower.includes('ساعت')||lower.includes('کار')){
+      addMsg('bot','کلینیک اکما ۲۴ ساعته آماده خدمت‌رسانی است. 🕐');
+    } else {
+      addMsg('bot','ممنون از پیامتون! برای راهنمایی بیشتر می‌تونید یکی از گزینه‌های زیر رو انتخاب کنید:',[
+        {text:'🗓️ رزرو نوبت',action:()=>addMsg('bot','لطفاً تخصص مورد نظر را بفرمایید.')},
+        {text:'📞 تماس با ما',action:()=>addMsg('bot','شماره تماس: ۰۲۱-۹۱۰۷۰۸۰۸')}
+      ]);
+    }
+  },900);
+}
+
+/* ============ ADMIN ============ */
+function openAdmin(){document.getElementById('adminOverlay').classList.add('open')}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open')}
+
+/* Simulate live logs */
+setInterval(()=>{
+  const logList = document.getElementById('logList');
+  if(!logList)return;
+  const events = [
+    {type:'success',tag:'OK',msg:'گردش‌کار "reminder_sender" اجرا شد'},
+    {type:'info',tag:'INFO',msg:'پیام جدید از بیمار #u_'+Math.floor(Math.random()*9000+1000)},
+    {type:'success',tag:'OK',msg:'نوبت جدید ثبت شد · کد #EK-'+Math.floor(Math.random()*9000+1000)},
+    {type:'info',tag:'INFO',msg:'به‌روزرسانی پرونده پزشکی بیمار'},
+  ];
+  const e = events[Math.floor(Math.random()*events.length)];
+  const time = new Date().toLocaleTimeString('en-GB');
+  const item = document.createElement('div');
+  item.className = `log-item ${e.type}`;
+  item.style.animation = 'msgIn .3s';
+  item.innerHTML = `<span class="log-time">${time}</span><span class="log-tag ${e.type}">${e.tag}</span><span class="log-msg">${e.msg}</span>`;
+  logList.insertBefore(item,logList.firstChild);
+  if(logList.children.length>10)logList.removeChild(logList.lastChild);
+},5000);
+</script>
+</body>
+</html>
