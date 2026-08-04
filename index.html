@@ -3,45 +3,46 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>مطب دکتر سارا محمدی | نوبت‌دهی هوشمند اکما</title>
+<title>مطب دکتر غریب دوست | پزشک عمومی · نوبت‌دهی هوشمند</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0b1020;--bg-2:#0f1530;--card:#121a38;--card-2:#162044;
   --text:#e8ecff;--muted:#9aa3c7;
-  --primary:#6c8cff;--primary-2:#8b5cf6;--accent:#22d3ee;
+  --primary:#10b981;--primary-2:#059669;--accent:#22d3ee;
   --success:#10b981;--warn:#f59e0b;--danger:#ef4444;
   --border:rgba(255,255,255,.08);--shadow:0 20px 60px rgba(0,0,0,.35);--radius:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Vazirmatn',sans-serif}
 html,body{background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
-body{background:radial-gradient(1200px 600px at 80% -10%,rgba(108,140,255,.18),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(139,92,246,.15),transparent 60%),var(--bg);min-height:100vh}
+body{background:radial-gradient(1200px 600px at 80% -10%,rgba(16,185,129,.14),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(34,211,238,.12),transparent 60%),var(--bg);min-height:100vh}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none}
 
-.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(11,16,32,.8);border-bottom:1px solid var(--border)}
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(11,16,32,.85);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1100px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
-.logo-badge{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;box-shadow:0 10px 30px rgba(108,140,255,.35)}
-.logo-badge svg{width:20px;height:20px;color:#fff}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px}
+.logo-badge{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;box-shadow:0 10px 30px rgba(16,185,129,.35)}
+.logo-badge svg{width:22px;height:22px;color:#fff}
 .nav-links{display:flex;gap:6px;align-items:center}
 .nav-links a{padding:9px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:14px;transition:.25s}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
-.btn{padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 10px 30px rgba(108,140,255,.35)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(108,140,255,.5)}
+.btn{padding:11px 20px;border-radius:12px;font-weight:600;font-size:14px;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(16,185,129,.5)}
 .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border)}
 .btn-ghost:hover{background:rgba(255,255,255,.1)}
 .btn-success{background:linear-gradient(135deg,var(--success),#059669);color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.35)}
 .btn-block{width:100%;justify-content:center}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
 
 .hero{max-width:1100px;margin:0 auto;padding:60px 22px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);color:var(--accent);font-size:13px;font-weight:500;margin-bottom:18px}
-.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-size:13px;font-weight:500;margin-bottom:18px}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.hero h1{font-size:clamp(32px,5vw,48px);line-height:1.25;font-weight:800;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.3;font-weight:800;margin-bottom:18px}
 .hero h1 .grad{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:17px;line-height:1.9;margin-bottom:28px}
+.hero p{color:var(--muted);font-size:16px;line-height:1.9;margin-bottom:28px}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
 .hero-stats{display:flex;gap:28px;flex-wrap:wrap}
 .stat{display:flex;flex-direction:column;gap:4px}
@@ -49,8 +50,8 @@ button{font-family:inherit;cursor:pointer;border:none}
 .stat .lbl{color:var(--muted);font-size:13px}
 
 .doctor-showcase{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:30px;position:relative;overflow:hidden}
-.doctor-showcase::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(108,140,255,.2),transparent 70%)}
-.doctor-img-large{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--primary);box-shadow:0 10px 30px rgba(108,140,255,.3);margin-bottom:20px}
+.doctor-showcase::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,.15),transparent 70%)}
+.doctor-img-large{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--primary);box-shadow:0 10px 30px rgba(16,185,129,.3);margin-bottom:20px}
 .doctor-showcase h2{font-size:24px;font-weight:800;margin-bottom:8px}
 .doctor-showcase .spec{color:var(--primary);font-size:15px;font-weight:600;margin-bottom:16px}
 .doctor-showcase .bio{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:20px}
@@ -63,27 +64,36 @@ button{font-family:inherit;cursor:pointer;border:none}
 
 .section{max-width:1100px;margin:0 auto;padding:60px 22px}
 .section-head{text-align:center;margin-bottom:40px}
-.section-head h2{font-size:32px;font-weight:800;margin-bottom:12px}
+.section-head h2{font-size:30px;font-weight:800;margin-bottom:12px}
 .section-head p{color:var(--muted);max-width:600px;margin:0 auto;line-height:1.9}
 
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.service-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;transition:.25s}
+.service-box:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 15px 40px rgba(16,185,129,.15)}
+.service-box .ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(34,211,238,.2));display:grid;place-items:center;margin-bottom:16px}
+.service-box .ico svg{width:26px;height:26px;color:var(--primary)}
+.service-box h3{font-size:16px;margin-bottom:8px}
+.service-box p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:12px}
+.service-box .price{color:var(--accent);font-weight:700;font-size:15px}
+
 .appt-wrap{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
-.appt-steps{display:flex;justify-content:space-between;margin-bottom:30px;position:relative}
+.appt-steps{display:flex;justify-content:space-between;margin-bottom:34px;position:relative}
 .appt-steps::before{content:"";position:absolute;top:20px;right:40px;left:40px;height:2px;background:var(--border)}
 .appt-step{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;flex:1}
 .step-num{width:40px;height:40px;border-radius:50%;background:var(--bg-2);border:2px solid var(--border);display:grid;place-items:center;font-weight:700;font-size:14px;transition:.3s}
 .step-label{font-size:12px;color:var(--muted);font-weight:500;text-align:center}
-.appt-step.active .step-num{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.4)}
+.appt-step.active .step-num{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.4)}
 .appt-step.active .step-label{color:#fff}
 .appt-step.done .step-num{background:var(--success);border-color:transparent;color:#fff}
 .appt-panel{display:none;animation:fadeIn .4s}
 .appt-panel.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
 .service-card{padding:20px;border-radius:14px;background:var(--bg-2);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
 .service-card:hover{border-color:var(--primary);transform:translateY(-2px)}
-.service-card.selected{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));border-color:var(--primary);box-shadow:0 8px 24px rgba(108,140,255,.2)}
-.service-card .ico{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,rgba(108,140,255,.2),rgba(139,92,246,.2));display:grid;place-items:center;margin:0 auto 12px}
+.service-card.selected{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(34,211,238,.1));border-color:var(--primary);box-shadow:0 8px 24px rgba(16,185,129,.2)}
+.service-card .ico{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(34,211,238,.2));display:grid;place-items:center;margin:0 auto 12px}
 .service-card .ico svg{width:24px;height:24px;color:var(--primary)}
 .service-card strong{display:block;font-size:14px;margin-bottom:4px}
 .service-card small{color:var(--muted);font-size:12px;display:block}
@@ -93,47 +103,39 @@ button{font-family:inherit;cursor:pointer;border:none}
 .form-group.full{grid-column:1/-1}
 .form-label{font-size:13px;font-weight:600;color:var(--muted)}
 .form-input,.form-select,.form-textarea{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;transition:.2s;font-family:inherit}
-.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,140,255,.15)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
 .form-textarea{resize:vertical;min-height:80px}
+
+.date-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-bottom:20px}
+.date-slot{padding:12px 8px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;cursor:pointer;transition:.2s}
+.date-slot:hover{border-color:var(--primary)}
+.date-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.date-slot .dow{font-size:12px;font-weight:700;display:block}
+.date-slot .dnum{font-size:11px;color:var(--muted);margin-top:2px;display:block}
+.date-slot.selected .dnum{color:rgba(255,255,255,.8)}
+
+.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:10px}
+.time-slot{padding:12px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.time-slot:hover{border-color:var(--primary)}
+.time-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.time-slot.disabled{opacity:.4;cursor:not-allowed}
 
 .contact-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
 .contact-method{padding:16px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
 .contact-method:hover{border-color:var(--primary)}
-.contact-method.selected{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));border-color:var(--primary)}
-.contact-method .ico{font-size:28px;margin-bottom:8px}
+.contact-method.selected{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(34,211,238,.1));border-color:var(--primary)}
+.contact-method .ico{font-size:26px;margin-bottom:8px}
 .contact-method strong{display:block;font-size:13px;margin-bottom:4px}
 .contact-method small{color:var(--muted);font-size:11px}
 
-.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:10px}
-.time-slot{padding:12px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
-.time-slot:hover{border-color:var(--primary)}
-.time-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(108,140,255,.35)}
-.time-slot.disabled{opacity:.4;cursor:not-allowed}
-
 .appt-nav{display:flex;justify-content:space-between;margin-top:24px;gap:10px}
 
-.payment-wrap{background:var(--bg-2);border-radius:14px;padding:20px;border:1px solid var(--border)}
-.invoice-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
-.invoice-head h3{font-size:16px;margin-bottom:4px}
-.invoice-code{padding:6px 12px;border-radius:8px;background:rgba(34,211,238,.1);color:var(--accent);font-family:monospace;font-size:13px;font-weight:700}
-.invoice-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
-.invoice-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--card);border-radius:10px;font-size:13px}
-.invoice-item .name strong{display:block}
-.invoice-item .name small{color:var(--muted);font-size:11px}
-.invoice-item .price{font-weight:700;color:var(--accent)}
-.invoice-summary{padding:14px;background:var(--card);border-radius:12px;margin-bottom:16px}
-.invoice-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--muted)}
-.invoice-row.total{padding-top:10px;margin-top:8px;border-top:1px dashed var(--border);color:#fff;font-size:18px;font-weight:800}
-.invoice-row.total .val{color:var(--accent)}
-
-.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.pay-method{padding:14px 10px;border-radius:12px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
-.pay-method:hover{border-color:var(--primary)}
-.pay-method.selected{background:linear-gradient(135deg,rgba(108,140,255,.15),rgba(139,92,246,.15));border-color:var(--primary)}
-.pay-method .ico{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;margin:0 auto 8px;color:#fff}
-.pay-method .ico svg{width:18px;height:18px}
-.pay-method strong{display:block;font-size:12px;margin-bottom:2px}
-.pay-method small{color:var(--muted);font-size:10px}
+.summary-box{background:var(--bg-2);border-radius:14px;padding:20px;border:1px solid var(--border);margin-bottom:20px}
+.summary-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.summary-row:last-child{border-bottom:none}
+.summary-row span:first-child{color:var(--muted)}
+.summary-row span:last-child{font-weight:600}
+.notice-box{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:14px;font-size:13px;color:var(--accent);line-height:1.8;margin-bottom:20px}
 
 .receipt{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center}
 .receipt-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:grid;place-items:center;margin:0 auto 16px;box-shadow:0 15px 40px rgba(16,185,129,.35);animation:pop .5s ease-out}
@@ -148,10 +150,13 @@ button{font-family:inherit;cursor:pointer;border:none}
 .receipt-details .row span:last-child{font-weight:600}
 .receipt-code{padding:12px;border-radius:10px;background:rgba(34,211,238,.1);border:1px dashed rgba(34,211,238,.3);font-family:monospace;font-size:16px;font-weight:700;color:var(--accent);letter-spacing:2px;margin-bottom:16px}
 .receipt-actions{display:flex;gap:10px}
-.receipt-actions .btn{flex:1}
+.receipt-actions .btn{flex:1;justify-content:center}
 
-.chat-fab{position:fixed;bottom:24px;left:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;box-shadow:0 15px 40px rgba(108,140,255,.5);cursor:pointer;transition:.3s;animation:fabPulse 3s infinite}
-@keyframes fabPulse{0%,100%{box-shadow:0 15px 40px rgba(108,140,255,.5)}50%{box-shadow:0 15px 60px rgba(108,140,255,.8)}}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.chat-fab{position:fixed;bottom:24px;left:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;box-shadow:0 15px 40px rgba(16,185,129,.5);cursor:pointer;transition:.3s;animation:fabPulse 3s infinite}
+@keyframes fabPulse{0%,100%{box-shadow:0 15px 40px rgba(16,185,129,.5)}50%{box-shadow:0 15px 60px rgba(16,185,129,.8)}}
 .chat-fab:hover{transform:scale(1.08)}
 .chat-fab svg{width:28px;height:28px}
 .chat-fab .badge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--danger);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid var(--bg)}
@@ -161,13 +166,13 @@ button{font-family:inherit;cursor:pointer;border:none}
 .chat-header{padding:16px 18px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;gap:12px;color:#fff}
 .chat-avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;position:relative}
 .chat-avatar svg{width:22px;height:22px}
-.chat-avatar .online-dot{position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--success);border:2px solid var(--primary)}
+.chat-avatar .online-dot{position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--primary)}
 .chat-title{flex:1}
 .chat-title strong{display:block;font-size:15px}
 .chat-title small{font-size:11px;opacity:.85}
 .chat-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s}
 .chat-close:hover{background:rgba(255,255,255,.25)}
-.chat-body{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:radial-gradient(600px 300px at 100% 0%,rgba(108,140,255,.05),transparent 60%),var(--bg-2)}
+.chat-body{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:radial-gradient(600px 300px at 100% 0%,rgba(16,185,129,.05),transparent 60%),var(--bg-2)}
 .chat-body::-webkit-scrollbar{width:6px}
 .chat-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
 .msg{display:flex;gap:8px;max-width:85%;animation:msgIn .3s ease-out}
@@ -177,14 +182,14 @@ button{font-family:inherit;cursor:pointer;border:none}
 .msg-avatar{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:12px;font-weight:700}
 .msg.bot .msg-avatar{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
 .msg.user .msg-avatar{background:rgba(255,255,255,.1);color:#fff}
-.msg-bubble{padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.7}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.7;white-space:pre-wrap}
 .msg.bot .msg-bubble{background:var(--card);border:1px solid var(--border);border-top-right-radius:4px}
 .msg.user .msg-bubble{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-top-left-radius:4px}
 .msg-time{font-size:10px;color:var(--muted);margin-top:4px;padding:0 4px}
-.quick-replies{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.quick-reply{padding:7px 12px;border-radius:999px;background:rgba(108,140,255,.1);border:1px solid rgba(108,140,255,.25);color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
-.quick-reply:hover{background:rgba(108,140,255,.2)}
-.typing{display:flex;gap:4px;padding:12px 14px}
+.quick-replies{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.quick-reply{padding:7px 12px;border-radius:999px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
+.quick-reply:hover{background:rgba(16,185,129,.2)}
+.typing{display:flex;gap:4px;padding:4px 0}
 .typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typing 1.4s infinite}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
@@ -196,6 +201,11 @@ button{font-family:inherit;cursor:pointer;border:none}
 .chat-send:hover{transform:scale(1.05)}
 .chat-send svg{width:18px;height:18px}
 
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:200;padding:14px 24px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;display:flex;align-items:center;gap:10px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--success);color:var(--success)}
+.toast.error{border-color:var(--danger);color:var(--danger)}
+
 footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;background:rgba(11,16,32,.5)}
 .footer-content{max-width:1100px;margin:0 auto;padding:0 22px;text-align:center;color:var(--muted);font-size:13px}
 
@@ -204,13 +214,13 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   .form-grid{grid-template-columns:1fr}
   .nav-links{display:none}
   .contact-methods{grid-template-columns:1fr}
-  .payment-methods{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .chat-window{left:12px;right:12px;bottom:90px;width:auto;max-width:none}
   .chat-fab{left:16px;bottom:16px}
   .doctor-meta-grid{grid-template-columns:1fr}
   .service-grid{grid-template-columns:1fr}
+  .appt-steps .step-label{display:none}
 }
 </style>
 </head>
@@ -223,12 +233,13 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
       </div>
       <div>
-        <div>مطب دکتر سارا محمدی</div>
-        <small style="color:var(--muted);font-size:11px">نوبت‌دهی هوشمند · متصل به n8n</small>
+        <div>مطب دکتر غریب دوست</div>
+        <small style="color:var(--muted);font-size:11px">پزشک عمومی · نوبت‌دهی هوشمند</small>
       </div>
     </a>
     <div class="nav-links">
       <a href="#home">خانه</a>
+      <a href="#services">خدمات</a>
       <a href="#appointment">نوبت‌دهی</a>
     </div>
     <a href="#appointment" class="btn btn-primary">
@@ -242,10 +253,10 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   <div>
     <div class="hero-tag">
       <span class="dot"></span>
-      n8n فعال · AI آنلاین · نوبت‌دهی هوشمند
+      n8n فعال · نوبت‌دهی هوشمند · پاسخگویی خودکار
     </div>
-    <h1>نوبت‌دهی هوشمند با <span class="grad">اتصال به n8n</span></h1>
-    <p>سیستم نوبت‌دهی آنلاین مطب دکتر محمدی با یکپارچگی کامل workflowهای n8n. هر نوبت به‌طور خودکار پردازش، تایید و از طریق ایمیل، تلگرام یا بله پیگیری می‌شود.</p>
+    <h1>مطب <span class="grad">دکتر غریب دوست</span><br>پزشک عمومی</h1>
+    <p>نوبت‌دهی آنلاین و هوشمند مطب دکتر غریب دوست با اتصال کامل به workflowهای n8n. نوبت شما به‌صورت خودکار ثبت، تأیید و از طریق تلگرام، بله یا ایمیل پیگیری می‌شود.</p>
     <div class="hero-actions">
       <a href="#appointment" class="btn btn-primary">
         رزرو نوبت آنلاین
@@ -257,20 +268,20 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       </button>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="num">+۱۵</span><span class="lbl">سال تجربه</span></div>
+      <div class="stat"><span class="num">+۱۰</span><span class="lbl">سال تجربه</span></div>
       <div class="stat"><span class="num">۹۸٪</span><span class="lbl">رضایت بیماران</span></div>
       <div class="stat"><span class="num">۲۴/۷</span><span class="lbl">پشتیبانی هوشمند</span></div>
     </div>
   </div>
 
   <div class="doctor-showcase">
-    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=faces" alt="دکتر سارا محمدی" class="doctor-img-large">
-    <h2>دکتر سارا محمدی</h2>
-    <div class="spec">فوق تخصص قلب و عروق</div>
-    <p class="bio">متخصص مداخله‌ای قلب با ۱۵ سال تجربه در تشخیص و درمان بیماری‌های قلبی عروقی. عضو انجمن قلب ایران و اروپا.</p>
+    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=faces" alt="دکتر غریب دوست" class="doctor-img-large">
+    <h2>دکتر غریب دوست</h2>
+    <div class="spec">پزشک عمومی</div>
+    <p class="bio">پزشک عمومی با سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج، چکاپ دوره‌ای، مشاوره سلامت و پیگیری بیماری‌های مزمن. ارائه خدمات درمانی با رویکرد بیمارمحور.</p>
     <div class="doctor-meta-grid">
       <div class="meta-item">
-        <span class="val">+۲۰۰۰</span>
+        <span class="val">+۱۵۰۰</span>
         <span class="lbl">بیمار راضی</span>
       </div>
       <div class="meta-item">
@@ -278,7 +289,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
         <span class="lbl">امتیاز</span>
       </div>
       <div class="meta-item">
-        <span class="val">۱۵</span>
+        <span class="val">۱۰</span>
         <span class="lbl">سال تجربه</span>
       </div>
     </div>
@@ -289,10 +300,55 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </div>
 </section>
 
+<section class="section" id="services">
+  <div class="section-head">
+    <h2>خدمات مطب</h2>
+    <p>ارائه طیف کاملی از خدمات پزشکی عمومی با کیفیت بالا و قیمت مناسب</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h3>ویزیت عمومی</h3>
+      <p>معاینه کامل، تشخیص و درمان بیماری‌های رایج</p>
+      <div class="price">۲۵۰,۰۰۰ تومان</div>
+    </div>
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <h3>چکاپ کامل سلامت</h3>
+      <p>آزمایش‌های دوره‌ای و بررسی جامع وضعیت سلامت</p>
+      <div class="price">۴۰۰,۰۰۰ تومان</div>
+    </div>
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <h3>مشاوره پزشکی</h3>
+      <p>مشاوره حضوری یا تلفنی درباره سلامت و درمان</p>
+      <div class="price">۱۵۰,۰۰۰ تومان</div>
+    </div>
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <h3>نسخه‌نویسی</h3>
+      <p>تمدید نسخه و تجویز دارو بر اساس سوابق</p>
+      <div class="price">۱۰۰,۰۰۰ تومان</div>
+    </div>
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <h3>گواهی سلامت</h3>
+      <p>صدور گواهی سلامت برای اشتغال و تحصیل</p>
+      <div class="price">۱۲۰,۰۰۰ تومان</div>
+    </div>
+    <div class="service-box">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4-4 4"/><path d="M2 6h20"/><path d="m6 22-4-4 4-4"/><path d="M22 18H2"/></svg></div>
+      <h3>واکسیناسیون</h3>
+      <p>تزریق واکسن‌های فصلی و ضروری</p>
+      <div class="price">۲۰۰,۰۰۰ تومان</div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="appointment">
   <div class="section-head">
     <h2>رزرو نوبت هوشمند</h2>
-    <p>در چند قدم ساده نوبت خود را رزرو کنید. اطلاعات شما به workflow n8n ارسال و از طریق ایمیل، تلگرام یا بله پیگیری می‌شود.</p>
+    <p>در چند قدم ساده نوبت خود را رزرو کنید. ثبت نوبت رایگان است و پرداخت در مطب انجام می‌شود.</p>
   </div>
 
   <div class="appt-wrap">
@@ -300,32 +356,42 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       <div class="appt-step active" data-step="1"><div class="step-num">۱</div><div class="step-label">انتخاب خدمت</div></div>
       <div class="appt-step" data-step="2"><div class="step-num">۲</div><div class="step-label">زمان مراجعه</div></div>
       <div class="appt-step" data-step="3"><div class="step-num">۳</div><div class="step-label">اطلاعات شما</div></div>
-      <div class="appt-step" data-step="4"><div class="step-num">۴</div><div class="step-label">پرداخت</div></div>
-      <div class="appt-step" data-step="5"><div class="step-num">۵</div><div class="step-label">رسید</div></div>
+      <div class="appt-step" data-step="4"><div class="step-num">۴</div><div class="step-label">تأیید و ثبت</div></div>
     </div>
 
+    <!-- مرحله ۱: انتخاب خدمت -->
     <div class="appt-panel active" data-panel="1">
       <label class="form-label" style="margin-bottom:12px;display:block">نوع خدمت مورد نظر</label>
       <div class="service-grid" id="serviceGrid">
-        <div class="service-card" data-service="ویزیت اولیه" data-price="350000">
+        <div class="service-card" data-service="ویزیت عمومی" data-price="250000">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <strong>ویزیت اولیه</strong>
-          <small>۳۵۰,۰۰۰ تومان</small>
-        </div>
-        <div class="service-card" data-service="ویزیت پیگیری" data-price="250000">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-          <strong>ویزیت پیگیری</strong>
+          <strong>ویزیت عمومی</strong>
           <small>۲۵۰,۰۰۰ تومان</small>
         </div>
-        <div class="service-card" data-service="مشاوره تلفنی" data-price="200000">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-          <strong>مشاوره تلفنی</strong>
-          <small>۲۰۰,۰۰۰ تومان</small>
-        </div>
-        <div class="service-card" data-service="چکاپ کامل قلب" data-price="800000">
+        <div class="service-card" data-service="چکاپ کامل سلامت" data-price="400000">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <strong>چکاپ کامل قلب</strong>
-          <small>۰۰,۰۰۰ تومان</small>
+          <strong>چکاپ کامل</strong>
+          <small>۴۰۰,۰۰۰ تومان</small>
+        </div>
+        <div class="service-card" data-service="مشاوره پزشکی" data-price="150000">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <strong>مشاوره پزشکی</strong>
+          <small>۱۵۰,۰۰۰ تومان</small>
+        </div>
+        <div class="service-card" data-service="نسخه‌نویسی" data-price="100000">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <strong>نسخه‌نویسی</strong>
+          <small>۱۰۰,۰۰۰ تومان</small>
+        </div>
+        <div class="service-card" data-service="گواهی سلامت" data-price="120000">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <strong>گواهی سلامت</strong>
+          <small>۱۲۰,۰۰۰ تومان</small>
+        </div>
+        <div class="service-card" data-service="واکسیناسیون" data-price="200000">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4-4 4"/><path d="M2 6h20"/></svg></div>
+          <strong>واکسیناسیون</strong>
+          <small>۲۰۰,۰۰۰ تومان</small>
         </div>
       </div>
       <div class="appt-nav">
@@ -334,37 +400,19 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       </div>
     </div>
 
+    <!-- مرحله ۲: انتخاب زمان -->
     <div class="appt-panel" data-panel="2">
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">تاریخ مراجعه</label>
-          <input type="text" class="form-input" value="۴۰۳/۰۵/۱۵">
-        </div>
-        <div class="form-group">
-          <label class="form-label">بازه زمانی</label>
-          <select class="form-select">
-            <option>صبح (۸ تا ۱۲)</option>
-            <option>بعدازظهر (۱۲ تا ۱۶)</option>
-            <option>عصر (۶ تا ۲۰)</option>
-          </select>
-        </div>
-      </div>
-      <label class="form-label" style="margin-top:20px;display:block">ساعت پیشنهادی</label>
-      <div class="time-slots" id="timeSlots">
-        <div class="time-slot" data-time="08:30">۰۸:۳۰</div>
-        <div class="time-slot" data-time="09:00">۹:۰۰</div>
-        <div class="time-slot" data-time="09:30">۰۹:۳۰</div>
-        <div class="time-slot" data-time="10:00">۰:۰۰</div>
-        <div class="time-slot disabled">۱:۳۰</div>
-        <div class="time-slot" data-time="11:00">۱۱:۰۰</div>
-        <div class="time-slot" data-time="11:30">۱:۳۰</div>
-      </div>
+      <label class="form-label" style="display:block;margin-bottom:12px">تاریخ مراجعه (۷ روز آینده)</label>
+      <div class="date-slots" id="dateSlots"></div>
+      <label class="form-label" style="display:block;margin-bottom:12px;margin-top:20px">ساعت مراجعه</label>
+      <div class="time-slots" id="timeSlots"></div>
       <div class="appt-nav">
         <button class="btn btn-ghost" onclick="nextStep(1)">→ بازگشت</button>
         <button class="btn btn-primary" onclick="nextStep(3)">مرحله بعد ←</button>
       </div>
     </div>
 
+    <!-- مرحله ۳: اطلاعات بیمار -->
     <div class="appt-panel" data-panel="3">
       <div class="form-grid">
         <div class="form-group">
@@ -373,15 +421,15 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
         </div>
         <div class="form-group">
           <label class="form-label">شماره موبایل *</label>
-          <input type="tel" class="form-input" id="patientPhone" placeholder="۰۹۱۲۳۵۶۷۸۹">
+          <input type="tel" class="form-input" id="patientPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
         </div>
         <div class="form-group">
           <label class="form-label">کد ملی</label>
           <input type="text" class="form-input" id="nationalCode" placeholder="۰۰۱۲۳۴۵۶۷۸">
         </div>
         <div class="form-group">
-          <label class="form-label">سن</label>
-          <input type="number" class="form-input" id="patientAge" placeholder="۳۵">
+          <label class="form-label">ایمیل (اختیاری)</label>
+          <input type="email" class="form-input" id="patientEmail" placeholder="example@gmail.com">
         </div>
         <div class="form-group full">
           <label class="form-label">علائم و توضیحات (اختیاری)</label>
@@ -391,113 +439,75 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
 
       <label class="form-label" style="display:block;margin-bottom:12px;margin-top:20px">راه ارتباطی برای پیگیری نوبت *</label>
       <div class="contact-methods" id="contactMethods">
-        <div class="contact-method" data-method="email">
-          <div class="ico">📧</div>
-          <strong>Gmail</strong>
-          <small>ارسال ایمیل</small>
-        </div>
-        <div class="contact-method" data-method="telegram">
-          <div class="ico">️</div>
-          <strong>Telegram</strong>
+        <div class="contact-method selected" data-method="telegram">
+          <div class="ico">✈️</div>
+          <strong>تلگرام</strong>
           <small>پیام تلگرام</small>
         </div>
         <div class="contact-method" data-method="bale">
-          <div class="ico"></div>
-          <strong>Bale</strong>
+          <div class="ico">💬</div>
+          <strong>بله</strong>
           <small>پیام بله</small>
         </div>
-      </div>
-
-      <div class="form-group full" style="margin-top:16px">
-        <label class="form-label" id="contactLabel">آدرس ارتباطی (ایمیل / آیدی تلگرام / آیدی بله) *</label>
-        <input type="text" class="form-input" id="contactInfo" placeholder="مثلاً: ali@gmail.com یا @ali_ahmadi">
+        <div class="contact-method" data-method="email">
+          <div class="ico">📧</div>
+          <strong>ایمیل</strong>
+          <small>ارسال ایمیل</small>
+        </div>
       </div>
 
       <div class="appt-nav">
         <button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button>
-        <button class="btn btn-primary" onclick="nextStep(4)">ادامه به پرداخت ←</button>
+        <button class="btn btn-primary" onclick="nextStep(4)">مرحله بعد ←</button>
       </div>
     </div>
 
+    <!-- مرحله ۴: تأیید و ثبت -->
     <div class="appt-panel" data-panel="4">
-      <div class="payment-wrap">
-        <div class="invoice-head">
-          <div>
-            <h3>فاکتور خدمات</h3>
-            <small>شناسه فاکتور: <span id="invoiceId">INV-2024-0821</span></small>
-          </div>
-          <div class="invoice-code">#EK-9921</div>
-        </div>
+      <div class="summary-box">
+        <div class="summary-row"><span>خدمت</span><span id="sumService">-</span></div>
+        <div class="summary-row"><span>پزشک</span><span>دکتر غریب دوست (پزشک عمومی)</span></div>
+        <div class="summary-row"><span>تاریخ مراجعه</span><span id="sumDate">-</span></div>
+        <div class="summary-row"><span>ساعت</span><span id="sumTime">-</span></div>
+        <div class="summary-row"><span>بیمار</span><span id="sumPatient">-</span></div>
+        <div class="summary-row"><span>موبایل</span><span id="sumPhone">-</span></div>
+        <div class="summary-row"><span>راه پیگیری</span><span id="sumContact">-</span></div>
+        <div class="summary-row"><span>هزینه ویزیت</span><span id="sumPrice" style="color:var(--accent)">-</span></div>
+      </div>
 
-        <div class="invoice-items" id="invoiceItems">
-          <div class="invoice-item">
-            <div class="name"><strong id="sumService">ویزیت اولیه</strong><small id="sumDetail">دکتر سارا محمدی</small></div>
-            <div class="price" id="sumPrice">۳۵,۰۰۰ تومان</div>
-          </div>
-          <div class="invoice-item">
-            <div class="name"><strong>هزینه سیستم</strong><small>پردازش و نگهداری</small></div>
-            <div class="price">۱۵,۰۰۰ تومان</div>
-          </div>
-        </div>
+      <div class="notice-box">
+        💡 <strong>ثبت نوبت رایگان است.</strong> هزینه ویزیت در زمان مراجعه به مطب پرداخت می‌شود. پس از ثبت، شناسه پیگیری دریافت می‌کنید و نوبت شما از طریق کانال انتخابی پیگیری خواهد شد.
+      </div>
 
-        <div class="invoice-summary">
-          <div class="invoice-row"><span>جمع خدمات</span><span id="sumSubtotal">۳۵۰,۰۰ تومان</span></div>
-          <div class="invoice-row"><span>مالیات (۹٪)</span><span id="sumTax">۳,۵۰۰ تومان</span></div>
-          <div class="invoice-row"><span>تخفیف</span><span style="color:var(--success)">- ۰ تومان</span></div>
-          <div class="invoice-row total"><span>مبلغ قابل پرداخت</span><span class="val" id="sumTotal">۳۸۱,۵۰۰ تومان</span></div>
-        </div>
-
-        <label class="form-label" style="display:block;margin-bottom:10px">روش پرداخت</label>
-        <div class="payment-methods" id="payMethods">
-          <div class="pay-method selected" data-method="card">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-            <strong>کارت بانکی</strong>
-            <small>درگاه شاپرک</small>
-          </div>
-          <div class="pay-method" data-method="wallet">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
-            <strong>کیف پول</strong>
-            <small>موجودی: ۵۰,۰۰۰</small>
-          </div>
-          <div class="pay-method" data-method="installment">
-            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            <strong>اقساطی</strong>
-            <small>۳ تا ۱۲ ماه</small>
-          </div>
-        </div>
-
-        <div class="appt-nav">
-          <button class="btn btn-ghost" onclick="nextStep(3)">→ بازگشت</button>
-          <button class="btn btn-success" onclick="processPayment()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            پرداخت امن ۳۸۱,۵۰۰ تومان
-          </button>
-        </div>
+      <div class="appt-nav">
+        <button class="btn btn-ghost" onclick="nextStep(3)">→ بازگشت</button>
+        <button class="btn btn-success" id="submitBtn" onclick="submitAppointment()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          ثبت نهایی نوبت
+        </button>
       </div>
     </div>
 
+    <!-- رسید ثبت -->
     <div class="appt-panel" data-panel="5">
       <div class="receipt">
         <div class="receipt-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <h3>پرداخت با موفقیت انجام شد 🎉</h3>
-        <p>نوبت شما ثبت و تایید شد. پیامک و ایمیل تایید به زودی ارسال می‌شود.</p>
+        <h3>نوبت شما با موفقیت ثبت شد 🎉</h3>
+        <p>شناسه پیگیری خود را یادداشت کنید. پیام تأیید به‌زودی از طریق کانال انتخابی ارسال می‌شود.</p>
         
-        <div class="receipt-code" id="trackingCode">TRK-8A3F92K1</div>
+        <div class="receipt-code" id="trackingCode">—</div>
         
         <div class="receipt-details">
-          <div class="row"><span>شناسه پیگیری</span><span id="recTrack">TRK-8A3F92K1</span></div>
-          <div class="row"><span>کد فاکتور</span><span id="recInvoice">INV-2024-0821</span></div>
-          <div class="row"><span>خدمت</span><span id="recService">ویزیت اولیه</span></div>
-          <div class="row"><span>پزشک</span><span id="recDoc">دکتر سارا محمدی</span></div>
-          <div class="row"><span>تاریخ مراجعه</span><span>۱۴۰۳/۰۵/۱۵</span></div>
-          <div class="row"><span>ساعت</span><span id="recTime">۰۹:۰۰</span></div>
-          <div class="row"><span>بیمار</span><span id="recPatient">علی احمدی</span></div>
-          <div class="row"><span>راه پیگیری</span><span id="recContact">Gmail</span></div>
-          <div class="row"><span>مبلغ پرداختی</span><span style="color:var(--success)" id="recAmount">۳۸۱,۵۰۰ تومان</span></div>
-          <div class="row"><span>روش پرداخت</span><span id="recMethod">کارت بانکی</span></div>
-          <div class="row"><span>زمان پرداخت</span><span id="recDate">—</span></div>
+          <div class="row"><span>شناسه پیگیری</span><span id="recTrack">—</span></div>
+          <div class="row"><span>خدمت</span><span id="recService">—</span></div>
+          <div class="row"><span>پزشک</span><span>دکتر غریب دوست</span></div>
+          <div class="row"><span>تاریخ مراجعه</span><span id="recDate">—</span></div>
+          <div class="row"><span>ساعت</span><span id="recTime">—</span></div>
+          <div class="row"><span>بیمار</span><span id="recPatient">—</span></div>
+          <div class="row"><span>راه پیگیری</span><span id="recContact">—</span></div>
+          <div class="row"><span>زمان ثبت</span><span id="recRegDate">—</span></div>
         </div>
 
         <div class="receipt-actions">
@@ -525,7 +535,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
     </div>
     <div class="chat-title">
       <strong>دستیار هوشمند مطب</strong>
-      <small><span style="width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block"></span> آنلاین · متصل به n8n</small>
+      <small>آنلاین · متصل به n8n</small>
     </div>
     <div class="chat-close" onclick="toggleChat()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
   </div>
@@ -536,42 +546,153 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <footer>
   <div class="footer-content">
-    <p>© ۱۴۰۳ مطب دکتر سارا محمدی · کلینیک هوشمند اکما · تمامی حقوق محفوظ است.</p>
+    <p>© ۱۴۰۴ مطب دکتر غریب دوست · پزشک عمومی · تمامی حقوق محفوظ است.</p>
     <p style="margin-top:8px">ساخته شده با ❤️ · متصل به n8n Workflow</p>
   </div>
 </footer>
 
 <script>
-// ============================================
-// تنظیمات اتصال به n8n
-// ============================================
+// ============================================================
+// ⚙️ تنظیمات اتصال به n8n
+// فقط این بخش را ویرایش کنید
+// ============================================================
 const N8N_CONFIG = {
-  appointmentWebhook: 'https://n8n.yourdomain.com/webhook/ekma-appointment',
-  chatWebhook: 'https://n8n.yourdomain.com/webhook/ekma-chat',
-  apiKey: 'YOUR_API_KEY_HERE',
-  timeout: 10000
+  // آدرس پایه n8n شما (از Cloudflare Tunnel یا دامنه)
+  baseUrl: 'https://n8n.ekmaai.ir',
+  
+  // مسیر Webhook نوبت‌دهی (باید در n8n بسازید)
+  appointmentWebhook: '/webhook/website-appointment',
+  
+  // مسیر Webhook چت‌بات (باید در n8n بسازید)
+  chatWebhook: '/webhook/website-chat',
+  
+  // کلید امنیتی (اختیاری - اگر در n8n تنظیم کرده‌اید)
+  apiKey: '',
+  
+  // زمان انتظار (میلی‌ثانیه)
+  timeout: 15000
 };
 
-// ============================================
+// ============================================================
 // State Management
-// ============================================
+// ============================================================
 const state = {
   selectedService: null,
   selectedPrice: 0,
+  selectedDate: '',
+  selectedDateLabel: '',
   selectedTime: '',
   patientName: '',
   patientPhone: '',
-  contactMethod: '',
-  contactInfo: '',
-  payMethod: 'card',
-  totalAmount: 0
+  nationalCode: '',
+  patientEmail: '',
+  symptoms: '',
+  contactMethod: 'telegram',
+  trackingCode: ''
 };
 
-// ============================================
+const DOCTOR_NAME = 'دکتر غریب دوست';
+const DOCTOR_SPEC = 'پزشک عمومی';
+
+// ============================================================
+// Toast Notification
+// ============================================================
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ============================================================
+// تبدیل اعداد به فارسی
+// ============================================================
+function toFa(s) {
+  return String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+// ============================================================
+// تولید تاریخ‌های ۷ روز آینده (شمسی)
+// ============================================================
+function toJalali(gy, gm, gd) {
+  const g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy = (gy <= 1600) ? 0 : 979;
+  gy = (gy <= 1600) ? (gy - 621) : (gy - 1600);
+  const gy2 = (gm > 2) ? (gy + 1) : gy;
+  let days = (365*gy) + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400) - 80 + gd + g_d_m[gm-1];
+  jy += 33 * Math.floor(days/12053); days %= 12053;
+  jy += 4 * Math.floor(days/1461); days %= 1461;
+  jy += Math.floor((days-1)/365);
+  if (days > 365) days = (days-1) % 365;
+  const jm = (days < 186) ? 1 + Math.floor(days/31) : 7 + Math.floor((days-186)/30);
+  const jd = 1 + ((days < 186) ? (days % 31) : ((days-186) % 30));
+  return [jy, jm, jd];
+}
+const J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const J_DAYS = ['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
+
+function generateDates() {
+  const container = document.getElementById('dateSlots');
+  container.innerHTML = '';
+  const today = new Date();
+  
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() + i);
+    
+    // جمعه‌ها تعطیل
+    if (d.getDay() === 5) continue;
+    
+    const j = toJalali(d.getFullYear(), d.getMonth()+1, d.getDate());
+    const isoDate = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const label = J_DAYS[d.getDay()] + ' ' + toFa(j[2]) + ' ' + J_MONTHS[j[1]-1];
+    
+    const slot = document.createElement('div');
+    slot.className = 'date-slot';
+    slot.dataset.date = isoDate;
+    slot.dataset.label = label;
+    slot.innerHTML = `<span class="dow">${J_DAYS[d.getDay()]}</span><span class="dnum">${toFa(j[2])} ${J_MONTHS[j[1]-1]}</span>`;
+    slot.addEventListener('click', () => {
+      document.querySelectorAll('.date-slot').forEach(s => s.classList.remove('selected'));
+      slot.classList.add('selected');
+      state.selectedDate = slot.dataset.date;
+      state.selectedDateLabel = slot.dataset.label;
+    });
+    container.appendChild(slot);
+  }
+}
+
+function generateTimes() {
+  const container = document.getElementById('timeSlots');
+  container.innerHTML = '';
+  const times = [];
+  for (let h = 9; h <= 17; h++) {
+    times.push(String(h).padStart(2,'0') + ':00');
+    if (h < 17) times.push(String(h).padStart(2,'0') + ':30');
+  }
+  
+  times.forEach(t => {
+    const slot = document.createElement('div');
+    slot.className = 'time-slot';
+    slot.dataset.time = t;
+    const parts = t.split(':');
+    slot.textContent = toFa(parts[0]) + ':' + toFa(parts[1]);
+    slot.addEventListener('click', () => {
+      document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+      slot.classList.add('selected');
+      state.selectedTime = slot.dataset.time;
+    });
+    container.appendChild(slot);
+  });
+}
+
+// ============================================================
 // Service Selection
-// ============================================
+// ============================================================
 document.querySelectorAll('.service-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
@@ -581,80 +702,42 @@ document.querySelectorAll('.service-card').forEach(card => {
   });
 });
 
-// ============================================
-// Time Slot Selection
-// ============================================
-document.querySelectorAll('.time-slot').forEach(slot => {
-  slot.addEventListener('click', () => {
-    if (slot.classList.contains('disabled')) return;
-    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-    slot.classList.add('selected');
-    state.selectedTime = slot.dataset.time;
-  });
-});
-
-// ============================================
+// ============================================================
 // Contact Method Selection
-// ============================================
+// ============================================================
 document.querySelectorAll('.contact-method').forEach(method => {
   method.addEventListener('click', () => {
     document.querySelectorAll('.contact-method').forEach(m => m.classList.remove('selected'));
     method.classList.add('selected');
     state.contactMethod = method.dataset.method;
-    
-    const label = document.getElementById('contactLabel');
-    const input = document.getElementById('contactInfo');
-    
-    if (state.contactMethod === 'email') {
-      label.textContent = 'آدرس Gmail *';
-      input.placeholder = 'مثلاً: ali@gmail.com';
-    } else if (state.contactMethod === 'telegram') {
-      label.textContent = 'آیدی Telegram *';
-      input.placeholder = 'مثلاً: @ali_ahmadi';
-    } else if (state.contactMethod === 'bale') {
-      label.textContent = 'آیدی Bale *';
-      input.placeholder = 'مثلاً: @ali_ahmadi';
-    }
   });
 });
 
-// ============================================
-// Payment Method Selection
-// ============================================
-document.querySelectorAll('.pay-method').forEach(method => {
-  method.addEventListener('click', () => {
-    document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
-    method.classList.add('selected');
-    state.payMethod = method.dataset.method;
-  });
-});
-
-// ============================================
+// ============================================================
 // Step Navigation
-// ============================================
+// ============================================================
 function nextStep(n) {
   if (n === 2 && !state.selectedService) {
-    alert('لطفاً ابتدا نوع خدمت را انتخاب کنید');
+    showToast('لطفاً ابتدا نوع خدمت را انتخاب کنید', 'error');
     return;
   }
-  if (n === 3 && !state.selectedTime) {
-    alert('لطفاً ساعت مراجعه را انتخاب کنید');
-    return;
+  if (n === 3) {
+    if (!state.selectedDate) { showToast('لطفاً تاریخ مراجعه را انتخاب کنید', 'error'); return; }
+    if (!state.selectedTime) { showToast('لطفاً ساعت مراجعه را انتخاب کنید', 'error'); return; }
   }
   if (n === 4) {
-    state.patientName = document.getElementById('patientName').value;
-    state.patientPhone = document.getElementById('patientPhone').value;
-    state.contactInfo = document.getElementById('contactInfo').value;
+    state.patientName = document.getElementById('patientName').value.trim();
+    state.patientPhone = document.getElementById('patientPhone').value.trim();
+    state.nationalCode = document.getElementById('nationalCode').value.trim();
+    state.patientEmail = document.getElementById('patientEmail').value.trim();
+    state.symptoms = document.getElementById('symptoms').value.trim();
     
-    if (!state.patientName || !state.patientPhone) {
-      alert('لطفاً نام و شماره موبایل را وارد کنید');
+    if (!state.patientName) { showToast('لطفاً نام و نام خانوادگی را وارد کنید', 'error'); return; }
+    if (!/^09\d{9}$/.test(state.patientPhone.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))) {
+      showToast('لطفاً شماره موبایل معتبر وارد کنید (۰۹XXXXXXXXX)', 'error');
       return;
     }
-    if (!state.contactMethod || !state.contactInfo) {
-      alert('لطفاً راه ارتباطی برای پیگیری را انتخاب و تکمیل کنید');
-      return;
-    }
-    updateInvoice();
+    updateSummary();
   }
   
   document.querySelectorAll('.appt-step').forEach(s => {
@@ -667,157 +750,149 @@ function nextStep(n) {
   document.querySelector(`[data-panel="${n}"]`).classList.add('active');
 }
 
-function updateInvoice() {
+function updateSummary() {
   document.getElementById('sumService').textContent = state.selectedService;
-  document.getElementById('sumPrice').textContent = state.selectedPrice.toLocaleString('fa-IR') + ' تومان';
-  
-  const systemFee = 15000;
-  const subtotal = state.selectedPrice;
-  const tax = Math.round(subtotal * 0.09);
-  const total = subtotal + systemFee + tax;
-  
-  document.getElementById('sumSubtotal').textContent = subtotal.toLocaleString('fa-IR') + ' تومان';
-  document.getElementById('sumTax').textContent = tax.toLocaleString('fa-IR') + ' تومان';
-  document.getElementById('sumTotal').textContent = total.toLocaleString('fa-IR') + ' تومان';
-  
-  state.totalAmount = total;
-  
-  const payBtn = document.querySelector('.appt-panel[data-panel="4"] .btn-success');
-  if (payBtn) {
-    payBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> پرداخت امن ${total.toLocaleString('fa-IR')} تومان`;
-  }
+  document.getElementById('sumDate').textContent = state.selectedDateLabel;
+  document.getElementById('sumTime').textContent = toFa(state.selectedTime);
+  document.getElementById('sumPatient').textContent = state.patientName;
+  document.getElementById('sumPhone').textContent = toFa(state.patientPhone);
+  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
+  document.getElementById('sumContact').textContent = methodNames[state.contactMethod];
+  document.getElementById('sumPrice').textContent = state.selectedPrice.toLocaleString('fa-IR') + ' تومان (پرداخت در مطب)';
 }
 
-// ============================================
-// Payment Processing
-// ============================================
-async function processPayment() {
-  const btn = event.target.closest('button');
-  const originalHTML = btn.innerHTML;
-  btn.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite"></span> در حال پردازش...';
-  btn.disabled = true;
-
-  // ساخت داده‌های نوبت
-  const appointmentData = {
-    event: 'appointment.new',
-    timestamp: new Date().toISOString(),
-    patient: {
-      name: state.patientName,
-      phone: state.patientPhone,
-      nationalCode: document.getElementById('nationalCode').value,
-      age: document.getElementById('patientAge').value
-    },
-    appointment: {
-      service: state.selectedService,
-      doctor: 'دکتر سارا محمدی',
-      specialty: 'قلب و عروق',
-      date: '۴۰۳/۰۵/۱۵',
-      time: state.selectedTime,
-      symptoms: document.getElementById('symptoms').value
-    },
-    contact: {
-      method: state.contactMethod,
-      info: state.contactInfo
-    },
-    payment: {
-      amount: state.totalAmount,
-      method: state.payMethod,
-      status: 'pending'
-    },
-    trackingCode: 'TRK-' + Math.random().toString(36).substring(2, 10).toUpperCase()
-  };
-
-  // ارسال به n8n
+// ============================================================
+// n8n Integration
+// ============================================================
+async function sendToN8N(endpoint, data) {
+  const url = N8N_CONFIG.baseUrl + endpoint;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), N8N_CONFIG.timeout);
+  
   try {
-    const n8nResponse = await sendToN8N(N8N_CONFIG.appointmentWebhook, appointmentData);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Ekma-Source': 'ekmaai-clinic',
+        ...(N8N_CONFIG.apiKey && { 'Authorization': `Bearer ${N8N_CONFIG.apiKey}` })
+      },
+      body: JSON.stringify(data),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
     
-    if (n8nResponse && n8nResponse.status === 'success') {
-      appointmentData.trackingCode = n8nResponse.trackingCode || appointmentData.trackingCode;
-    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
   } catch (error) {
+    clearTimeout(timeoutId);
     console.error('n8n Error:', error);
-    // ادامه با داده‌های محلی
+    return { status: 'error', message: error.message };
   }
-
-  setTimeout(() => {
-    btn.innerHTML = originalHTML;
-    btn.disabled = false;
-    generateReceipt(appointmentData);
-    nextStep(5);
-  }, 2000);
 }
 
-function generateReceipt(data) {
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('fa-IR') + ' · ' + now.toLocaleTimeString('fa-IR', {hour: '2-digit', minute: '2-digit'});
+// ============================================================
+// Submit Appointment
+// ============================================================
+async function submitAppointment() {
+  const btn = document.getElementById('submitBtn');
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<span class="spinner"></span> در حال ثبت نوبت...';
+  btn.disabled = true;
   
-  document.getElementById('trackingCode').textContent = data.trackingCode;
-  document.getElementById('recTrack').textContent = data.trackingCode;
-  document.getElementById('recInvoice').textContent = document.getElementById('invoiceId').textContent;
-  document.getElementById('recService').textContent = data.appointment.service;
-  document.getElementById('recDoc').textContent = data.appointment.doctor;
-  document.getElementById('recTime').textContent = data.appointment.time;
-  document.getElementById('recPatient').textContent = data.patient.name;
-  document.getElementById('recContact').textContent = state.contactMethod === 'email' ? 'Gmail' : state.contactMethod === 'telegram' ? 'Telegram' : 'Bale';
-  document.getElementById('recAmount').textContent = data.payment.amount.toLocaleString('fa-IR') + ' تومان';
-  document.getElementById('recMethod').textContent = state.payMethod === 'card' ? 'کارت بانکی' : state.payMethod === 'wallet' ? 'کیف پول' : 'اقساطی';
-  document.getElementById('recDate').textContent = dateStr;
+  // تولید شناسه پیگیری
+  state.trackingCode = 'EKMA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  
+  // ساخت payload مطابق با parseWebsite در n8n
+  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
+  const payload = {
+    // فیلدهای مورد شناسایی parseWebsite
+    name: state.patientName,
+    mobile: state.patientPhone,
+    national_id: state.nationalCode,
+    email: state.patientEmail,
+    message: 
+      `درخواست نوبت جدید از وب‌سایت:\n` +
+      `خدمت: ${state.selectedService}\n` +
+      `پزشک: ${DOCTOR_NAME} (${DOCTOR_SPEC})\n` +
+      `تاریخ: ${state.selectedDate}\n` +
+      `ساعت: ${state.selectedTime}\n` +
+      `راه پیگیری: ${methodNames[state.contactMethod]}\n` +
+      `شناسه پیگیری: ${state.trackingCode}\n` +
+      (state.symptoms ? `توضیحات بیمار: ${state.symptoms}` : ''),
+    // فیلدهای اضافی برای workflow
+    channel: 'website',
+    requested_doctor: DOCTOR_NAME,
+    requested_date: state.selectedDate,
+    requested_time: state.selectedTime + ':00',
+    service: state.selectedService,
+    tracking_code: state.trackingCode,
+    contact_method: state.contactMethod
+  };
+  
+  // ارسال به n8n
+  const response = await sendToN8N(N8N_CONFIG.appointmentWebhook, payload);
+  
+  btn.innerHTML = originalHTML;
+  btn.disabled = false;
+  
+  if (response && response.status === 'success') {
+    if (response.trackingCode) state.trackingCode = response.trackingCode;
+    showReceipt();
+    showToast('نوبت شما با موفقیت ثبت شد ✓');
+  } else if (response && response.status === 'error') {
+    // اگر n8n در دسترس نبود، همچنان رسید محلی نمایش بده (برای دمو)
+    console.warn('n8n در دسترس نیست - حالت دمو');
+    showReceipt();
+    showToast('نوبت ثبت شد (حالت دمو - اتصال n8n برقرار نیست)', 'error');
+  } else {
+    showReceipt();
+    showToast('نوبت شما ثبت شد ✓');
+  }
+}
+
+function showReceipt() {
+  const now = new Date();
+  const regDate = now.toLocaleDateString('fa-IR') + ' · ' + now.toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'});
+  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
+  
+  document.getElementById('trackingCode').textContent = state.trackingCode;
+  document.getElementById('recTrack').textContent = state.trackingCode;
+  document.getElementById('recService').textContent = state.selectedService;
+  document.getElementById('recDate').textContent = state.selectedDateLabel;
+  document.getElementById('recTime').textContent = toFa(state.selectedTime);
+  document.getElementById('recPatient').textContent = state.patientName;
+  document.getElementById('recContact').textContent = methodNames[state.contactMethod];
+  document.getElementById('recRegDate').textContent = regDate;
+  
+  document.querySelectorAll('.appt-step').forEach(s => s.classList.add('done'));
+  document.querySelectorAll('.appt-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-panel="5"]').classList.add('active');
 }
 
 function resetBooking() {
   state.selectedService = null;
   state.selectedPrice = 0;
+  state.selectedDate = '';
   state.selectedTime = '';
   state.patientName = '';
   state.patientPhone = '';
-  state.contactMethod = '';
-  state.contactInfo = '';
   
   document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.date-slot').forEach(s => s.classList.remove('selected'));
   document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-  document.querySelectorAll('.contact-method').forEach(m => m.classList.remove('selected'));
   document.getElementById('patientName').value = '';
   document.getElementById('patientPhone').value = '';
-  document.getElementById('contactInfo').value = '';
+  document.getElementById('nationalCode').value = '';
+  document.getElementById('patientEmail').value = '';
+  document.getElementById('symptoms').value = '';
   
   nextStep(1);
 }
 
-// ============================================
-// n8n Integration
-// ============================================
-async function sendToN8N(webhookUrl, data) {
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Ekma-Source': 'ekmaai-clinic',
-        'X-Ekma-Timestamp': new Date().toISOString(),
-        ...(N8N_CONFIG.apiKey && {
-          'Authorization': `Bearer ${N8N_CONFIG.apiKey}`
-        })
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('n8n Error:', error);
-    return {
-      status: 'error',
-      message: 'خطا در اتصال به سرور'
-    };
-  }
-}
-
-// ============================================
+// ============================================================
 // Chatbot
-// ============================================
+// ============================================================
 let chatOpen = false;
 const chatBody = document.getElementById('chatBody');
 const chatInput = document.getElementById('chatInput');
@@ -831,39 +906,28 @@ function toggleChat() {
 }
 
 function initChat() {
-  addMsg('bot', 'سلام!  من دستیار هوشمند مطب دکتر محمدی هستم. چطور می‌تونم کمکتون کنم؟', [
-    {text: '️ رزرو نوبت', action: () => {
-      addMsg('user', 'می‌خوام نوبت بگیرم');
-      setTimeout(() => addMsg('bot', 'عالی! برای رزرو نوبت، لطفاً از فرم نوبت‌دهی در صفحه استفاده کنید. آیا می‌خواهید شما را به فرم هدایت کنم؟', [
-        {text: '✅ بله، هدایت کن', action: () => {
-          addMsg('user', 'بله لطفاً');
-          setTimeout(() => {
-            addMsg('bot', 'در حال انتقال به فرم نوبت‌دهی...');
-            setTimeout(() => {
-              document.getElementById('appointment').scrollIntoView({behavior: 'smooth'});
-              toggleChat();
-            }, 800);
-          }, 300);
-        }},
-        {text: '❌ فعلاً نه', action: () => addMsg('bot', 'باشه، هر وقت خواستید من اینجام 😊')}
-      ]), 400);
-    }},
-    {text: '📍 آدرس مطب', action: () => {
-      addMsg('user', 'آدرس مطب کجاست؟');
-      setTimeout(() => addMsg('bot', '📍 آدرس مطب: تهران، خیابان ولیعصر، بالاتر از میدان ونک، پلاک ۱۲۳، طبقه ۵\n\n📞 تلفن: ۰۲۱-۸۸۷۷۶۶۵۵\n\n⏰ ساعات کاری: شنبه تا چهارشنبه ۹ صبح تا ۹ شب'), 400);
-    }},
-    {text: ' هزینه ویزیت', action: () => {
-      addMsg('user', 'هزینه ویزیت چقدر است؟');
-      setTimeout(() => addMsg('bot', '💰 هزینه خدمات:\n\n• ویزیت اولیه: ۳۵۰,۰۰ تومان\n• ویزیت پیگیری: ۲۵۰,۰۰۰ تومان\n• مشاوره تلفنی: ۲۰۰,۰۰۰ تومان\n• چکاپ کامل قلب: ۸۰۰,۰۰ تومان\n\nبرای رزرو نوبت از فرم بالا استفاده کنید.'), 400);
-    }}
+  addMsg('bot', 'سلام! 👋 من دستیار هوشمند مطب دکتر غریب دوست هستم. چطور می‌تونم کمکتون کنم؟', [
+    { text: '🗓️ رزرو نوبت', action: () => handleQuickReply('می‌خوام نوبت بگیرم') },
+    { text: '📍 آدرس مطب', action: () => handleQuickReply('آدرس مطب کجاست؟') },
+    { text: '💰 هزینه ویزیت', action: () => handleQuickReply('هزینه ویزیت چقدر است؟') },
+    { text: '⏰ ساعات کاری', action: () => handleQuickReply('ساعات کاری مطب چطور است؟') }
   ]);
+}
+
+function handleQuickReply(text) {
+  addMsg('user', text);
+  showTyping();
+  setTimeout(() => {
+    removeTyping();
+    localChatResponse(text);
+  }, 500);
 }
 
 function addMsg(who, text, quickReplies = []) {
   const div = document.createElement('div');
   div.className = `msg ${who}`;
   const avatar = who === 'bot' ? '🤖' : '👤';
-  const time = new Date().toLocaleTimeString('fa-IR', {hour: '2-digit', minute: '2-digit'});
+  const time = new Date().toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'});
   let qr = '';
   if (quickReplies.length) {
     qr = '<div class="quick-replies">' + quickReplies.map((r, i) => `<button class="quick-reply" data-idx="${i}">${r.text}</button>`).join('') + '</div>';
@@ -871,7 +935,7 @@ function addMsg(who, text, quickReplies = []) {
   div.innerHTML = `<div class="msg-avatar">${avatar}</div><div><div class="msg-bubble">${text}</div>${qr}<div class="msg-time">${time}</div></div>`;
   chatBody.appendChild(div);
   chatBody.scrollTop = chatBody.scrollHeight;
-
+  
   if (quickReplies.length) {
     div.querySelectorAll('.quick-reply').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -899,70 +963,87 @@ function removeTyping() {
 async function sendMsg() {
   const text = chatInput.value.trim();
   if (!text) return;
-
+  
   addMsg('user', text);
   chatInput.value = '';
   showTyping();
-
-  // ساخت داده‌های چت
-  const chatData = {
-    event: 'chat.message',
-    sessionId: getOrCreateSessionId(),
-    userId: 'user_' + Math.floor(Math.random() * 9000 + 1000),
+  
+  // ساخت payload مطابق parseWebsite
+  const payload = {
     message: text,
-    context: {
-      previousMessages: chatBody.querySelectorAll('.msg').length,
-      intent: null
-    }
+    channel: 'website',
+    sessionId: getOrCreateSessionId()
   };
-
+  
   // ارسال به n8n
-  let response = null;
-  try {
-    response = await sendToN8N(N8N_CONFIG.chatWebhook, chatData);
-  } catch (error) {
-    console.error('Chat n8n Error:', error);
-  }
-
+  const response = await sendToN8N(N8N_CONFIG.chatWebhook, payload);
+  
   removeTyping();
-
-  // نمایش پاسخ
+  
   if (response && response.status === 'success' && response.reply) {
     addMsg('bot', response.reply, response.quickReplies || []);
+  } else if (response && response.replyText) {
+    // فرمت خروجی workflow اصلی
+    addMsg('bot', response.replyText);
   } else {
-    // پاسخ‌های محلی (fallback)
-    const lower = text.toLowerCase();
-    if (lower.includes('نوبت') || lower.includes('رزرو')) {
-      addMsg('bot', 'برای رزرو نوبت می‌تونم کمکتون کنم. لطفاً از فرم نوبت‌دهی در صفحه استفاده کنید یا یکی از گزینه‌های زیر را انتخاب کنید:', [
-        {text: '🗓️ هدایت به فرم', action: () => {
-          document.getElementById('appointment').scrollIntoView({behavior: 'smooth'});
-          toggleChat();
-        }},
-        {text: '❓ سوال دیگر', action: () => addMsg('bot', 'بفرمایید، چه سوالی دارید؟')}
-      ]);
-    } else if (lower.includes('سلام') || lower.includes('درود')) {
-      addMsg('bot', 'سلام! خوش اومدید 😊 چطور می‌تونم کمکتون کنم؟');
-    } else if (lower.includes('آدرس') || lower.includes('کجا')) {
-      addMsg('bot', '📍 آدرس مطب: تهران، خیابان ولیعصر، بالاتر از میدان ونک، پلاک ۱۲۳، طبقه ۵\n\n📞 تلفن: ۰۲۱-۸۸۷۶۶۵۵');
-    } else if (lower.includes('هزینه') || lower.includes('قیمت')) {
-      addMsg('bot', '💰 هزینه خدمات:\n\n• ویزیت اولیه: ۳۵۰,۰۰ تومان\n• ویزیت پیگیری: ۲۵۰,۰۰ تومان\n• مشاوره تلفنی: ۲۰۰,۰۰ تومان\n• چکاپ کامل قلب: ۸۰۰,۰۰۰ تومان');
-    } else {
-      addMsg('bot', 'ممنون از پیامتون! برای راهنمایی بیشتر می‌تونید یکی از گزینه‌های زیر رو انتخاب کنید:', [
-        {text: '🗓️ رزرو نوبت', action: () => addMsg('bot', 'لطفاً از فرم نوبت‌دهی در صفحه استفاده کنید.')},
-        {text: '📞 تماس با ما', action: () => addMsg('bot', 'شماره تماس مطب: ۲۱-۸۸۷۷۶۶۵۵')}
-      ]);
-    }
+    // پاسخ محلی (fallback برای دمو)
+    localChatResponse(text);
+  }
+}
+
+function localChatResponse(text) {
+  const lower = text.toLowerCase();
+  
+  if (lower.includes('نوبت') || lower.includes('رزرو') || lower.includes('وقت')) {
+    addMsg('bot', 'برای رزرو نوبت می‌تونم کمکتون کنم. 😊\n\nلطفاً از فرم نوبت‌دهی در صفحه استفاده کنید. آیا می‌خواهید شما را به فرم هدایت کنم؟', [
+      { text: '✅ بله، هدایت کن', action: () => {
+        addMsg('user', 'بله لطفاً');
+        setTimeout(() => {
+          addMsg('bot', 'در حال انتقال به فرم نوبت‌دهی... 🗓️');
+          setTimeout(() => {
+            document.getElementById('appointment').scrollIntoView({behavior:'smooth'});
+            toggleChat();
+          }, 800);
+        }, 300);
+      }},
+      { text: '❌ فعلاً نه', action: () => handleQuickReply('سوال دیگر') }
+    ]);
+  } else if (lower.includes('آدرس') || lower.includes('کجا') || lower.includes('مطب')) {
+    addMsg('bot', '📍 آدرس مطب: تهران، خیابان ولیعصر، بالاتر از میدان ونک، پلاک ۱۲۳، طبقه ۳\n\n📞 تلفن: ۰۲۱-۸۸۷۷۶۶۵۵\n\n⏰ ساعات کاری: شنبه تا چهارشنبه ۹ صبح تا ۵ عصر');
+  } else if (lower.includes('هزینه') || lower.includes('قیمت') || lower.includes('چقدر')) {
+    addMsg('bot', '💰 هزینه خدمات مطب:\n\n• ویزیت عمومی: ۲۵۰,۰۰۰ تومان\n• چکاپ کامل سلامت: ۴۰۰,۰۰۰ تومان\n• مشاوره پزشکی: ۱۵۰,۰۰۰ تومان\n• نسخه‌نویسی: ۱۰۰,۰۰۰ تومان\n• گواهی سلامت: ۱۲۰,۰۰۰ تومان\n• واکسیناسیون: ۲۰۰,۰۰۰ تومان\n\n💡 ثبت نوبت رایگان است و پرداخت در مطب انجام می‌شود.');
+  } else if (lower.includes('ساعت') || lower.includes('کاری') || lower.includes('زمان')) {
+    addMsg('bot', '⏰ ساعات کاری مطب:\n\nشنبه تا چهارشنبه: ۹ صبح تا ۵ عصر\nپنجشنبه: ۹ صبح تا ۱ ظهر\nجمعه: تعطیل\n\n🗓️ برای رزرو نوبت از فرم نوبت‌دهی استفاده کنید.');
+  } else if (lower.includes('سلام') || lower.includes('درود') || lower.includes('خوبی')) {
+    addMsg('bot', 'سلام! خوش اومدید 😊\nچطور می‌تونم کمکتون کنم؟', [
+      { text: '🗓️ رزرو نوبت', action: () => handleQuickReply('می‌خوام نوبت بگیرم') },
+      { text: '💰 هزینه‌ها', action: () => handleQuickReply('هزینه ویزیت چقدر است؟') }
+    ]);
+  } else if (lower.includes('دکتر') || lower.includes('غریب')) {
+    addMsg('bot', '👨‍⚕️ دکتر غریب دوست، پزشک عمومی\n\nبا سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج، چکاپ دوره‌ای و مشاوره سلامت.\n\n🗓️ برای رزرو نوبت از فرم نوبت‌دهی استفاده کنید.');
+  } else {
+    addMsg('bot', 'ممنون از پیامتون! 🙏\n\nبرای راهنمایی بیشتر می‌تونید یکی از گزینه‌های زیر رو انتخاب کنید:', [
+      { text: '🗓️ رزرو نوبت', action: () => handleQuickReply('می‌خوام نوبت بگیرم') },
+      { text: '📍 آدرس مطب', action: () => handleQuickReply('آدرس مطب کجاست؟') },
+      { text: '📞 تماس با ما', action: () => handleQuickReply('شماره تماس') }
+    ]);
   }
 }
 
 function getOrCreateSessionId() {
   let sessionId = localStorage.getItem('ekma_session_id');
   if (!sessionId) {
-    sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+    sessionId = 'website_' + Math.random().toString(36).substring(2, 15);
     localStorage.setItem('ekma_session_id', sessionId);
   }
   return sessionId;
 }
+
+// ============================================================
+// Initialize
+// ============================================================
+generateDates();
+generateTimes();
 </script>
 </body>
 </html>
