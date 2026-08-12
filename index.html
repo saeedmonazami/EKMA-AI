@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>مطب دکتر غریب دوست | نوبت‌دهی هوشمند متصل به n8n</title>
+<title>مطب دکتر غریب دوست | نوبت‌دهی هوشمند</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -28,6 +28,9 @@ button{font-family:inherit;cursor:pointer;border:none}
 .nav-links a{padding:9px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:14px;transition:.25s;cursor:pointer}
 .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.05)}
 .nav-links a.active{background:rgba(16,185,129,.15);color:var(--primary)}
+.user-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-size:13px;font-weight:600;margin-right:8px}
+.user-chip .logout{cursor:pointer;opacity:.7;transition:.2s}
+.user-chip .logout:hover{opacity:1;color:var(--danger)}
 .btn{padding:11px 20px;border-radius:12px;font-weight:600;font-size:14px;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;border:none}
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.35)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(16,185,129,.5)}
@@ -112,26 +115,21 @@ button{font-family:inherit;cursor:pointer;border:none}
 .form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
 .form-textarea{resize:vertical;min-height:80px}
 
-.date-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-bottom:20px}
+.date-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-bottom:20px}
 .date-slot{padding:12px 8px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;cursor:pointer;transition:.2s}
 .date-slot:hover{border-color:var(--primary)}
 .date-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.date-slot.full{opacity:.4;cursor:not-allowed;background:rgba(239,68,68,.08);border-color:var(--danger)}
 .date-slot .dow{font-size:12px;font-weight:700;display:block}
 .date-slot .dnum{font-size:11px;color:var(--muted);margin-top:2px;display:block}
 .date-slot.selected .dnum{color:rgba(255,255,255,.8)}
+.date-slot.full .dow{color:var(--danger)}
 
 .time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:10px}
 .time-slot{padding:12px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);text-align:center;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
 .time-slot:hover{border-color:var(--primary)}
 .time-slot.selected{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
-
-.contact-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-.contact-method{padding:16px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);cursor:pointer;transition:.2s;text-align:center}
-.contact-method:hover{border-color:var(--primary)}
-.contact-method.selected{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(34,211,238,.1));border-color:var(--primary)}
-.contact-method .ico{font-size:26px;margin-bottom:8px}
-.contact-method strong{display:block;font-size:13px;margin-bottom:4px}
-.contact-method small{color:var(--muted);font-size:11px}
+.time-slot.reserved{opacity:.4;cursor:not-allowed;background:rgba(239,68,68,.12);border-color:var(--danger);color:var(--danger)}
 
 .appt-nav{display:flex;justify-content:space-between;margin-top:24px;gap:10px}
 
@@ -160,7 +158,6 @@ button{font-family:inherit;cursor:pointer;border:none}
 .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Chat Window */
 .chat-container{max-width:900px;margin:0 auto;padding:20px;height:calc(100vh - 140px);display:flex;flex-direction:column}
 .chat-window-full{flex:1;background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
 .chat-header{padding:16px 18px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;gap:12px;color:#fff}
@@ -199,21 +196,6 @@ button{font-family:inherit;cursor:pointer;border:none}
 .chat-send:hover{transform:scale(1.05)}
 .chat-send svg{width:18px;height:18px}
 
-/* Dashboard */
-.dash-container{max-width:1100px;margin:0 auto;padding:30px 22px}
-.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;flex-wrap:wrap;gap:16px}
-.dash-header h2{font-size:26px;font-weight:800}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:30px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;transition:.25s}
-.stat-card:hover{border-color:var(--primary);transform:translateY(-2px)}
-.stat-card .label{color:var(--muted);font-size:13px;margin-bottom:8px;display:block}
-.stat-card .value{font-size:32px;font-weight:800;color:var(--accent);margin-bottom:4px;display:block}
-.stat-card .trend{font-size:12px;color:var(--primary);display:flex;align-items:center;gap:4px}
-.stat-card .ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(34,211,238,.15));display:grid;place-items:center;float:left;margin:-8px 0 0 12px}
-.stat-card .ico svg{width:22px;height:22px;color:var(--primary)}
-
-.data-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:20px}
-.data-card h3{font-size:17px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
 .data-table{width:100%;border-collapse:collapse;font-size:13px}
 .data-table th{text-align:right;padding:12px 10px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:12px}
 .data-table td{padding:12px 10px;border-bottom:1px solid var(--border)}
@@ -223,10 +205,6 @@ button{font-family:inherit;cursor:pointer;border:none}
 .badge-success{background:rgba(16,185,129,.15);color:var(--success)}
 .badge-pending{background:rgba(245,158,11,.15);color:var(--warn)}
 .badge-cancelled{background:rgba(239,68,68,.15);color:var(--danger)}
-
-.login-box{max-width:420px;margin:80px auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center}
-.login-box h3{margin-bottom:12px}
-.login-box p{color:var(--muted);margin-bottom:24px;font-size:13px}
 
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:200;padding:14px 24px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;display:flex;align-items:center;gap:10px;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -238,13 +216,19 @@ button{font-family:inherit;cursor:pointer;border:none}
 .empty-state svg{width:64px;height:64px;opacity:.3;margin-bottom:16px}
 .empty-state p{font-size:14px}
 
+/* Login Modal */
+.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:100;display:none;place-items:center;padding:20px}
+.login-overlay.show{display:grid}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:440px;box-shadow:var(--shadow);animation:fadeIn .3s}
+.login-box h3{margin-bottom:8px;font-size:20px}
+.login-box > p{color:var(--muted);margin-bottom:24px;font-size:13px;line-height:1.7}
+
 footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;background:rgba(11,16,32,.5)}
 .footer-content{max-width:1100px;margin:0 auto;padding:0 22px;text-align:center;color:var(--muted);font-size:13px}
 
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;padding-top:40px}
   .form-grid{grid-template-columns:1fr}
-  .contact-methods{grid-template-columns:1fr}
   .nav-links{width:100%;justify-content:center;overflow-x:auto}
 }
 @media(max-width:600px){
@@ -274,11 +258,41 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       <a data-page="appointment" onclick="navigate('appointment')">نوبت‌دهی</a>
       <a data-page="my-appts" onclick="navigate('my-appts')">نوبت‌های من</a>
       <a data-page="chat" onclick="navigate('chat')">مشاوره هوشمند</a>
-      <a data-page="doctor" onclick="navigate('doctor')">داشبورد دکتر</a>
-      <a data-page="admin" onclick="navigate('admin')">مدیریت</a>
+      <span id="userChip" class="user-chip" style="display:none">
+        <span>👤</span>
+        <span id="userName"></span>
+        <span class="logout" onclick="logout()" title="خروج">✕</span>
+      </span>
     </div>
   </div>
 </nav>
+
+<!-- ============ Login Modal ============ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h3>🔐 ورود / ثبت‌نام با کد ملی</h3>
+    <p>یک‌بار اطلاعات وارد کنید، همیشه با کد ملی خود پیگیری کنید (دقیقاً مانند تلگرام)</p>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label">نام و نام خانوادگی</label>
+        <input type="text" class="form-input" id="loginName" placeholder="مثلاً: علی احمدی">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">کد ملی (۱۰ رقم)</label>
+        <input type="text" class="form-input" id="loginNid" placeholder="۰۰۱۲۳۴۵۶۷۸">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">شماره موبایل</label>
+        <input type="tel" class="form-input" id="loginMobile" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()" id="loginBtn" style="margin-top:16px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      ورود / ثبت‌نام
+    </button>
+    <button class="btn btn-ghost btn-block" onclick="closeLogin()" style="margin-top:8px">بعداً</button>
+  </div>
+</div>
 
 <!-- ============ صفحه اصلی ============ -->
 <div class="page active" id="page-home">
@@ -286,7 +300,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
     <div>
       <div class="hero-tag"><span class="dot"></span> n8n فعال · نوبت‌دهی هوشمند</div>
       <h1>مطب <span class="grad">دکتر غریب دوست</span><br>پزشک عمومی</h1>
-      <p>نوبت‌دهی آنلاین و هوشمند با اتصال مستقیم به workflowهای n8n. ثبت، تغییر، حذف نوبت و مشاوره پزشکی — همه از طریق یک پلتفرم یکپارچه.</p>
+      <p>نوبت‌دهی آنلاین با اتصال مستقیم به workflowهای n8n. ثبت، تغییر، حذف نوبت و مشاوره پزشکی — همه از طریق یک پلتفرم یکپارچه.</p>
       <div class="hero-actions">
         <button class="btn btn-primary" onclick="navigate('appointment')">🗓️ رزرو نوبت</button>
         <button class="btn btn-ghost" onclick="navigate('chat')">💬 مشاوره هوشمند</button>
@@ -302,7 +316,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=faces" alt="دکتر غریب دوست" class="doctor-img-large">
       <h2>دکتر غریب دوست</h2>
       <div class="spec">پزشک عمومی</div>
-      <p class="bio">پزشک عمومی با سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج، چکاپ دوره‌ای، مشاوره سلامت و پیگیری بیماری‌های مزمن.</p>
+      <p class="bio">پزشک عمومی با سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج، چکاپ دوره‌ای و مشاوره سلامت.</p>
       <div class="doctor-meta-grid">
         <div class="meta-item"><span class="val">+۱۵۰۰</span><span class="lbl">بیمار راضی</span></div>
         <div class="meta-item"><span class="val">۴.۹</span><span class="lbl">امتیاز</span></div>
@@ -346,8 +360,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       <div class="appt-steps">
         <div class="appt-step active" data-step="1"><div class="step-num">۱</div><div class="step-label">انتخاب خدمت</div></div>
         <div class="appt-step" data-step="2"><div class="step-num">۲</div><div class="step-label">زمان</div></div>
-        <div class="appt-step" data-step="3"><div class="step-num">۳</div><div class="step-label">اطلاعات شما</div></div>
-        <div class="appt-step" data-step="4"><div class="step-num">۴</div><div class="step-label">تأیید و ثبت</div></div>
+        <div class="appt-step" data-step="3"><div class="step-num">۳</div><div class="step-label">تأیید و ثبت</div></div>
       </div>
 
       <div class="appt-panel active" data-panel="1">
@@ -382,10 +395,14 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       </div>
 
       <div class="appt-panel" data-panel="2">
-        <label class="form-label" style="display:block;margin-bottom:12px">تاریخ مراجعه (۷ روز آینده)</label>
+        <label class="form-label" style="display:block;margin-bottom:12px">تاریخ مراجعه (۱۴ روز آینده)</label>
+        <div id="slotsLoading" style="text-align:center;padding:20px;display:none"><span class="spinner"></span> در حال دریافت اسلات‌ها...</div>
         <div class="date-slots" id="dateSlots"></div>
         <label class="form-label" style="display:block;margin-top:20px">ساعت مراجعه</label>
-        <div class="time-slots" id="timeSlots"></div>
+        <div class="time-slots" id="timeSlots">
+          <div style="color:var(--muted);font-size:13px;padding:10px">ابتدا یک تاریخ انتخاب کنید</div>
+        </div>
+        <div id="slotWarning" style="display:none"></div>
         <div class="appt-nav">
           <button class="btn btn-ghost" onclick="nextStep(1)">→ بازگشت</button>
           <button class="btn btn-primary" onclick="nextStep(3)">مرحله بعد ←</button>
@@ -393,26 +410,6 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       </div>
 
       <div class="appt-panel" data-panel="3">
-        <div class="form-grid">
-          <div class="form-group"><label class="form-label">نام و نام خانوادگی *</label><input type="text" class="form-input" id="patientName" placeholder="مثلاً: علی احمدی"></div>
-          <div class="form-group"><label class="form-label">شماره موبایل *</label><input type="tel" class="form-input" id="patientPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹"></div>
-          <div class="form-group"><label class="form-label">کد ملی *</label><input type="text" class="form-input" id="nationalCode" placeholder="۰۰۱۲۳۴۵۶۷۸"></div>
-          <div class="form-group"><label class="form-label">ایمیل (اختیاری)</label><input type="email" class="form-input" id="patientEmail" placeholder="example@gmail.com"></div>
-          <div class="form-group full"><label class="form-label">علائم (اختیاری)</label><textarea class="form-textarea" id="symptoms" placeholder="توضیح کوتاه..."></textarea></div>
-        </div>
-        <label class="form-label" style="display:block;margin-top:20px">راه ارتباطی برای یادآوری *</label>
-        <div class="contact-methods" id="contactMethods">
-          <div class="contact-method selected" data-method="telegram"><div class="ico">✈️</div><strong>تلگرام</strong><small>پیام تلگرام</small></div>
-          <div class="contact-method" data-method="bale"><div class="ico">💬</div><strong>بله</strong><small>پیام بله</small></div>
-          <div class="contact-method" data-method="email"><div class="ico">📧</div><strong>ایمیل</strong><small>ارسال ایمیل</small></div>
-        </div>
-        <div class="appt-nav">
-          <button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button>
-          <button class="btn btn-primary" onclick="nextStep(4)">مرحله بعد ←</button>
-        </div>
-      </div>
-
-      <div class="appt-panel" data-panel="4">
         <div class="summary-box">
           <div class="summary-row"><span>خدمت</span><span id="sumService">-</span></div>
           <div class="summary-row"><span>پزشک</span><span>دکتر غریب دوست</span></div>
@@ -421,12 +418,15 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
           <div class="summary-row"><span>بیمار</span><span id="sumPatient">-</span></div>
           <div class="summary-row"><span>موبایل</span><span id="sumPhone">-</span></div>
           <div class="summary-row"><span>کد ملی</span><span id="sumNid">-</span></div>
-          <div class="summary-row"><span>راه پیگیری</span><span id="sumContact">-</span></div>
           <div class="summary-row"><span>هزینه</span><span id="sumPrice" style="color:var(--accent)">-</span></div>
         </div>
-        <div class="notice-box">💡 <strong>ثبت نوبت رایگان است.</strong> پرداخت در مطب. یادآوری‌ها در زمان‌های ۲۴ ساعت قبل، ۱ ساعت قبل و صبح روز ویزیت از طریق کانال انتخابی ارسال می‌شود.</div>
+        <div class="form-group full" style="margin-bottom:20px">
+          <label class="form-label">توضیحات (اختیاری)</label>
+          <textarea class="form-textarea" id="symptoms" placeholder="علت مراجعه یا علائم..."></textarea>
+        </div>
+        <div class="notice-box">💡 <strong>ثبت نوبت رایگان است.</strong> پرداخت در مطب. یادآوری‌ها در زمان‌های ۲۴ ساعت قبل، ۱ ساعت قبل و صبح روز ویزیت از طریق تلگرام ارسال می‌شود.</div>
         <div class="appt-nav">
-          <button class="btn btn-ghost" onclick="nextStep(3)">→ بازگشت</button>
+          <button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button>
           <button class="btn btn-success" id="submitBtn" onclick="submitAppointment()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             ثبت نهایی نوبت
@@ -434,7 +434,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
         </div>
       </div>
 
-      <div class="appt-panel" data-panel="5">
+      <div class="appt-panel" data-panel="4">
         <div class="receipt">
           <div class="receipt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>نوبت با موفقیت ثبت شد 🎉</h3>
@@ -446,7 +446,6 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
             <div class="row"><span>تاریخ</span><span id="recDate">—</span></div>
             <div class="row"><span>ساعت</span><span id="recTime">—</span></div>
             <div class="row"><span>بیمار</span><span id="recPatient">—</span></div>
-            <div class="row"><span>یادآوری</span><span id="recContact">—</span></div>
           </div>
           <div class="receipt-actions">
             <button class="btn btn-ghost" onclick="navigate('my-appts')">📋 نوبت‌های من</button>
@@ -463,23 +462,11 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   <section class="section">
     <div class="section-head">
       <h2>نوبت‌های من</h2>
-      <p>با وارد کردن شماره موبایل، نوبت‌های خود را مشاهده، تغییر یا لغو کنید</p>
+      <p>نوبت‌های فعال شما. می‌توانید لغو یا تغییر دهید.</p>
     </div>
-    <div class="appt-wrap" style="max-width:800px;margin:0 auto">
-      <div class="form-grid" style="margin-bottom:20px">
-        <div class="form-group full">
-          <label class="form-label">شماره موبایل ثبت‌شده</label>
-          <div style="display:flex;gap:10px">
-            <input type="tel" class="form-input" id="myPhoneLookup" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="flex:1">
-            <button class="btn btn-primary" onclick="loadMyAppointments()">جستجو</button>
-          </div>
-        </div>
-      </div>
+    <div class="appt-wrap" style="max-width:900px;margin:0 auto">
       <div id="myAppointmentsContainer">
-        <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <p>شماره موبایل خود را وارد کنید تا نوبت‌های شما نمایش داده شود</p>
-        </div>
+        <div style="text-align:center;padding:40px"><span class="spinner"></span> در حال دریافت...</div>
       </div>
     </div>
   </section>
@@ -508,58 +495,6 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </div>
 </div>
 
-<!-- ============ داشبورد دکتر ============ -->
-<div class="page" id="page-doctor">
-  <div id="doctorLoginView">
-    <div class="login-box">
-      <h3>👨‍⚕️ ورود پزشک</h3>
-      <p>فقط دکتر غریب دوست مجاز به ورود است</p>
-      <input type="password" class="form-input" id="doctorPass" placeholder="رمز عبور" style="margin-bottom:12px">
-      <button class="btn btn-primary btn-block" onclick="loginDoctor()">ورود</button>
-    </div>
-  </div>
-  <div class="dash-container" id="doctorDashView" style="display:none">
-    <div class="dash-header">
-      <h2>👨‍⚕️ داشبورد دکتر غریب دوست</h2>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-ghost btn-sm" onclick="loadDoctorDash()">🔄 بروزرسانی</button>
-        <button class="btn btn-ghost btn-sm" onclick="logoutDoctor()">خروج</button>
-      </div>
-    </div>
-    <div class="stats-grid" id="doctorStats"></div>
-    <div class="data-card">
-      <h3>📅 نوبت‌های آینده</h3>
-      <div id="doctorAppointments"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ داشبورد مدیر ============ -->
-<div class="page" id="page-admin">
-  <div id="adminLoginView">
-    <div class="login-box">
-      <h3>🔐 ورود مدیر</h3>
-      <p>دسترسی به داشبورد مدیریت کلینیک</p>
-      <input type="password" class="form-input" id="adminPass" placeholder="رمز عبور" style="margin-bottom:12px">
-      <button class="btn btn-primary btn-block" onclick="loginAdmin()">ورود</button>
-    </div>
-  </div>
-  <div class="dash-container" id="adminDashView" style="display:none">
-    <div class="dash-header">
-      <h2>📊 داشبورد مدیریت کلینیک EKMA</h2>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-ghost btn-sm" onclick="loadAdminDash()">🔄 بروزرسانی</button>
-        <button class="btn btn-ghost btn-sm" onclick="logoutAdmin()">خروج</button>
-      </div>
-    </div>
-    <div class="stats-grid" id="adminStats"></div>
-    <div class="data-card">
-      <h3>📋 همه نوبت‌ها</h3>
-      <div id="adminAppointments"></div>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <footer>
@@ -573,21 +508,13 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
 // ⚙️ تنظیمات اتصال به n8n
 // ============================================================
 const N8N_CONFIG = {
-  baseUrl: 'http://localhost:5679',  // ← آدرس n8n لوکال
-  appointmentWebhook: '/webhook/website-appointment',
-  chatWebhook: '/webhook/website-chat',
-  listWebhook: '/webhook/website-list',
-  cancelWebhook: '/webhook/website-cancel',
-  rescheduleWebhook: '/webhook/website-reschedule',
-  adminDashWebhook: '/webhook/website-admin',
-  doctorDashWebhook: '/webhook/website-doctor',
-  apiKey: '',
-  timeout: 20000
+  baseUrl: 'http://localhost:5679',
+  loginWebhook: '/webhook/website-login',
+  mainWebhook: '/webhook/website-chat',   // همه درخواست‌های دیگر از اینجا
+  timeout: 30000
 };
 
 const DOCTOR_NAME = 'دکتر غریب دوست';
-const ADMIN_PASS = 'admin123';    // در production تغییر دهید
-const DOCTOR_PASS = 'doctor123';  // در production تغییر دهید
 
 // ============================================================
 // State
@@ -595,32 +522,11 @@ const DOCTOR_PASS = 'doctor123';  // در production تغییر دهید
 const state = {
   selectedService: null, selectedPrice: 0,
   selectedDate: '', selectedDateLabel: '', selectedTime: '',
-  patientName: '', patientPhone: '', nationalCode: '', patientEmail: '', symptoms: '',
-  contactMethod: 'telegram', trackingCode: ''
+  trackingCode: ''
 };
 
-// ============================================================
-// Navigation
-// ============================================================
-function navigate(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
-  window.scrollTo(0, 0);
-  
-  if (page === 'chat' && !window.chatInitialized) { initChat(); window.chatInitialized = true; }
-  if (page === 'my-appts') { document.getElementById('myPhoneLookup').value = localStorage.getItem('ekma_my_phone') || ''; }
-}
-
-// ============================================================
-// Toast
-// ============================================================
-function showToast(msg, type = 'success') {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.className = 'toast show ' + type;
-  setTimeout(() => toast.classList.remove('show'), 3500);
-}
+let reservedSlots = [];
+let currentUser = null;
 
 // ============================================================
 // Helpers
@@ -646,13 +552,111 @@ const J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','م�
 const J_DAYS = ['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
 
 // ============================================================
+// User (Login / Logout)
+// ============================================================
+function loadUser() {
+  try {
+    const u = JSON.parse(localStorage.getItem('ekma_user') || 'null');
+    currentUser = u;
+    if (u) {
+      document.getElementById('userChip').style.display = 'inline-flex';
+      document.getElementById('userName').textContent = u.name;
+    }
+    return u;
+  } catch { return null; }
+}
+
+function showLogin() {
+  if (currentUser) return;
+  document.getElementById('loginOverlay').classList.add('show');
+}
+
+function closeLogin() {
+  document.getElementById('loginOverlay').classList.remove('show');
+}
+
+async function doLogin() {
+  const name = document.getElementById('loginName').value.trim();
+  const nid = faToEn(document.getElementById('loginNid').value.trim());
+  const mobile = faToEn(document.getElementById('loginMobile').value.trim());
+
+  if (!name) { showToast('نام الزامی است', 'error'); return; }
+  if (!/^\d{10}$/.test(nid)) { showToast('کد ملی باید ۱۰ رقم باشد', 'error'); return; }
+  if (!/^09\d{9}$/.test(mobile)) { showToast('موبایل نامعتبر (مثال: ۰۹۱۲۳۴۵۶۷۸۹)', 'error'); return; }
+
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> در حال ورود...';
+
+  const res = await sendToN8N(N8N_CONFIG.loginWebhook, { name, national_id: nid, mobile });
+
+  btn.disabled = false;
+  btn.innerHTML = 'ورود / ثبت‌نام';
+
+  if (res && res.status === 'success') {
+    const user = {
+      token: res.token,
+      name: res.patient?.full_name || name,
+      mobile: res.patient?.mobile || mobile,
+      national_id: res.patient?.national_id || nid
+    };
+    localStorage.setItem('ekma_user', JSON.stringify(user));
+    loadUser();
+    closeLogin();
+    showToast('✅ خوش آمدید ' + user.name);
+  } else {
+    showToast(res?.message || '⚠️ خطا در ورود', 'error');
+  }
+}
+
+function logout() {
+  if (!confirm('آیا مطمئن هستید؟')) return;
+  localStorage.removeItem('ekma_user');
+  currentUser = null;
+  location.reload();
+}
+
+// ============================================================
+// Navigation
+// ============================================================
+function navigate(page) {
+  if ((page === 'appointment' || page === 'my-appts' || page === 'chat') && !currentUser) {
+    showLogin();
+    return;
+  }
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+  window.scrollTo(0, 0);
+
+  if (page === 'chat' && !window.chatInitialized) { initChat(); window.chatInitialized = true; }
+  if (page === 'appointment') {
+    loadSlots().then(() => { generateDates(); });
+  }
+  if (page === 'my-appts') {
+    loadMyAppointments();
+  }
+}
+
+// ============================================================
+// Toast
+// ============================================================
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ============================================================
 // n8n Integration
 // ============================================================
 async function sendToN8N(endpoint, data, method = 'POST') {
   const url = N8N_CONFIG.baseUrl + endpoint;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), N8N_CONFIG.timeout);
-  
+
   try {
     const options = {
       method,
@@ -660,10 +664,10 @@ async function sendToN8N(endpoint, data, method = 'POST') {
       signal: controller.signal
     };
     if (method === 'POST') options.body = JSON.stringify(data);
-    
+
     const response = await fetch(url, options);
     clearTimeout(timeoutId);
-    
+
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const text = await response.text();
     try { return JSON.parse(text); } catch { return { raw: text }; }
@@ -675,59 +679,130 @@ async function sendToN8N(endpoint, data, method = 'POST') {
 }
 
 // ============================================================
-// Dates & Times
+// Load Slots (aslat-haye rerveshode)
+// ============================================================
+async function loadSlots() {
+  if (!currentUser) return;
+  const loading = document.getElementById('slotsLoading');
+  if (loading) loading.style.display = 'block';
+
+  const res = await sendToN8N(N8N_CONFIG.mainWebhook, {
+    action: 'list_appointments',
+    channel: 'website',
+    session_key: currentUser.token
+  });
+
+  if (loading) loading.style.display = 'none';
+
+  // در پاسخ n8n، لیست نوبت‌ها به شکل replyText است یا appointments
+  reservedSlots = [];
+  if (res && res.appointments && Array.isArray(res.appointments)) {
+    reservedSlots = res.appointments.filter(a => a.status === 'scheduled');
+  } else if (res && res.slots && Array.isArray(res.slots)) {
+    reservedSlots = res.slots;
+  }
+}
+
+// ============================================================
+// Dates & Times (با نمایش قرمز/سبز)
 // ============================================================
 function generateDates() {
   const container = document.getElementById('dateSlots');
   if (!container) return;
   container.innerHTML = '';
   const today = new Date();
-  for (let i = 0; i < 7; i++) {
+
+  for (let i = 0; i < 14; i++) {
     const d = new Date(today);
     d.setDate(d.getDate() + i);
     if (d.getDay() === 5) continue; // جمعه تعطیل
+
     const j = toJalali(d.getFullYear(), d.getMonth()+1, d.getDate());
     const isoDate = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     const label = J_DAYS[d.getDay()] + ' ' + toFa(j[2]) + ' ' + J_MONTHS[j[1]-1];
+
+    // شمارش اسلات‌های رزرو شده در این روز
+    const daySlots = reservedSlots.filter(s => {
+      const sDate = String(s.appointment_date || '').substring(0, 10);
+      return sDate === isoDate;
+    });
+    const isFull = daySlots.length >= 22;
+
     const slot = document.createElement('div');
-    slot.className = 'date-slot';
+    slot.className = 'date-slot' + (isFull ? ' full' : '');
     slot.dataset.date = isoDate;
     slot.dataset.label = label;
-    slot.innerHTML = `<span class="dow">${J_DAYS[d.getDay()]}</span><span class="dnum">${toFa(j[2])} ${J_MONTHS[j[1]-1]}</span>`;
-    slot.onclick = () => {
-      document.querySelectorAll('.date-slot').forEach(s => s.classList.remove('selected'));
-      slot.classList.add('selected');
-      state.selectedDate = isoDate;
-      state.selectedDateLabel = label;
-    };
+
+    if (isFull) {
+      slot.innerHTML = `<span class="dow">🔴 پر</span><span class="dnum">${toFa(j[2])} ${J_MONTHS[j[1]-1]}</span>`;
+    } else {
+      slot.innerHTML = `<span class="dow">${J_DAYS[d.getDay()]}</span><span class="dnum">${toFa(j[2])} ${J_MONTHS[j[1]-1]}</span>`;
+      slot.onclick = () => {
+        document.querySelectorAll('.date-slot').forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+        state.selectedDate = isoDate;
+        state.selectedDateLabel = label;
+        generateTimes();
+      };
+    }
     container.appendChild(slot);
   }
 }
 
 function generateTimes() {
   const container = document.getElementById('timeSlots');
+  const warning = document.getElementById('slotWarning');
   if (!container) return;
   container.innerHTML = '';
-  for (let h = 9; h <= 17; h++) {
+  if (warning) warning.style.display = 'none';
+
+  if (!state.selectedDate) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:10px">ابتدا یک تاریخ انتخاب کنید</div>';
+    return;
+  }
+
+  // چک: آیا کاربر در این روز نوبت دارد؟ (هر بیمار یک نوبت در روز)
+  if (currentUser) {
+    // چون patient_id را در توکن نداریم، چک را از روی mobile می‌کنیم
+    const userHasSlot = reservedSlots.some(s =>
+      String(s.appointment_date || '').substring(0, 10) === state.selectedDate &&
+      (String(s.mobile || '') === currentUser.mobile || String(s.patient_mobile || '') === currentUser.mobile)
+    );
+    // اگر در workflow patient_id را برگردانیم می‌توان دقیق‌تر چک کرد
+  }
+
+  for (let h = 8; h <= 19; h++) {
     ['00','30'].forEach(m => {
-      if (h === 17 && m === '30') return;
-      const t = String(h).padStart(2,'0') + ':' + m;
-      const slot = document.createElement('div');
-      slot.className = 'time-slot';
-      slot.dataset.time = t;
-      slot.textContent = toFa(String(h).padStart(2,'0')) + ':' + toFa(m);
-      slot.onclick = () => {
-        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-        slot.classList.add('selected');
-        state.selectedTime = t;
-      };
-      container.appendChild(slot);
+      if (h === 19 && m === '30') return;
+      const timeStr = String(h).padStart(2,'0') + ':' + m;
+
+      const slot = reservedSlots.find(s =>
+        String(s.appointment_date || '').substring(0, 10) === state.selectedDate &&
+        String(s.appointment_time || '').substring(0, 5) === timeStr
+      );
+      const isReserved = !!slot;
+
+      const div = document.createElement('div');
+      div.className = 'time-slot' + (isReserved ? ' reserved' : '');
+      div.dataset.time = timeStr;
+
+      if (isReserved) {
+        div.innerHTML = '🔴 ' + toFa(String(h).padStart(2,'0')) + ':' + toFa(m);
+      } else {
+        div.innerHTML = '🟢 ' + toFa(String(h).padStart(2,'0')) + ':' + toFa(m);
+        div.onclick = () => {
+          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+          div.classList.add('selected');
+          state.selectedTime = timeStr;
+        };
+      }
+      container.appendChild(div);
     });
   }
 }
 
 // ============================================================
-// Service & Contact Selection
+// Service Selection
 // ============================================================
 document.querySelectorAll('.service-card').forEach(c => {
   c.onclick = () => {
@@ -737,34 +812,19 @@ document.querySelectorAll('.service-card').forEach(c => {
     state.selectedPrice = parseInt(c.dataset.price);
   };
 });
-document.querySelectorAll('.contact-method').forEach(m => {
-  m.onclick = () => {
-    document.querySelectorAll('.contact-method').forEach(x => x.classList.remove('selected'));
-    m.classList.add('selected');
-    state.contactMethod = m.dataset.method;
-  };
-});
 
 // ============================================================
 // Step Navigation
 // ============================================================
 function nextStep(n) {
+  if (!currentUser && n > 1) { showLogin(); return; }
   if (n === 2 && !state.selectedService) { showToast('خدمت را انتخاب کنید', 'error'); return; }
   if (n === 3) {
     if (!state.selectedDate) { showToast('تاریخ را انتخاب کنید', 'error'); return; }
     if (!state.selectedTime) { showToast('ساعت را انتخاب کنید', 'error'); return; }
-  }
-  if (n === 4) {
-    state.patientName = document.getElementById('patientName').value.trim();
-    state.patientPhone = faToEn(document.getElementById('patientPhone').value.trim());
-    state.nationalCode = faToEn(document.getElementById('nationalCode').value.trim());
-    state.patientEmail = document.getElementById('patientEmail').value.trim();
-    state.symptoms = document.getElementById('symptoms').value.trim();
-    if (!state.patientName) { showToast('نام و نام خانوادگی الزامی است', 'error'); return; }
-    if (!/^09\d{9}$/.test(state.patientPhone)) { showToast('موبایل نامعتبر (مثال: ۰۹۱۲۳۴۵۶۷۸۹)', 'error'); return; }
-    if (!/^\d{10}$/.test(state.nationalCode)) { showToast('کد ملی باید ۱۰ رقم باشد', 'error'); return; }
     updateSummary();
   }
+
   document.querySelectorAll('.appt-step').forEach(s => {
     const step = +s.dataset.step;
     s.classList.remove('active','done');
@@ -779,109 +839,103 @@ function updateSummary() {
   document.getElementById('sumService').textContent = state.selectedService;
   document.getElementById('sumDate').textContent = state.selectedDateLabel;
   document.getElementById('sumTime').textContent = toFa(state.selectedTime);
-  document.getElementById('sumPatient').textContent = state.patientName;
-  document.getElementById('sumPhone').textContent = toFa(state.patientPhone);
-  document.getElementById('sumNid').textContent = toFa(state.nationalCode);
-  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
-  document.getElementById('sumContact').textContent = methodNames[state.contactMethod];
-  document.getElementById('sumPrice').textContent = state.selectedPrice.toLocaleString('fa-IR') + ' تومان (پرداخت در مطب)';
+  document.getElementById('sumPatient').textContent = currentUser?.name || '-';
+  document.getElementById('sumPhone').textContent = toFa(currentUser?.mobile || '');
+  document.getElementById('sumNid').textContent = toFa(currentUser?.national_id || '');
+  document.getElementById('sumPrice').textContent = (state.selectedPrice || 0).toLocaleString('fa-IR') + ' تومان (پرداخت در مطب)';
 }
 
 // ============================================================
-// Submit Appointment → n8n website-appointment
+// Submit Appointment
 // ============================================================
 async function submitAppointment() {
+  if (!currentUser) { showLogin(); return; }
+
   const btn = document.getElementById('submitBtn');
   const originalHTML = btn.innerHTML;
   btn.innerHTML = '<span class="spinner"></span> در حال ثبت...';
   btn.disabled = true;
-  
-  state.trackingCode = 'EKMA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
-  
-  // 🆕 فرمت دقیق برای parseWebsiteBooking در n8n
+
+  const trackingCode = 'EKMA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  const symptoms = document.getElementById('symptoms').value.trim();
+
   const payload = {
     action: 'booking',
     channel: 'website',
-    name: state.patientName,
-    mobile: state.patientPhone,
-    national_id: state.nationalCode,
-    email: state.patientEmail,
-    message: `درخواست نوبت جدید از وب‌سایت\nخدمت: ${state.selectedService}\nپزشک: ${DOCTOR_NAME}`,
+    session_key: currentUser.token,
+    service: state.selectedService,
     requested_doctor: DOCTOR_NAME,
     requested_date: state.selectedDate,
     requested_time: state.selectedTime + ':00',
-    service: state.selectedService,
-    price: state.selectedPrice,
-    tracking_code: state.trackingCode,
-    contact_method: state.contactMethod,
-    symptoms: state.symptoms
+    tracking_code: trackingCode,
+    symptoms: symptoms,
+    message: `ثبت نوبت جدید\nخدمت: ${state.selectedService}\nتاریخ: ${state.selectedDate}\nساعت: ${state.selectedTime}`
   };
-  
-  const response = await sendToN8N(N8N_CONFIG.appointmentWebhook, payload);
-  
+
+  const response = await sendToN8N(N8N_CONFIG.mainWebhook, payload);
+
   btn.innerHTML = originalHTML;
   btn.disabled = false;
-  
-  // ذخیره موبایل برای "نوبت‌های من"
-  localStorage.setItem('ekma_my_phone', state.patientPhone);
-  
-  // نمایش رسید (حتی اگر n8n پاسخ نداد، برای دمو)
-  showReceipt();
-  
-  if (response && response.status === 'success') {
-    showToast('✅ نوبت با موفقیت ثبت شد');
+
+  state.trackingCode = trackingCode;
+
+  const ok = (response && response.status === 'success') ||
+             (response && response.replyText && response.replyText.includes('ثبت'));
+
+  if (ok) {
     if (response.trackingCode) state.trackingCode = response.trackingCode;
-    document.getElementById('trackingCode').textContent = state.trackingCode;
-    document.getElementById('recTrack').textContent = state.trackingCode;
-  } else if (response && response.status === 'error') {
-    showToast('⚠️ n8n در دسترس نیست - نوبت در حالت دمو ثبت شد', 'info');
+    showReceipt();
+    showToast('✅ نوبت با موفقیت ثبت شد');
+    // refresh slots
+    await loadSlots();
   } else {
-    showToast('✅ نوبت ثبت شد');
+    showToast(response?.replyText || response?.message || '⚠️ خطا در ثبت نوبت', 'error');
   }
 }
 
 function showReceipt() {
-  const methodNames = { telegram: 'تلگرام', bale: 'بله', email: 'ایمیل' };
   document.getElementById('trackingCode').textContent = state.trackingCode;
   document.getElementById('recTrack').textContent = state.trackingCode;
   document.getElementById('recService').textContent = state.selectedService;
   document.getElementById('recDate').textContent = state.selectedDateLabel;
   document.getElementById('recTime').textContent = toFa(state.selectedTime);
-  document.getElementById('recPatient').textContent = state.patientName;
-  document.getElementById('recContact').textContent = methodNames[state.contactMethod];
+  document.getElementById('recPatient').textContent = currentUser?.name || '-';
   document.querySelectorAll('.appt-step').forEach(s => s.classList.add('done'));
   document.querySelectorAll('.appt-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('[data-panel="5"]').classList.add('active');
+  document.querySelector('[data-panel="4"]').classList.add('active');
 }
 
 function resetBooking() {
-  Object.assign(state, { selectedService: null, selectedPrice: 0, selectedDate: '', selectedDateLabel: '', selectedTime: '', patientName: '', patientPhone: '', nationalCode: '', patientEmail: '', symptoms: '', contactMethod: 'telegram' });
+  Object.assign(state, { selectedService: null, selectedPrice: 0, selectedDate: '', selectedDateLabel: '', selectedTime: '', trackingCode: '' });
   document.querySelectorAll('.service-card, .date-slot, .time-slot').forEach(x => x.classList.remove('selected'));
-  ['patientName','patientPhone','nationalCode','patientEmail','symptoms'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('symptoms').value = '';
   nextStep(1);
 }
 
 // ============================================================
-// نوبت‌های من → n8n website-list
+// My Appointments (با token به جای موبایل)
 // ============================================================
 async function loadMyAppointments() {
-  const phone = faToEn(document.getElementById('myPhoneLookup').value.trim());
-  if (!/^09\d{9}$/.test(phone)) { showToast('موبایل نامعتبر', 'error'); return; }
-  
-  localStorage.setItem('ekma_my_phone', phone);
+  if (!currentUser) { showLogin(); return; }
+
   const container = document.getElementById('myAppointmentsContainer');
   container.innerHTML = '<div style="text-align:center;padding:40px"><span class="spinner"></span> در حال دریافت...</div>';
-  
-  const response = await sendToN8N(N8N_CONFIG.listWebhook, { mobile: phone, channel: 'website' });
-  
-  if (response && response.status === 'success' && response.appointments && response.appointments.length > 0) {
+
+  const response = await sendToN8N(N8N_CONFIG.mainWebhook, {
+    action: 'list_appointments',
+    channel: 'website',
+    session_key: currentUser.token
+  });
+
+  if (response && response.appointments && response.appointments.length > 0) {
     renderMyAppointments(response.appointments);
+  } else if (response && response.replyText) {
+    // پاسخ dispatcher تلگرام-استایل
+    container.innerHTML = `<div style="padding:20px;white-space:pre-wrap;line-height:1.8">${response.replyText}</div>`;
   } else if (response && response.appointments && response.appointments.length === 0) {
-    container.innerHTML = '<div class="empty-state"><p>هیچ نوبت فعالی برای این شماره وجود ندارد</p></div>';
+    container.innerHTML = '<div class="empty-state"><p>هیچ نوبت فعالی ندارید</p></div>';
   } else {
-    // حالت دمو - نمایش نمونه
-    container.innerHTML = '<div class="empty-state"><p>⚠️ اتصال به n8n برقرار نیست. برای مشاهده واقعی، Webhook website-list را در n8n بسازید.</p></div>';
+    container.innerHTML = '<div class="empty-state"><p>⚠️ خطا در دریافت نوبت‌ها</p></div>';
   }
 }
 
@@ -889,10 +943,10 @@ function renderMyAppointments(appointments) {
   const container = document.getElementById('myAppointmentsContainer');
   const statusMap = { scheduled: 'تأیید شده', pending: 'در انتظار', cancelled: 'لغو شده' };
   const badgeMap = { scheduled: 'success', pending: 'pending', cancelled: 'cancelled' };
-  
+
   let html = '<table class="data-table"><thead><tr><th>شناسه</th><th>خدمت</th><th>تاریخ</th><th>ساعت</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody>';
   appointments.forEach(a => {
-    const j = a.appointment_date ? toJalali(...a.appointment_date.split('-').map(Number)) : [0,0,0];
+    const j = a.appointment_date ? toJalali(...String(a.appointment_date).substring(0,10).split('-').map(Number)) : [0,0,0];
     const dateLabel = j[0] ? `${toFa(j[2])} ${J_MONTHS[j[1]-1]} ${toFa(j[0])}` : a.appointment_date;
     html += `<tr>
       <td>${toFa(a.id)}</td>
@@ -914,26 +968,38 @@ function renderMyAppointments(appointments) {
 
 async function cancelAppointment(id) {
   if (!confirm('آیا از لغو این نوبت مطمئن هستید؟')) return;
-  const phone = localStorage.getItem('ekma_my_phone');
-  const response = await sendToN8N(N8N_CONFIG.cancelWebhook, { appointment_id: id, mobile: phone, channel: 'website' });
-  if (response && response.status === 'success') {
+  if (!currentUser) { showLogin(); return; }
+
+  const response = await sendToN8N(N8N_CONFIG.mainWebhook, {
+    action: 'cancel_appointment',
+    channel: 'website',
+    session_key: currentUser.token,
+    cancel_appointment_id: id,
+    appointment_id: id
+  });
+
+  const ok = (response && response.status === 'success') ||
+             (response && response.replyText && response.replyText.includes('لغو'));
+
+  if (ok) {
     showToast('✅ نوبت لغو شد');
     loadMyAppointments();
+    await loadSlots();
   } else {
-    showToast('⚠️ خطا در لغو نوبت', 'error');
+    showToast(response?.replyText || response?.message || '⚠️ خطا در لغو', 'error');
   }
 }
 
 function rescheduleAppointment(id) {
-  showToast('برای تغییر نوبت، لطفاً نوبت فعلی را لغو و نوبت جدید ثبت کنید', 'info');
+  showToast('برای تغییر، لطفاً نوبت فعلی را لغو و نوبت جدید ثبت کنید', 'info');
   navigate('appointment');
 }
 
 // ============================================================
-// چت‌بات → n8n website-chat
+// چت‌بات
 // ============================================================
 function initChat() {
-  addMsg('bot', 'سلام! 👋 من دستیار هوشمند مطب دکتر غریب دوست هستم.\nمی‌توانم به سؤالات پزشکی شما پاسخ دهم.', [
+  addMsg('bot', 'سلام ' + (currentUser?.name || '') + '! 👋\nمن دستیار هوشمند مطب دکتر غریب دوست هستم.\nمی‌توانم به سؤالات پزشکی شما پاسخ دهم.', [
     { text: '🗓️ رزرو نوبت', action: () => handleQuickReply('می‌خوام نوبت بگیرم') },
     { text: '💰 هزینه ویزیت', action: () => handleQuickReply('هزینه ویزیت چقدر است؟') },
     { text: '⏰ ساعات کاری', action: () => handleQuickReply('ساعات کاری؟') }
@@ -953,7 +1019,7 @@ function addMsg(who, text, quickReplies = []) {
   div.innerHTML = `<div class="msg-avatar">${avatar}</div><div><div class="msg-bubble">${text}</div>${qr}<div class="msg-time">${time}</div></div>`;
   chatBody.appendChild(div);
   chatBody.scrollTop = chatBody.scrollHeight;
-  
+
   if (quickReplies.length) {
     div.querySelectorAll('.quick-reply').forEach(btn => {
       btn.onclick = () => {
@@ -980,210 +1046,48 @@ function removeTyping() { document.getElementById('typingMsg')?.remove(); }
 function handleQuickReply(text) {
   addMsg('user', text);
   showTyping();
-  setTimeout(() => { removeTyping(); localChatResponse(text); }, 500);
+  setTimeout(async () => {
+    removeTyping();
+    await doSendMsg(text);
+  }, 300);
 }
 
 async function sendMsg() {
   const chatInput = document.getElementById('chatInput');
   const text = chatInput.value.trim();
   if (!text) return;
-  
-  addMsg('user', text);
   chatInput.value = '';
+  addMsg('user', text);
   showTyping();
-  
+  await doSendMsg(text);
+}
+
+async function doSendMsg(text) {
+  if (!currentUser) { removeTyping(); showLogin(); return; }
+
   const payload = {
     action: 'chat',
     channel: 'website',
+    session_key: currentUser.token,
     message: text,
-    sessionId: getOrCreateSessionId()
+    chatInput: text
   };
-  
-  const response = await sendToN8N(N8N_CONFIG.chatWebhook, payload);
+
+  const response = await sendToN8N(N8N_CONFIG.mainWebhook, payload);
   removeTyping();
-  
+
   if (response && (response.reply || response.replyText)) {
     addMsg('bot', response.reply || response.replyText);
   } else {
-    // حالت دمو
-    localChatResponse(text);
-  }
-}
-
-function localChatResponse(text) {
-  const lower = text.toLowerCase();
-  if (lower.includes('نوبت') || lower.includes('رزرو')) {
-    addMsg('bot', 'برای رزرو نوبت می‌توانید از بخش "نوبت‌دهی" در منو استفاده کنید.', [
-      { text: '🗓️ رفتن به فرم', action: () => { navigate('appointment'); } }
-    ]);
-  } else if (lower.includes('هزینه') || lower.includes('قیمت')) {
-    addMsg('bot', '💰 هزینه خدمات:\n• ویزیت عمومی: ۲۵۰,۰۰۰ تومان\n• چکاپ کامل: ۴۰۰,۰۰۰ تومان\n• مشاوره: ۱۵۰,۰۰۰ تومان\n• گواهی سلامت: ۱۲۰,۰۰۰ تومان');
-  } else if (lower.includes('سلام')) {
-    addMsg('bot', 'سلام! خوش آمدید 😊\nچه کمکی از دستم برمی‌آید؟');
-  } else {
-    addMsg('bot', 'برای پاسخ دقیق‌تر، لطفاً از طریق فرم نوبت‌دهی اقدام کنید یا سؤال خود را واضح‌تر مطرح کنید.\n\n💡 این پاسخ محلی است. برای پاسخ AI واقعی، Webhook website-chat را در n8n فعال کنید.');
-  }
-}
-
-function getOrCreateSessionId() {
-  let sessionId = localStorage.getItem('ekma_session_id');
-  if (!sessionId) {
-    sessionId = 'website_' + Math.random().toString(36).substring(2, 15);
-    localStorage.setItem('ekma_session_id', sessionId);
-  }
-  return sessionId;
-}
-
-// ============================================================
-// داشبورد دکتر
-// ============================================================
-function loginDoctor() {
-  const pass = document.getElementById('doctorPass').value;
-  if (pass === DOCTOR_PASS) {
-    sessionStorage.setItem('ekma_doctor_auth', '1');
-    document.getElementById('doctorLoginView').style.display = 'none';
-    document.getElementById('doctorDashView').style.display = 'block';
-    loadDoctorDash();
-  } else {
-    showToast('رمز عبور اشتباه است', 'error');
-  }
-}
-
-function logoutDoctor() {
-  sessionStorage.removeItem('ekma_doctor_auth');
-  document.getElementById('doctorLoginView').style.display = 'block';
-  document.getElementById('doctorDashView').style.display = 'none';
-  document.getElementById('doctorPass').value = '';
-}
-
-async function loadDoctorDash() {
-  const statsContainer = document.getElementById('doctorStats');
-  const apptsContainer = document.getElementById('doctorAppointments');
-  statsContainer.innerHTML = '<div style="padding:20px"><span class="spinner"></span></div>';
-  
-  const response = await sendToN8N(N8N_CONFIG.doctorDashWebhook, { doctor: DOCTOR_NAME }, 'GET');
-  
-  if (response && response.status === 'success') {
-    renderDashStats('doctor', response.stats);
-    renderAppointmentsTable(apptsContainer, response.appointments);
-  } else {
-    // حالت دمو
-    statsContainer.innerHTML = `
-      <div class="stat-card"><span class="label">نوبت‌های امروز</span><span class="value">—</span><span class="trend">⚠️ اتصال به n8n برقرار نیست</span></div>
-      <div class="stat-card"><span class="label">نوبت‌های آینده</span><span class="value">—</span></div>
-      <div class="stat-card"><span class="label">کل بیماران</span><span class="value">—</span></div>
-    `;
-    apptsContainer.innerHTML = '<div class="empty-state"><p>برای مشاهده داده‌های واقعی، Webhook website-doctor را در n8n بسازید.</p></div>';
+    addMsg('bot', '⚠️ پاسخی دریافت نشد. لطفاً دوباره تلاش کنید.');
   }
 }
 
 // ============================================================
-// داشبورد مدیر
-// ============================================================
-function loginAdmin() {
-  const pass = document.getElementById('adminPass').value;
-  if (pass === ADMIN_PASS) {
-    sessionStorage.setItem('ekma_admin_auth', '1');
-    document.getElementById('adminLoginView').style.display = 'none';
-    document.getElementById('adminDashView').style.display = 'block';
-    loadAdminDash();
-  } else {
-    showToast('رمز عبور اشتباه است', 'error');
-  }
-}
-
-function logoutAdmin() {
-  sessionStorage.removeItem('ekma_admin_auth');
-  document.getElementById('adminLoginView').style.display = 'block';
-  document.getElementById('adminDashView').style.display = 'none';
-  document.getElementById('adminPass').value = '';
-}
-
-async function loadAdminDash() {
-  const statsContainer = document.getElementById('adminStats');
-  const apptsContainer = document.getElementById('adminAppointments');
-  statsContainer.innerHTML = '<div style="padding:20px"><span class="spinner"></span></div>';
-  
-  const response = await sendToN8N(N8N_CONFIG.adminDashWebhook, {}, 'GET');
-  
-  if (response && response.status === 'success') {
-    renderDashStats('admin', response.stats);
-    renderAppointmentsTable(apptsContainer, response.appointments);
-  } else {
-    statsContainer.innerHTML = `
-      <div class="stat-card"><span class="label">کل نوبت‌ها</span><span class="value">—</span><span class="trend">⚠️ اتصال به n8n برقرار نیست</span></div>
-      <div class="stat-card"><span class="label">فعال</span><span class="value">—</span></div>
-      <div class="stat-card"><span class="label">لغو شده</span><span class="value">—</span></div>
-      <div class="stat-card"><span class="label">کل بیماران</span><span class="value">—</span></div>
-    `;
-    apptsContainer.innerHTML = '<div class="empty-state"><p>برای مشاهده داده‌های واقعی، Webhook website-admin را در n8n بسازید.</p></div>';
-  }
-}
-
-function renderDashStats(type, stats) {
-  const container = document.getElementById(type + 'Stats');
-  if (!stats) { container.innerHTML = '<p>بدون داده</p>'; return; }
-  let html = '';
-  if (type === 'doctor') {
-    html = `
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><span class="label">نوبت‌های امروز</span><span class="value">${toFa(stats.today || 0)}</span></div>
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18"/></svg></div><span class="label">نوبت‌های آینده</span><span class="value">${toFa(stats.upcoming || 0)}</span></div>
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="label">کل بیماران</span><span class="value">${toFa(stats.total_patients || 0)}</span></div>
-    `;
-  } else {
-    html = `
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><span class="label">کل نوبت‌ها</span><span class="value">${toFa(stats.total || 0)}</span></div>
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><span class="label">فعال (scheduled)</span><span class="value">${toFa(stats.scheduled || 0)}</span></div>
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/></svg></div><span class="label">لغو شده</span><span class="value">${toFa(stats.cancelled || 0)}</span></div>
-      <div class="stat-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="label">کل بیماران</span><span class="value">${toFa(stats.total_patients || 0)}</span></div>
-    `;
-  }
-  container.innerHTML = html;
-}
-
-function renderAppointmentsTable(container, appointments) {
-  if (!appointments || appointments.length === 0) {
-    container.innerHTML = '<div class="empty-state"><p>نوبتی وجود ندارد</p></div>';
-    return;
-  }
-  const statusMap = { scheduled: 'تأیید شده', pending: 'در انتظار', cancelled: 'لغو شده' };
-  const badgeMap = { scheduled: 'success', pending: 'pending', cancelled: 'cancelled' };
-  
-  let html = '<table class="data-table"><thead><tr><th>شناسه</th><th>بیمار</th><th>موبایل</th><th>خدمت</th><th>تاریخ</th><th>ساعت</th><th>وضعیت</th></tr></thead><tbody>';
-  appointments.forEach(a => {
-    const j = a.appointment_date ? toJalali(...a.appointment_date.split('-').map(Number)) : [0,0,0];
-    const dateLabel = j[0] ? `${toFa(j[2])} ${J_MONTHS[j[1]-1]}` : a.appointment_date || '-';
-    html += `<tr>
-      <td>${toFa(a.id || '-')}</td>
-      <td>${a.patient_name || a.full_name || '-'}</td>
-      <td>${toFa(a.mobile || '-')}</td>
-      <td>${a.service || a.doctor || '-'}</td>
-      <td>${dateLabel}</td>
-      <td>${toFa((a.appointment_time || '').substring(0,5))}</td>
-      <td><span class="badge badge-${badgeMap[a.status] || 'pending'}">${statusMap[a.status] || a.status}</span></td>
-    </tr>`;
-  });
-  html += '</tbody></table>';
-  container.innerHTML = html;
-}
-
-// ============================================================
-// Auto-login اگر session معتبر بود
+// Init
 // ============================================================
 window.addEventListener('DOMContentLoaded', () => {
-  generateDates();
-  generateTimes();
-  
-  if (sessionStorage.getItem('ekma_doctor_auth') === '1') {
-    document.getElementById('doctorLoginView').style.display = 'none';
-    document.getElementById('doctorDashView').style.display = 'block';
-    loadDoctorDash();
-  }
-  if (sessionStorage.getItem('ekma_admin_auth') === '1') {
-    document.getElementById('adminLoginView').style.display = 'none';
-    document.getElementById('adminDashView').style.display = 'block';
-    loadAdminDash();
-  }
+  loadUser();
 });
 </script>
 </body>
