@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>مطب دکتر غریب دوست | پزشک عمومی · نوبت‌دهی هوشمند</title>
+<title>مطب دکتر غریب دوست | نوبت‌دهی هوشمند زنده</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b1020;--bg2:#0f1530;--card:#121a38;--card2:#162044;--text:#e8ecff;--muted:#9aa3c7;--primary:#10b981;--primary2:#059669;--accent:#22d3ee;--success:#10b981;--warn:#f59e0b;--danger:#ef4444;--border:rgba(255,255,255,.08);--shadow:0 20px 60px rgba(0,0,0,.35)}
@@ -94,6 +94,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;b
 .summary-row:last-child{border-bottom:none}
 .summary-row span:first-child{color:var(--muted)}
 .notice-box{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:14px;font-size:13px;color:var(--accent);line-height:1.8;margin-bottom:20px}
+.notice-box.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:var(--warn)}
 .receipt{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center}
 .receipt-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:grid;place-items:center;margin:0 auto 16px;animation:pop .5s}
 @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
@@ -149,7 +150,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;b
 .login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:100;display:none;place-items:center;padding:20px}
 .login-overlay.show{display:grid}
 .empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
-.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:200;padding:14px 24px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;max-width:90vw;white-space:pre-wrap}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:200;padding:14px 24px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;max-width:90vw;white-space:pre-wrap;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{border-color:var(--success);color:var(--success)}
 .toast.error{border-color:var(--danger);color:var(--danger)}
@@ -164,7 +165,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
 <nav class="nav"><div class="nav-inner">
   <a class="logo" onclick="navigate('home')">
     <div class="logo-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
-    <div><div>مطب دکتر غریب دوست</div><small style="color:var(--muted);font-size:11px">پزشک عمومی · اتصال به سرور</small></div>
+    <div><div>مطب دکتر غریب دوست</div><small style="color:var(--muted);font-size:11px">پزشک عمومی · زنده</small></div>
   </a>
   <div class="nav-links">
     <a data-page="home" class="active" onclick="navigate('home')">خانه</a>
@@ -177,7 +178,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </div>
 </div></nav>
 
-<!-- ورود / ثبت‌نام (پاسخ زنده از سرور) -->
+<!-- ورود -->
 <div class="login-overlay" id="loginOverlay"><div class="login-box">
   <h3>🔐 ورود / ثبت‌نام با کد ملی</h3>
   <p>یک‌بار ثبت‌نام کنید؛ همیشه با کد ملی پیگیری کنید</p>
@@ -192,26 +193,26 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
 <div class="page active" id="page-home">
   <section class="hero">
     <div>
-      <div class="hero-tag"><span class="dot"></span> سرور فعال · نوبت‌دهی هوشمند · پاسخگویی زنده</div>
+      <div class="hero-tag"><span class="dot"></span> سرور فعال · اتصال زنده</div>
       <h1>مطب <span class="grad">دکتر غریب دوست</span><br>پزشک عمومی</h1>
-      <p>نوبت‌دهی آنلاین با اتصال مستقیم به سرور. ثبت، تغییر و لغو نوبت و مشاوره پزشکی — همه به‌صورت زنده و لحظه‌ای پردازش می‌شوند.</p>
+      <p>ثبت، تغییر و لغو نوبت و مشاوره پزشکی — همه به‌صورت زنده از سرور پردازش می‌شوند.</p>
       <div class="hero-actions">
         <button class="btn btn-primary" onclick="navigate('appointment')">🗓️ رزرو نوبت</button>
-        <button class="btn btn-ghost" onclick="navigate('chat')">💬 مشاوره هوشمند</button>
+        <button class="btn btn-ghost" onclick="navigate('chat')">💬 مشاوره</button>
         <button class="btn btn-ghost" onclick="navigate('my-appts')">📋 نوبت‌های من</button>
       </div>
       <div class="hero-stats">
         <div class="stat"><span class="num">+۱۰</span><span class="lbl">سال تجربه</span></div>
         <div class="stat"><span class="num">۹۸٪</span><span class="lbl">رضایت</span></div>
-        <div class="stat"><span class="num">۲۴/۷</span><span class="lbl">دستیار هوشمند</span></div>
+        <div class="stat"><span class="num">۲۴/۷</span><span class="lbl">دستیار</span></div>
       </div>
     </div>
     <div class="doctor-showcase">
       <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=faces" class="doctor-img-large" alt="دکتر غریب دوست">
       <h2>دکتر غریب دوست</h2><div class="spec">پزشک عمومی</div>
-      <p class="bio">پزشک عمومی با سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج، چکاپ دوره‌ای و مشاوره سلامت.</p>
+      <p class="bio">پزشک عمومی با سال‌ها تجربه در تشخیص و درمان بیماری‌های رایج.</p>
       <div class="doctor-meta-grid">
-        <div class="meta-item"><span class="val">+۱۵۰۰</span><span class="lbl">بیمار راضی</span></div>
+        <div class="meta-item"><span class="val">+۱۵۰۰</span><span class="lbl">بیمار</span></div>
         <div class="meta-item"><span class="val">۴.۹</span><span class="lbl">امتیاز</span></div>
         <div class="meta-item"><span class="val">۱۰</span><span class="lbl">سال تجربه</span></div>
       </div>
@@ -220,10 +221,10 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </section>
 </div>
 
-<!-- نوبت‌دهی (فقط ویزیت) -->
+<!-- نوبت‌دهی -->
 <div class="page" id="page-appointment">
   <section class="section">
-    <div class="section-head"><h2>رزرو نوبت ویزیت</h2><p>ثبت رایگان · پرداخت در مطب · پاسخ‌ها زنده از سرور</p></div>
+    <div class="section-head"><h2 id="apptTitle">رزرو نوبت ویزیت</h2><p id="apptSubtitle">ثبت رایگان · پاسخ زنده از سرور</p></div>
     <div class="appt-wrap">
       <div class="appt-steps">
         <div class="appt-step active" data-step="1"><div class="step-num">۱</div><div class="step-label">خدمت</div></div>
@@ -237,13 +238,14 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
       </div>
       <div class="appt-panel" data-panel="2">
         <label class="form-label" style="display:block;margin-bottom:12px">تاریخ مراجعه (🟢 آزاد | 🔴 پر/رزرو)</label>
-        <div id="slotsLoading" style="display:none;text-align:center;padding:16px"><span class="spinner"></span> دریافت وضعیت زنده از سرور...</div>
+        <div id="slotsLoading" style="display:none;text-align:center;padding:16px"><span class="spinner"></span> دریافت وضعیت زنده...</div>
         <div class="date-slots" id="dateSlots"></div>
         <label class="form-label" style="display:block;margin-top:16px">ساعت مراجعه</label>
         <div class="time-slots" id="timeSlots"><div style="color:var(--muted);font-size:13px;padding:10px">ابتدا تاریخ را انتخاب کنید</div></div>
         <div class="appt-nav"><button class="btn btn-ghost" onclick="nextStep(1)">→ بازگشت</button><button class="btn btn-primary" onclick="nextStep(3)">مرحله بعد ←</button></div>
       </div>
       <div class="appt-panel" data-panel="3">
+        <div id="rescheduleNotice" style="display:none"></div>
         <div class="summary-box">
           <div class="summary-row"><span>خدمت</span><span>ویزیت عمومی</span></div>
           <div class="summary-row"><span>پزشک</span><span>دکتر غریب دوست</span></div>
@@ -253,13 +255,12 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
           <div class="summary-row"><span>موبایل</span><span id="sumPhone">-</span></div>
         </div>
         <div class="form-group"><label class="form-label">توضیحات (اختیاری)</label><textarea class="form-textarea" id="symptoms" placeholder="علت مراجعه یا علائم..."></textarea></div>
-        <div class="notice-box">💡 ثبت نوبت رایگان است و پرداخت در مطب انجام می‌شود. نتیجه به‌صورت زنده از سرور برگردانده می‌شود.</div>
-        <div class="appt-nav"><button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button><button class="btn btn-success" id="submitBtn" onclick="submitBooking()">✅ ثبت نهایی نوبت</button></div>
+        <div class="appt-nav"><button class="btn btn-ghost" onclick="nextStep(2)">→ بازگشت</button><button class="btn btn-success" id="submitBtn" onclick="submitBooking()">✅ ثبت نهایی</button></div>
       </div>
       <div class="appt-panel" data-panel="4">
         <div class="receipt">
           <div class="receipt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h3>نتیجه ثبت نوبت (پاسخ زنده سرور)</h3>
+          <h3 id="receiptTitle">نتیجه ثبت نوبت</h3>
           <div class="receipt-code" id="trackingCode">—</div>
           <div class="live-reply" id="liveReply">—</div>
           <div class="receipt-actions">
@@ -275,10 +276,10 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
 <!-- نوبت‌های من -->
 <div class="page" id="page-my-appts">
   <section class="section">
-    <div class="section-head"><h2>نوبت‌های من</h2><p>مشاهده، لغو یا تغییر نوبت — پاسخ زنده از سرور</p></div>
+    <div class="section-head"><h2>نوبت‌های من</h2><p>مشاهده، لغو یا تغییر نوبت — پاسخ زنده</p></div>
     <div class="appt-wrap" style="max-width:900px;margin:0 auto">
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px"><button class="btn btn-ghost btn-sm" onclick="loadMyAppointments()">🔄 بروزرسانی</button></div>
-      <div id="myAppointmentsContainer"><div class="empty-state">در حال دریافت از سرور...</div></div>
+      <div id="myAppointmentsContainer"><div class="empty-state">در حال دریافت...</div></div>
     </div>
   </section>
 </div>
@@ -288,7 +289,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   <div class="chat-container"><div class="chat-window-full">
     <div class="chat-header">
       <div class="chat-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22"><path d="M12 2a10 10 0 1 0 10 10"/><circle cx="12" cy="10" r="3"/><path d="M8 14l4 4 4-4"/></svg><span class="online-dot"></span></div>
-      <div class="chat-title"><strong>دستیار هوشمند مطب</strong><small>آنلاین · پاسخ زنده از سرور</small></div>
+      <div class="chat-title"><strong>دستیار هوشمند</strong><small>آنلاین · پاسخ زنده</small></div>
     </div>
     <div class="chat-body" id="chatBody"></div>
     <div class="chat-input-bar">
@@ -298,60 +299,64 @@ footer{border-top:1px solid var(--border);padding:40px 0 20px;margin-top:60px;ba
   </div></div>
 </div>
 
-<!-- داشبورد پزشک -->
+<!-- پزشک -->
 <div class="page" id="page-doctor">
-  <div id="doctorLoginView"><div class="login-box"><h3>👨‍⚕️ ورود پزشک</h3><p>فقط دکتر غریب دوست</p>
+  <div id="doctorLoginView"><div class="login-box"><h3>👨‍⚕️ ورود پزشک</h3><p>دکتر غریب دوست</p>
     <input type="password" class="form-input" id="doctorPass" placeholder="رمز عبور" style="margin-bottom:12px">
     <button class="btn btn-primary btn-block" onclick="loginDoctor()">ورود</button></div></div>
   <div class="dash-container" id="doctorDashView" style="display:none">
     <div class="dash-header"><h2>👨⚕️ داشبورد دکتر غریب دوست</h2>
-      <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="loadDoctorDash()">🔄 بروزرسانی</button><button class="btn btn-ghost btn-sm" onclick="logoutDoctor()">خروج</button></div></div>
+      <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="loadDoctorDash()">🔄</button><button class="btn btn-ghost btn-sm" onclick="logoutDoctor()">خروج</button></div></div>
     <div class="stats-grid" id="doctorStats"></div>
-    <div class="data-card"><h3>📅 نوبت‌های آینده (زنده از سرور)</h3><div id="doctorAppointments"></div></div>
+    <div class="data-card"><h3>📅 نوبت‌های آینده (زنده)</h3><div id="doctorAppointments"></div></div>
   </div>
 </div>
 
-<!-- داشبورد مدیر -->
+<!-- مدیر -->
 <div class="page" id="page-admin">
-  <div id="adminLoginView"><div class="login-box"><h3>🔐 ورود مدیر</h3><p>داشبورد مدیریت کلینیک</p>
+  <div id="adminLoginView"><div class="login-box"><h3>🔐 ورود مدیر</h3><p>داشبورد مدیریت</p>
     <input type="password" class="form-input" id="adminPass" placeholder="رمز عبور" style="margin-bottom:12px">
     <button class="btn btn-primary btn-block" onclick="loginAdmin()">ورود</button></div></div>
   <div class="dash-container" id="adminDashView" style="display:none">
-    <div class="dash-header"><h2>📊 داشبورد مدیریت کلینیک</h2>
-      <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="loadAdminDash()">🔄 بروزرسانی</button><button class="btn btn-ghost btn-sm" onclick="logoutAdmin()">خروج</button></div></div>
+    <div class="dash-header"><h2>📊 داشبورد مدیریت</h2>
+      <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="loadAdminDash()">🔄</button><button class="btn btn-ghost btn-sm" onclick="logoutAdmin()">خروج</button></div></div>
     <div class="stats-grid" id="adminStats"></div>
-    <div class="data-card"><h3>📋 همه نوبت‌ها (زنده از سرور)</h3><div id="adminAppointments"></div></div>
+    <div class="data-card"><h3>📋 همه نوبت‌ها (زنده)</h3><div id="adminAppointments"></div></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
-<footer><div class="footer-content"><p>© ۱۴۰۵ مطب دکتر غریب دوست · اتصال به سرور · تمامی حقوق محفوظ است.</p></div></footer>
+<footer><div class="footer-content"><p>© ۱۴۰۵ مطب دکتر غریب دوست · زنده · تمامی حقوق محفوظ است.</p></div></footer>
 
 <script>
-// ================= تنظیمات سرور =================
+// ================= تنظیمات =================
 const EP = {
   base: 'http://localhost:5679',
   login: '/webhook/website-login',
   main: '/webhook/website-chat',
-  slots: '/webhook/website-slots',
   doctor: '/webhook/website-doctor',
   admin: '/webhook/website-admin'
 };
 const DOCTOR = 'دکتر غریب دوست';
 const DOCTOR_PASS = 'doctor123', ADMIN_PASS = 'admin123';
 
-let USER = null, reservedSlots = [];
+let USER = null, reservedSlots = [], rescheduleId = null;
 const state = { selectedDate:'', selectedDateLabel:'', selectedTime:'' };
 
 // ================= ابزار =================
 const toFa = s => String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 const faToEn = s => String(s).replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
-function toast(msg, type='success'){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show '+type; setTimeout(()=>t.classList.remove('show'),4000); }
+function toast(msg, type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show '+type;
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
 async function post(path, data){
   try{
     const r = await fetch(EP.base+path, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
     if(!r.ok) throw new Error('HTTP '+r.status);
-    const txt = await r.text(); try{ return JSON.parse(txt);}catch{ return {raw:txt}; }
+    const txt = await r.text();
+    try{ return JSON.parse(txt);}catch{ return {raw:txt}; }
   }catch(e){ console.error(e); return {status:'error', message:e.message}; }
 }
 function toJalali(gy,gm,gd){const g=[0,31,59,90,120,151,181,212,243,273,304,334];let jy=(gy<=1600)?0:979;gy=(gy<=1600)?gy-621:gy-1600;const gy2=(gm>2)?gy+1:gy;let d=(365*gy)+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)-80+gd+g[gm-1];jy+=33*Math.floor(d/12053);d%=12053;jy+=4*Math.floor(d/1461);d%=1461;jy+=Math.floor((d-1)/365);if(d>365)d=(d-1)%365;const jm=(d<186)?1+Math.floor(d/31):7+Math.floor((d-186)/30);const jd=1+((d<186)?d%31:(d-186)%30);return[jy,jm,jd];}
@@ -360,19 +365,19 @@ const J_DAYS=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه'
 
 // ================= ناوبری =================
 function navigate(page){
-  if(['appointment','my-appts','chat','doctor','admin'].includes(page) && !USER && page!=='doctor' && page!=='admin'){ showLogin(); return; }
+  if(['appointment','my-appts','chat'].includes(page) && !USER){ showLogin(); return; }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active', a.dataset.page===page));
   window.scrollTo(0,0);
-  if(page==='appointment') loadSlots();
+  if(page==='appointment'){ loadSlots(); if(rescheduleId){ updateRescheduleUI(); } }
   if(page==='my-appts') loadMyAppointments();
   if(page==='chat' && !window.chatInit){ initChat(); window.chatInit=true; }
-  if(page==='doctor' && sessionStorage.getItem('doc_auth')==='1'){ showDoctorDash(); }
-  if(page==='admin' && sessionStorage.getItem('adm_auth')==='1'){ showAdminDash(); }
+  if(page==='doctor' && sessionStorage.getItem('doc_auth')==='1') showDoctorDash();
+  if(page==='admin' && sessionStorage.getItem('adm_auth')==='1') showAdminDash();
 }
 
-// ================= ورود (زنده) =================
+// ================= ورود =================
 function showLogin(){ document.getElementById('loginOverlay').classList.add('show'); }
 function closeLogin(){ document.getElementById('loginOverlay').classList.remove('show'); }
 function showUserChip(){ if(USER){ document.getElementById('userChip').style.display='inline-flex'; document.getElementById('userName').textContent=USER.name; } }
@@ -389,21 +394,43 @@ async function doLogin(){
   const res=await post(EP.login,{name, national_id:nid, mobile:mob});
   btn.disabled=false; btn.innerHTML='ورود / ثبت‌نام';
   if(res && res.status==='success'){
-    USER={token:res.token, patient_id:res.patient_id||null, name:(res.patient&&res.patient.full_name)||name, mobile:(res.patient&&res.patient.mobile)||mob, national_id:nid};
+    USER={token:res.token, name:(res.patient&&res.patient.full_name)||name, mobile:(res.patient&&res.patient.mobile)||mob, national_id:nid};
     localStorage.setItem('ekma_user', JSON.stringify(USER));
     showUserChip(); closeLogin(); toast(res.message||('خوش آمدید '+USER.name));
   } else toast((res&&res.message)||'خطا در ارتباط با سرور','error');
 }
-function requireLogin(){ if(!USER){ showLogin(); toast('لطفاً ابتدا با کد ملی وارد شوید','info'); return false;} return true; }
+function requireLogin(){ if(!USER){ showLogin(); toast('لطفاً ابتدا وارد شوید','info'); return false;} return true; }
 
 // ================= اسلات‌های زنده =================
 async function loadSlots(){
   if(!USER) return;
   document.getElementById('slotsLoading').style.display='block';
-  const res=await post(EP.slots,{sessionId:USER.token});
+  // درخواست list برای دریافت reserved slots
+  const res=await post(EP.main,{action:'list', channel:'website', sessionId:USER.token});
   document.getElementById('slotsLoading').style.display='none';
-  reservedSlots=(res&&res.slots)?res.slots:[];
+  reservedSlots = parseReservedFromList(res?.reply || '');
   generateDates();
+}
+// استخراج اسلات‌های رزرو شده از پاسخ لیست نوبت‌ها
+function parseReservedFromList(text){
+  const slots=[];
+  // هر بلوک بین --- یک نوبت است
+  const blocks = String(text).split(/-{3,}/);
+  blocks.forEach(b=>{
+    const idM = b.match(/شناسه:\s*([۰-۹0-9]+)/);
+    const dM = b.match(/تاریخ:\s*(.+?)(?:\n|$)/);
+    const tM = b.match(/ساعت:\s*([۰-۹0-9:]+)/);
+    if(idM && dM && tM){
+      // نیاز به تاریخ میلادی داریم؛ فعلاً فقط برای نمایش reserved بودن استفاده می‌کنیم
+      slots.push({
+        id: faToEn(idM[1]),
+        label: dM[1].trim(),
+        time: faToEn(tM[1].trim()),
+        raw: b
+      });
+    }
+  });
+  return slots;
 }
 function generateDates(){
   const c=document.getElementById('dateSlots'); c.innerHTML=''; state.selectedDate=''; state.selectedTime='';
@@ -414,31 +441,45 @@ function generateDates(){
     const j=toJalali(d.getFullYear(),d.getMonth()+1,d.getDate());
     const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     const label=J_DAYS[d.getDay()]+' '+toFa(j[2])+' '+J_MONTHS[j[1]-1];
-    const daySlots=reservedSlots.filter(s=>String(s.appointment_date||'').substring(0,10)===iso);
-    const isFull=daySlots.length>=22;
-    const mine=USER&&USER.patient_id&&daySlots.some(s=>Number(s.patient_id)===Number(USER.patient_id));
+    // برای بررسی پر بودن، فعلاً از لیست نوبت‌های من استفاده می‌کنیم
     const el=document.createElement('div');
-    el.className='date-slot'+((isFull||mine)?' full':'');
-    el.innerHTML='<span class="dow">'+(mine?'🔴 شما':(isFull?'🔴 پر':J_DAYS[d.getDay()]))+'</span><span class="dnum">'+toFa(j[2])+' '+J_MONTHS[j[1]-1]+'</span>';
-    if(!isFull&&!mine){ el.onclick=()=>{ document.querySelectorAll('.date-slot').forEach(s=>s.classList.remove('selected')); el.classList.add('selected'); state.selectedDate=iso; state.selectedDateLabel=label; generateTimes(); }; }
+    el.className='date-slot';
+    el.innerHTML='<span class="dow">'+J_DAYS[d.getDay()]+'</span><span class="dnum">'+toFa(j[2])+' '+J_MONTHS[j[1]-1]+'</span>';
+    el.onclick=()=>{
+      document.querySelectorAll('.date-slot').forEach(s=>s.classList.remove('selected'));
+      el.classList.add('selected');
+      state.selectedDate=iso; state.selectedDateLabel=label;
+      generateTimes();
+    };
     c.appendChild(el);
   }
 }
 function generateTimes(){
   const c=document.getElementById('timeSlots'); c.innerHTML='';
-  for(let h=8;h<=19;h++){ for(let m=0;m<60;m+=30){ if(h===19&&m===30)break;
-    const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
-    const taken=reservedSlots.some(s=>String(s.appointment_date||'').substring(0,10)===state.selectedDate&&String(s.appointment_time||'').substring(0,5)===t);
-    const el=document.createElement('div');
-    el.className='time-slot'+(taken?' reserved':'');
-    el.textContent=(taken?'🔴 ':'🟢 ')+toFa(String(h).padStart(2,'0'))+':'+toFa(String(m).padStart(2,'0'));
-    if(!taken){ el.onclick=()=>{ document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected')); el.classList.add('selected'); state.selectedTime=t; }; }
-    c.appendChild(el);
-  }}
+  for(let h=8;h<=19;h++){
+    for(let m=0;m<60;m+=30){
+      if(h===19&&m===30)break;
+      const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+      const taken=reservedSlots.some(s=>s.time===t);
+      const el=document.createElement('div');
+      el.className='time-slot'+(taken?' reserved':'');
+      el.textContent=(taken?'🔴 ':'🟢 ')+toFa(String(h).padStart(2,'0'))+':'+toFa(String(m).padStart(2,'0'));
+      if(!taken){
+        el.onclick=()=>{
+          document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+          el.classList.add('selected');
+          state.selectedTime=t;
+        };
+      }
+      c.appendChild(el);
+    }
+  }
 }
 function nextStep(n){
   if(n===2&&!USER){ showLogin(); return; }
-  if(n===3){ if(!state.selectedDate){toast('تاریخ را انتخاب کنید','error');return;} if(!state.selectedTime){toast('ساعت را انتخاب کنید','error');return;}
+  if(n===3){
+    if(!state.selectedDate){toast('تاریخ را انتخاب کنید','error');return;}
+    if(!state.selectedTime){toast('ساعت را انتخاب کنید','error');return;}
     document.getElementById('sumDate').textContent=state.selectedDateLabel;
     document.getElementById('sumTime').textContent=toFa(state.selectedTime);
     document.getElementById('sumPatient').textContent=USER?USER.name:'-';
@@ -449,32 +490,85 @@ function nextStep(n){
   document.querySelector('[data-panel="'+n+'"]').classList.add('active');
 }
 
-// ================= ثبت نوبت (زنده) =================
-async function submitBooking(){
-  if(!requireLogin())return;
-  const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span> ثبت در سرور...';
-  const res=await post(EP.main,{action:'booking', channel:'website', sessionId:USER.token, service:'ویزیت عمومی', requested_doctor:DOCTOR, requested_date:state.selectedDate, requested_time:state.selectedTime+':00', symptoms:document.getElementById('symptoms').value.trim(), message:'ثبت نوبت از وب‌سایت'});
-  btn.disabled=false; btn.innerHTML='✅ ثبت نهایی نوبت';
-  const reply=res&&res.reply?res.reply:'⚠️ پاسخی از سرور دریافت نشد.';
-  if(reply.includes('⚠️')){ toast(reply,'error'); }
-  else{
-    const m=reply.match(/شناسه نوبت:\s*([۰-۹0-9]+)/);
-    document.getElementById('trackingCode').textContent=m?toFa(faToEn(m[1])):'—';
-    document.getElementById('liveReply').textContent=reply;
-    document.querySelectorAll('.appt-step').forEach(s=>s.classList.add('done'));
-    document.querySelectorAll('.appt-panel').forEach(p=>p.classList.remove('active'));
-    document.querySelector('[data-panel="4"]').classList.add('active');
-    loadSlots();
+// ================= ثبت / تغییر نوبت =================
+function updateRescheduleUI(){
+  const n = document.getElementById('rescheduleNotice');
+  if(rescheduleId){
+    n.style.display='block';
+    n.innerHTML='<div class="notice-box warn">🔄 در حالت <b>تغییر نوبت '+toFa(rescheduleId)+'</b> هستید. نوبت قبلی لغو و نوبت جدید ثبت می‌شود.</div>';
+    document.getElementById('apptTitle').textContent='تغییر نوبت '+toFa(rescheduleId);
+    document.getElementById('submitBtn').textContent='🔄 ثبت تغییر نوبت';
+  } else {
+    n.style.display='none';
+    document.getElementById('apptTitle').textContent='رزرو نوبت ویزیت';
+    document.getElementById('submitBtn').textContent='✅ ثبت نهایی';
   }
 }
-function resetBooking(){ state.selectedDate='';state.selectedTime='';document.getElementById('symptoms').value=''; document.querySelectorAll('.date-slot,.time-slot').forEach(x=>x.classList.remove('selected')); nextStep(1); }
+async function submitBooking(){
+  if(!requireLogin())return;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> سرور...';
 
-// ================= نوبت‌های من (زنده) =================
+  const base = {
+    channel:'website', sessionId:USER.token,
+    requested_doctor:DOCTOR,
+    requested_date:state.selectedDate,
+    requested_time:state.selectedTime+':00',
+    symptoms:document.getElementById('symptoms').value.trim()
+  };
+
+  let res;
+  if(rescheduleId){
+    res = await post(EP.main,{...base, action:'reschedule', appointment_id:rescheduleId, reschedule_appointment_id:rescheduleId});
+  } else {
+    res = await post(EP.main,{...base, action:'booking', service:'ویزیت عمومی', message:'ثبت نوبت از وب‌سایت'});
+  }
+
+  btn.disabled=false;
+  updateRescheduleUI();
+
+  const reply = res?.reply || res?.replyText || '⚠️ پاسخی دریافت نشد.';
+  const isError = reply.includes('⚠️') || reply.includes('خطا');
+
+  if(isError){
+    toast(reply,'error');
+    return;
+  }
+
+  const m = reply.match(/شناسه[^۰-۹0-9]*([۰-۹0-9]+)/);
+  document.getElementById('trackingCode').textContent = m ? toFa(faToEn(m[1])) : '—';
+  document.getElementById('liveReply').textContent = reply;
+  document.getElementById('receiptTitle').textContent = rescheduleId ? '✅ نوبت جابجا شد' : '✅ نوبت ثبت شد';
+  document.querySelectorAll('.appt-step').forEach(s=>s.classList.add('done'));
+  document.querySelectorAll('.appt-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-panel="4"]').classList.add('active');
+  rescheduleId = null;
+  toast('✅ انجام شد','success');
+  loadSlots();
+}
+function resetBooking(){
+  state.selectedDate=''; state.selectedTime=''; rescheduleId=null;
+  document.getElementById('symptoms').value='';
+  document.querySelectorAll('.date-slot,.time-slot').forEach(x=>x.classList.remove('selected'));
+  updateRescheduleUI();
+  nextStep(1);
+}
+
+// ================= نوبت‌های من =================
 function parseList(text){
-  const items=[]; const blocks=text.split(/-{3,}/);
-  blocks.forEach(b=>{ const idM=b.match(/شناسه:\s*([۰-۹0-9]+)/); if(!idM)return;
-    const dM=b.match(/تاریخ:\s*(.+)/), tM=b.match(/ساعت:\s*(.+)/), docM=b.match(/پزشک:\s*(.+)/);
-    items.push({id:faToEn(idM[1]), date:dM?dM[1].trim():'', time:tM?tM[1].trim():'', doctor:docM?docM[1].trim():''});
+  const items=[];
+  String(text).split(/-{3,}/).forEach(b=>{
+    const idM = b.match(/شناسه:\s*([۰-۹0-9]+)/);
+    if(!idM) return;
+    const dM = b.match(/تاریخ:\s*(.+?)(?:\n|$)/);
+    const tM = b.match(/ساعت:\s*(.+?)(?:\n|$)/);
+    const docM = b.match(/پزشک:\s*(.+?)(?:\n|$)/);
+    items.push({
+      id: faToEn(idM[1]),
+      date: dM ? dM[1].trim() : '-',
+      time: tM ? faToEn(tM[1].trim()) : '-',
+      doctor: docM ? docM[1].trim() : DOCTOR
+    });
   });
   return items;
 }
@@ -483,79 +577,110 @@ async function loadMyAppointments(){
   const c=document.getElementById('myAppointmentsContainer');
   c.innerHTML='<div class="empty-state"><span class="spinner"></span> دریافت از سرور...</div>';
   const res=await post(EP.main,{action:'list', channel:'website', sessionId:USER.token});
-  const reply=res&&res.reply?res.reply:'';
-  if(reply.includes('هیچ نوبت')){ c.innerHTML='<div class="empty-state">📭 شما هیچ نوبت فعالی ندارید.</div>'; return; }
+  const reply = res?.reply || res?.replyText || '';
+  if(reply.includes('هیچ نوبت') || reply.includes('ندارید')){
+    c.innerHTML='<div class="empty-state">📭 شما هیچ نوبت فعالی ندارید.</div>';
+    // ذخیره برای slot ها
+    reservedSlots = [];
+    return;
+  }
+  reservedSlots = parseReservedFromList(reply);
   const items=parseList(reply);
-  if(!items.length){ c.innerHTML='<div class="live-reply">'+reply+'</div>'; return; }
+  if(!items.length){
+    c.innerHTML='<div class="live-reply">'+reply+'</div>';
+    return;
+  }
   let html='<table class="data-table"><thead><tr><th>شناسه</th><th>پزشک</th><th>تاریخ</th><th>ساعت</th><th>عملیات</th></tr></thead><tbody>';
-  items.forEach(a=>{ html+='<tr><td>'+toFa(a.id)+'</td><td>'+a.doctor+'</td><td>'+a.date+'</td><td>'+a.time+'</td><td><button class="btn btn-danger btn-sm" onclick="cancelAppt('+a.id+')">لغو</button> <button class="btn btn-ghost btn-sm" onclick="rescheduleAppt('+a.id+')">تغییر</button></td></tr>'; });
-  html+='</tbody></table>'; c.innerHTML=html;
+  items.forEach(a=>{
+    html+='<tr><td>'+toFa(a.id)+'</td><td>'+a.doctor+'</td><td>'+a.date+'</td><td>'+a.time+'</td>';
+    html+='<td style="white-space:nowrap"><button class="btn btn-danger btn-sm" onclick="cancelAppt('+a.id+')">لغو</button> <button class="btn btn-ghost btn-sm" onclick="rescheduleAppt('+a.id+')">تغییر</button></td></tr>';
+  });
+  html+='</tbody></table>';
+  c.innerHTML=html;
 }
 async function cancelAppt(id){
   if(!confirm('نوبت '+toFa(id)+' لغو شود؟'))return;
   const res=await post(EP.main,{action:'cancel', channel:'website', sessionId:USER.token, appointment_id:id, cancel_appointment_id:id});
-  toast(res&&res.reply?res.reply:'انجام شد', (res&&res.reply&&res.reply.includes('⚠️'))?'error':'success');
-  loadMyAppointments(); loadSlots();
+  const reply = res?.reply || res?.replyText || 'انجام شد';
+  toast(reply, reply.includes('⚠️')?'error':'success');
+  loadMyAppointments();
 }
-async function rescheduleAppt(id){
-  if(!confirm('نوبت فعلی لغو و سپس زمان جدید انتخاب می‌شود. ادامه؟'))return;
-  const res=await post(EP.main,{action:'cancel', channel:'website', sessionId:USER.token, appointment_id:id});
-  toast(res&&res.reply?res.reply:'لغو شد','info');
-  loadSlots(); navigate('appointment');
-  setTimeout(()=>toast('حالا تاریخ و ساعت جدید را انتخاب کنید','info'),600);
+function rescheduleAppt(id){
+  rescheduleId = id;
+  navigate('appointment');
+  toast('🔄 نوبت '+toFa(id)+' — تاریخ و ساعت جدید را انتخاب کنید','info');
 }
 
-// ================= چت (زنده) =================
-function initChat(){ addMsg('bot','سلام '+(USER?USER.name:'')+' عزیز 👋\nدستیار هوشمند مطب دکتر غریب دوست هستم. سؤال پزشکی خود را بپرسید.'); }
-function addMsg(who,text){ const b=document.getElementById('chatBody'); const d=document.createElement('div'); d.className='msg '+who;
-  d.innerHTML='<div class="msg-avatar">'+(who==='bot'?'🤖':'')+'</div><div><div class="msg-bubble">'+text+'</div><div class="msg-time">'+new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+'</div></div>';
-  b.appendChild(d); b.scrollTop=b.scrollHeight; }
-function showTyping(){ const b=document.getElementById('chatBody'); const d=document.createElement('div'); d.className='msg bot'; d.id='typingMsg'; d.innerHTML='<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>'; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+// ================= چت =================
+function initChat(){ addMsg('bot','سلام '+(USER?USER.name:'')+' عزیز 👋\nدستیار هوشمند مطب هستم. سؤال پزشکی خود را بپرسید.'); }
+function addMsg(who,text){
+  const b=document.getElementById('chatBody');
+  const d=document.createElement('div'); d.className='msg '+who;
+  d.innerHTML='<div class="msg-avatar">'+(who==='bot'?'🤖':'👤')+'</div><div><div class="msg-bubble">'+text.replace(/</g,'&lt;')+'</div><div class="msg-time">'+new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+'</div></div>';
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
+}
+function showTyping(){
+  const b=document.getElementById('chatBody');
+  const d=document.createElement('div'); d.className='msg bot'; d.id='typingMsg';
+  d.innerHTML='<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>';
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
+}
 async function sendMsg(){
   if(!requireLogin())return;
-  const i=document.getElementById('chatInput'); const t=i.value.trim(); if(!t)return; i.value='';
+  const i=document.getElementById('chatInput');
+  const t=i.value.trim(); if(!t)return; i.value='';
   addMsg('user',t); showTyping();
   const res=await post(EP.main,{action:'chat', channel:'website', sessionId:USER.token, message:t, chatInput:t});
   document.getElementById('typingMsg')?.remove();
-  addMsg('bot', res&&res.reply?res.reply:'⚠️ پاسخی دریافت نشد.');
+  const reply = res?.reply || res?.replyText || '⚠️ پاسخی دریافت نشد.';
+  addMsg('bot', reply);
 }
 
-// ================= داشبورد پزشک (زنده) =================
-function loginDoctor(){ if(document.getElementById('doctorPass').value===DOCTOR_PASS){ sessionStorage.setItem('doc_auth','1'); showDoctorDash(); } else toast('رمز اشتباه است','error'); }
+// ================= داشبورد پزشک =================
+function loginDoctor(){ if(document.getElementById('doctorPass').value===DOCTOR_PASS){ sessionStorage.setItem('doc_auth','1'); showDoctorDash(); } else toast('رمز اشتباه','error'); }
 function logoutDoctor(){ sessionStorage.removeItem('doc_auth'); location.reload(); }
 function showDoctorDash(){ document.getElementById('doctorLoginView').style.display='none'; document.getElementById('doctorDashView').style.display='block'; loadDoctorDash(); }
 async function loadDoctorDash(){
   const res=await post(EP.doctor,{sessionId:USER?USER.token:''});
-  if(res&&res.stats){
+  if(res && res.stats){
     document.getElementById('doctorStats').innerHTML=
       '<div class="stat-card"><span class="label">نوبت‌های امروز</span><span class="value">'+toFa(res.stats.today||0)+'</span></div>'+
       '<div class="stat-card"><span class="label">نوبت‌های آینده</span><span class="value">'+toFa(res.stats.upcoming||0)+'</span></div>'+
       '<div class="stat-card"><span class="label">کل بیماران</span><span class="value">'+toFa(res.stats.total_patients||0)+'</span></div>';
     renderTable('doctorAppointments', res.appointments||[], false);
-  } else document.getElementById('doctorAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست.</div>';
+  } else {
+    document.getElementById('doctorAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست یا این webhook هنوز ساخته نشده.</div>';
+  }
 }
-// ================= داشبورد مدیر (زنده) =================
-function loginAdmin(){ if(document.getElementById('adminPass').value===ADMIN_PASS){ sessionStorage.setItem('adm_auth','1'); showAdminDash(); } else toast('رمز اشتباه است','error'); }
+
+// ================= داشبورد مدیر =================
+function loginAdmin(){ if(document.getElementById('adminPass').value===ADMIN_PASS){ sessionStorage.setItem('adm_auth','1'); showAdminDash(); } else toast('رمز اشتباه','error'); }
 function logoutAdmin(){ sessionStorage.removeItem('adm_auth'); location.reload(); }
 function showAdminDash(){ document.getElementById('adminLoginView').style.display='none'; document.getElementById('adminDashView').style.display='block'; loadAdminDash(); }
 async function loadAdminDash(){
   const res=await post(EP.admin,{});
-  if(res&&res.stats){
+  if(res && res.stats){
     document.getElementById('adminStats').innerHTML=
       '<div class="stat-card"><span class="label">کل نوبت‌ها</span><span class="value">'+toFa(res.stats.total||0)+'</span></div>'+
       '<div class="stat-card"><span class="label">فعال</span><span class="value">'+toFa(res.stats.scheduled||0)+'</span></div>'+
       '<div class="stat-card"><span class="label">لغوشده</span><span class="value">'+toFa(res.stats.cancelled||0)+'</span></div>'+
       '<div class="stat-card"><span class="label">کل بیماران</span><span class="value">'+toFa(res.stats.total_patients||0)+'</span></div>';
     renderTable('adminAppointments', res.appointments||[], true);
-  } else document.getElementById('adminAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست.</div>';
+  } else {
+    document.getElementById('adminAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست یا این webhook هنوز ساخته نشده.</div>';
+  }
 }
 function renderTable(id, rows, withPatient){
   const el=document.getElementById(id);
-  if(!rows.length){ el.innerHTML='<div class="empty-state">نوبتی ثبت نشده است.</div>'; return; }
+  if(!rows || !rows.length){ el.innerHTML='<div class="empty-state">نوبتی ثبت نشده است.</div>'; return; }
   const badge={scheduled:'success',pending:'pending',cancelled:'cancelled'};
   const fa={scheduled:'تأیید',pending:'در انتظار',cancelled:'لغو'};
   let h='<table class="data-table"><thead><tr>'+(withPatient?'<th>بیمار</th><th>موبایل</th>':'<th>شناسه</th>')+'<th>تاریخ</th><th>ساعت</th><th>وضعیت</th></tr></thead><tbody>';
-  rows.forEach(r=>{ h+='<tr>'+(withPatient?'<td>'+(r.patient_name||'-')+'</td><td>'+toFa(r.mobile||'-')+'</td>':'<td>'+toFa(r.id)+'</td>')+'<td>'+ (r.appointment_date||'-') +'</td><td>'+toFa(r.appointment_time||'-')+'</td><td><span class="badge badge-'+(badge[r.status]||'pending')+'">'+(fa[r.status]||r.status)+'</span></td></tr>'; });
+  rows.forEach(r=>{
+    h+='<tr>'+(withPatient?'<td>'+(r.patient_name||'-')+'</td><td>'+toFa(r.mobile||'-')+'</td>':'<td>'+toFa(r.id)+'</td>')+
+       '<td>'+(r.appointment_date||'-')+'</td><td>'+toFa(r.appointment_time||'-')+'</td>'+
+       '<td><span class="badge badge-'+(badge[r.status]||'pending')+'">'+(fa[r.status]||r.status)+'</span></td></tr>';
+  });
   el.innerHTML=h+'</tbody></table>';
 }
 
