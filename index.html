@@ -363,6 +363,15 @@ function toJalali(gy,gm,gd){const g=[0,31,59,90,120,151,181,212,243,273,304,334]
 const J_MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const J_DAYS=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
 
+// 🆕 تابع تبدیل تاریخ میلادی به شمسی برای نمایش
+function fmtDate(d){
+  if(!d) return '-';
+  const p = String(d).substring(0,10).split('-');
+  if(p.length !== 3) return String(d);
+  const j = toJalali(+p[0], +p[1], +p[2]);
+  return toFa(j[2]) + ' ' + J_MONTHS[j[1]-1] + ' ' + toFa(j[0]);
+}
+
 // ================= ناوبری =================
 function navigate(page){
   if(['appointment','my-appts','chat'].includes(page) && !USER){ showLogin(); return; }
@@ -670,18 +679,24 @@ async function loadAdminDash(){
     document.getElementById('adminAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست یا این webhook هنوز ساخته نشده.</div>';
   }
 }
+
+// 🆕 تابع بهبودیافته با تبدیل تاریخ شمسی
 function renderTable(id, rows, withPatient){
-  const el=document.getElementById(id);
-  if(!rows || !rows.length){ el.innerHTML='<div class="empty-state">نوبتی ثبت نشده است.</div>'; return; }
-  const badge={scheduled:'success',pending:'pending',cancelled:'cancelled'};
-  const fa={scheduled:'تأیید',pending:'در انتظار',cancelled:'لغو'};
-  let h='<table class="data-table"><thead><tr>'+(withPatient?'<th>بیمار</th><th>موبایل</th>':'<th>شناسه</th>')+'<th>تاریخ</th><th>ساعت</th><th>وضعیت</th></tr></thead><tbody>';
-  rows.forEach(r=>{
-    h+='<tr>'+(withPatient?'<td>'+(r.patient_name||'-')+'</td><td>'+toFa(r.mobile||'-')+'</td>':'<td>'+toFa(r.id)+'</td>')+
-       '<td>'+(r.appointment_date||'-')+'</td><td>'+toFa(r.appointment_time||'-')+'</td>'+
-       '<td><span class="badge badge-'+(badge[r.status]||'pending')+'">'+(fa[r.status]||r.status)+'</span></td></tr>';
+  const el = document.getElementById(id);
+  if(!rows || !rows.length){ el.innerHTML = '<div class="empty-state">نوبتی ثبت نشده است.</div>'; return; }
+  const badge = {scheduled:'success', pending:'pending', cancelled:'cancelled'};
+  const fa = {scheduled:'تأیید', pending:'در انتظار', cancelled:'لغو'};
+  let h = '<table class="data-table"><thead><tr>' +
+    (withPatient ? '<th>بیمار</th><th>موبایل</th>' : '<th>شناسه</th>') +
+    '<th>تاریخ</th><th>ساعت</th><th>وضعیت</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    h += '<tr>' +
+      (withPatient ? '<td>'+(r.patient_name||'-')+'</td><td>'+toFa(r.mobile||'-')+'</td>' : '<td>'+toFa(r.id)+'</td>') +
+      '<td>'+ fmtDate(r.appointment_date) +'</td>' +
+      '<td>'+ toFa(String(r.appointment_time||'-').substring(0,5)) +'</td>' +
+      '<td><span class="badge badge-'+(badge[r.status]||'pending')+'">'+(fa[r.status]||r.status)+'</span></td></tr>';
   });
-  el.innerHTML=h+'</tbody></table>';
+  el.innerHTML = h + '</tbody></table>';
 }
 
 // ================= شروع =================
