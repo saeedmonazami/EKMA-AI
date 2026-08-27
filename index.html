@@ -1,3 +1,28 @@
+کد شما از نظر ساختار UI/UX و طراحی بسیار عالی و حرفه‌ای است. اما با بررسی دقیق منطق کد و تطبیق آن با **Workflow سمت سرور (n8n)**، چند باگ منطقی و مشکل در ارتباط با سرور پیدا کردم که در نسخه واقعی باعث بروز خطا می‌شوند.
+
+### 🐛 مشکلات شناسایی شده و اصلاحات انجام شده:
+
+1. **مشکل نمایش اسلات‌های رزرو شده (مهم‌ترین باگ):**
+   - **مشکل:** در کد شما، برای قرمز کردن ساعت‌های پر (🔴)، از `action: 'list'` استفاده شده بود که فقط **نوبت‌های خود کاربر** را برمی‌گرداند. یعنی اگر کاربر دیگری آن ساعت را رزرو کرده بود، سایت شما آن را سبز (🟢) نشان می‌داد و سرور در مرحله آخر با خطای `SLOT_TAKEN` درخواست را رد می‌کرد.
+   - **اصلاح:** تابع `loadSlots` تغییر یافت تا از `EP.doctor` (که لیست تمام نوبت‌های سیستم را برمی‌گرداند) استفاده کند و اسلات‌های جهانی را به درستی قرمز کند.
+2. **نقص در ارسال اطلاعات بیمار هنگام ثبت نوبت:**
+   - **مشکل:** در `submitBooking` فقط `sessionId` ارسال می‌شد. اگر به هر دلیلی Draft در سرور خالی بود، نام و موبایل بیمار در تقویم گوگل و پیامک‌ها خالی ثبت می‌شد.
+   - **اصلاح:** فیلدهای `name`, `mobile`, `national_id` به Payload اضافه شدند.
+3. **باگ وضعیت تغییر نوبت (Reschedule):**
+   - **مشکل:** اگر کاربری وارد حالت "تغییر نوبت" می‌شد و سپس بدون ثبت، به صفحه خانه می‌رفت و دوباره "رزرو نوبت" را می‌زد، سایت هنوز در حالت تغییر نوبت قبلی گیر می‌کرد!
+   - **اصلاح:** در تابع `navigate` متغیر `rescheduleId` هنگام خروج از صفحه نوبت‌دهی پاکسازی می‌شود.
+4. **مدیریت خطای شبکه (Network Errors):**
+   - **مشکل:** اگر سرور n8n خاموش بود یا قطعی اینترنت رخ می‌داد، تابع `post` یک آبجکت خطا برمی‌گرداند که `reply` نداشت و باعث کرش کردن UI یا نمایش `undefined` می‌شد.
+   - **اصلاح:** هندلینگ خطا بهبود یافت تا پیام‌های فارسی و ساختاریافته نمایش دهد.
+5. **تداخل Toastها:**
+   - **مشکل:** اگر دو پیام پشت سر هم نمایش داده می‌شدند، پیام دوم زودتر از موعد ناپدید می‌شد.
+   - **اصلاح:** با استفاده از `clearTimeout` این مشکل برطرف شد.
+
+---
+
+### ✅ کد کامل و بازنویسی شده (آماده استفاده):
+
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -342,28 +367,36 @@ const DOCTOR_PASS = 'doctor123', ADMIN_PASS = 'admin123';
 
 let USER = null, reservedSlots = [], rescheduleId = null;
 const state = { selectedDate:'', selectedDateLabel:'', selectedTime:'' };
+let toastTimeout;
 
 // ================= ابزار =================
 const toFa = s => String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 const faToEn = s => String(s).replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+
 function toast(msg, type='success'){
   const t=document.getElementById('toast');
   t.textContent=msg; t.className='toast show '+type;
-  setTimeout(()=>t.classList.remove('show'),4000);
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(()=>t.classList.remove('show'),4000);
 }
+
 async function post(path, data){
   try{
     const r = await fetch(EP.base+path, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const txt = await r.text();
     try{ return JSON.parse(txt);}catch{ return {raw:txt}; }
-  }catch(e){ console.error(e); return {status:'error', message:e.message}; }
+  }catch(e){ 
+    console.error(e); 
+    // بازگشت ساختار استاندارد خطا برای جلوگیری از کرش UI
+    return {status:'error', message:e.message, reply: '⚠️ ارتباط با سرور برقرار نیست. لطفاً دوباره تلاش کنید.'}; 
+  }
 }
-function toJalali(gy,gm,gd){const g=[0,31,59,90,120,151,181,212,243,273,304,334];let jy=(gy<=1600)?0:979;gy=(gy<=1600)?gy-621:gy-1600;const gy2=(gm>2)?gy+1:gy;let d=(365*gy)+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)-80+gd+g[gm-1];jy+=33*Math.floor(d/12053);d%=12053;jy+=4*Math.floor(d/1461);d%=1461;jy+=Math.floor((d-1)/365);if(d>365)d=(d-1)%365;const jm=(d<186)?1+Math.floor(d/31):7+Math.floor((d-186)/30);const jd=1+((d<186)?d%31:(d-186)%30);return[jy,jm,jd];}
+
+function toJalali(gy,gm,gd){const g=[0,31,59,90,120,151,181,212,243,273,304,334];let jy=(gy<=1600)?0:979;gy=(gy<=1600)?gy-621:gy-1600;const gy2=(gm>2)?gy+1:gy;let d=(365*gy)+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)-80+gd+g[gm-1];jy+=33*Math.floor(d/12053);d%=12053;jy+=4*Math.floor(d/1461);d%=1461;jy+=Math.floor((d-1)/365);if(d>35)d=(d-1)%365;const jm=(d<186)?1+Math.floor(d/31):7+Math.floor((d-186)/30);const jd=1+((d<186)?d%31:(d-186)%30);return[jy,jm,jd];}
 const J_MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const J_DAYS=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
 
-// 🆕 تابع تبدیل تاریخ میلادی به شمسی برای نمایش
 function fmtDate(d){
   if(!d) return '-';
   const p = String(d).substring(0,10).split('-');
@@ -375,10 +408,17 @@ function fmtDate(d){
 // ================= ناوبری =================
 function navigate(page){
   if(['appointment','my-appts','chat'].includes(page) && !USER){ showLogin(); return; }
+  
+  // 🆕 پاکسازی وضعیت تغییر نوبت هنگام خروج از صفحه نوبت‌دهی
+  if(page !== 'appointment') {
+      rescheduleId = null;
+  }
+
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active', a.dataset.page===page));
   window.scrollTo(0,0);
+  
   if(page==='appointment'){ loadSlots(); if(rescheduleId){ updateRescheduleUI(); } }
   if(page==='my-appts') loadMyAppointments();
   if(page==='chat' && !window.chatInit){ initChat(); window.chatInit=true; }
@@ -391,17 +431,21 @@ function showLogin(){ document.getElementById('loginOverlay').classList.add('sho
 function closeLogin(){ document.getElementById('loginOverlay').classList.remove('show'); }
 function showUserChip(){ if(USER){ document.getElementById('userChip').style.display='inline-flex'; document.getElementById('userName').textContent=USER.name; } }
 function logout(){ localStorage.removeItem('ekma_user'); USER=null; location.reload(); }
+
 async function doLogin(){
   const name=document.getElementById('loginName').value.trim();
   const nid=faToEn(document.getElementById('loginNid').value.trim()).replace(/\D/g,'');
   let mob=faToEn(document.getElementById('loginMobile').value.trim()).replace(/\D/g,'');
   if(mob.startsWith('98')) mob='0'+mob.substring(2);
+  
   if(!name){toast('نام الزامی است','error');return;}
   if(!/^\d{10}$/.test(nid)){toast('کد ملی باید ۱۰ رقم باشد','error');return;}
   if(!/^09\d{9}$/.test(mob)){toast('موبایل نامعتبر','error');return;}
+  
   const btn=document.getElementById('loginBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span> ارتباط با سرور...';
   const res=await post(EP.login,{name, national_id:nid, mobile:mob});
   btn.disabled=false; btn.innerHTML='ورود / ثبت‌نام';
+  
   if(res && res.status==='success'){
     USER={token:res.token, name:(res.patient&&res.patient.full_name)||name, mobile:(res.patient&&res.patient.mobile)||mob, national_id:nid};
     localStorage.setItem('ekma_user', JSON.stringify(USER));
@@ -414,62 +458,57 @@ function requireLogin(){ if(!USER){ showLogin(); toast('لطفاً ابتدا و
 async function loadSlots(){
   if(!USER) return;
   document.getElementById('slotsLoading').style.display='block';
-  // درخواست list برای دریافت reserved slots
-  const res=await post(EP.main,{action:'list', channel:'website', sessionId:USER.token});
+  
+  // 🆕 دریافت لیست جهانی نوبت‌ها برای نمایش دقیق ساعت‌های پر (🔴)
+  const docRes = await post(EP.doctor, {});
+  if(docRes && docRes.appointments && Array.isArray(docRes.appointments)) {
+      reservedSlots = docRes.appointments.map(a => ({
+          date: a.appointment_date, // YYYY-MM-DD
+          time: a.appointment_time  // HH:MM:SS
+      }));
+  } else {
+      reservedSlots = [];
+  }
+  
   document.getElementById('slotsLoading').style.display='none';
-  reservedSlots = parseReservedFromList(res?.reply || '');
   generateDates();
 }
-// استخراج اسلات‌های رزرو شده از پاسخ لیست نوبت‌ها
-function parseReservedFromList(text){
-  const slots=[];
-  // هر بلوک بین --- یک نوبت است
-  const blocks = String(text).split(/-{3,}/);
-  blocks.forEach(b=>{
-    const idM = b.match(/شناسه:\s*([۰-۹0-9]+)/);
-    const dM = b.match(/تاریخ:\s*(.+?)(?:\n|$)/);
-    const tM = b.match(/ساعت:\s*([۰-۹0-9:]+)/);
-    if(idM && dM && tM){
-      // نیاز به تاریخ میلادی داریم؛ فعلاً فقط برای نمایش reserved بودن استفاده می‌کنیم
-      slots.push({
-        id: faToEn(idM[1]),
-        label: dM[1].trim(),
-        time: faToEn(tM[1].trim()),
-        raw: b
-      });
-    }
-  });
-  return slots;
-}
+
 function generateDates(){
   const c=document.getElementById('dateSlots'); c.innerHTML=''; state.selectedDate=''; state.selectedTime='';
   const today=new Date();
   for(let i=0;i<14;i++){
     const d=new Date(today); d.setDate(d.getDate()+i);
-    if(d.getDay()===5) continue;
+    if(d.getDay()===5) continue; // تعطیلات جمعه
     const j=toJalali(d.getFullYear(),d.getMonth()+1,d.getDate());
     const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    const label=J_DAYS[d.getDay()]+' '+toFa(j[2])+' '+J_MONTHS[j[1]-1];
-    // برای بررسی پر بودن، فعلاً از لیست نوبت‌های من استفاده می‌کنیم
+    
     const el=document.createElement('div');
     el.className='date-slot';
     el.innerHTML='<span class="dow">'+J_DAYS[d.getDay()]+'</span><span class="dnum">'+toFa(j[2])+' '+J_MONTHS[j[1]-1]+'</span>';
     el.onclick=()=>{
       document.querySelectorAll('.date-slot').forEach(s=>s.classList.remove('selected'));
       el.classList.add('selected');
-      state.selectedDate=iso; state.selectedDateLabel=label;
+      state.selectedDate=iso; state.selectedDateLabel=J_DAYS[d.getDay()]+' '+toFa(j[2])+' '+J_MONTHS[j[1]-1];
       generateTimes();
     };
     c.appendChild(el);
   }
 }
+
 function generateTimes(){
   const c=document.getElementById('timeSlots'); c.innerHTML='';
   for(let h=8;h<=19;h++){
     for(let m=0;m<60;m+=30){
       if(h===19&&m===30)break;
       const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
-      const taken=reservedSlots.some(s=>s.time===t);
+      
+      // 🆕 بررسی دقیق بر اساس تاریخ و ساعت جهانی
+      const taken = reservedSlots.some(s => 
+          s.date === state.selectedDate && 
+          String(s.time).substring(0,5) === t
+      );
+      
       const el=document.createElement('div');
       el.className='time-slot'+(taken?' reserved':'');
       el.textContent=(taken?'🔴 ':'🟢 ')+toFa(String(h).padStart(2,'0'))+':'+toFa(String(m).padStart(2,'0'));
@@ -484,6 +523,7 @@ function generateTimes(){
     }
   }
 }
+
 function nextStep(n){
   if(n===2&&!USER){ showLogin(); return; }
   if(n===3){
@@ -513,17 +553,23 @@ function updateRescheduleUI(){
     document.getElementById('submitBtn').textContent='✅ ثبت نهایی';
   }
 }
+
 async function submitBooking(){
   if(!requireLogin())return;
   const btn=document.getElementById('submitBtn');
   btn.disabled=true; btn.innerHTML='<span class="spinner"></span> سرور...';
 
+  // 🆕 ارسال کامل اطلاعات بیمار برای جلوگیری از خطای Draft خالی در سرور
   const base = {
     channel:'website', sessionId:USER.token,
     requested_doctor:DOCTOR,
     requested_date:state.selectedDate,
     requested_time:state.selectedTime+':00',
-    symptoms:document.getElementById('symptoms').value.trim()
+    symptoms:document.getElementById('symptoms').value.trim(),
+    name: USER.name,
+    full_name: USER.name,
+    mobile: USER.mobile,
+    national_id: USER.national_id
   };
 
   let res;
@@ -537,7 +583,7 @@ async function submitBooking(){
   updateRescheduleUI();
 
   const reply = res?.reply || res?.replyText || '⚠️ پاسخی دریافت نشد.';
-  const isError = reply.includes('⚠️') || reply.includes('خطا');
+  const isError = reply.includes('⚠️') || reply.includes('خطا') || res.status === 'error';
 
   if(isError){
     toast(reply,'error');
@@ -555,6 +601,7 @@ async function submitBooking(){
   toast('✅ انجام شد','success');
   loadSlots();
 }
+
 function resetBooking(){
   state.selectedDate=''; state.selectedTime=''; rescheduleId=null;
   document.getElementById('symptoms').value='';
@@ -581,24 +628,25 @@ function parseList(text){
   });
   return items;
 }
+
 async function loadMyAppointments(){
   if(!requireLogin())return;
   const c=document.getElementById('myAppointmentsContainer');
   c.innerHTML='<div class="empty-state"><span class="spinner"></span> دریافت از سرور...</div>';
   const res=await post(EP.main,{action:'list', channel:'website', sessionId:USER.token});
   const reply = res?.reply || res?.replyText || '';
+  
   if(reply.includes('هیچ نوبت') || reply.includes('ندارید')){
     c.innerHTML='<div class="empty-state">📭 شما هیچ نوبت فعالی ندارید.</div>';
-    // ذخیره برای slot ها
-    reservedSlots = [];
     return;
   }
-  reservedSlots = parseReservedFromList(reply);
+  
   const items=parseList(reply);
   if(!items.length){
     c.innerHTML='<div class="live-reply">'+reply+'</div>';
     return;
   }
+  
   let html='<table class="data-table"><thead><tr><th>شناسه</th><th>پزشک</th><th>تاریخ</th><th>ساعت</th><th>عملیات</th></tr></thead><tbody>';
   items.forEach(a=>{
     html+='<tr><td>'+toFa(a.id)+'</td><td>'+a.doctor+'</td><td>'+a.date+'</td><td>'+a.time+'</td>';
@@ -607,6 +655,7 @@ async function loadMyAppointments(){
   html+='</tbody></table>';
   c.innerHTML=html;
 }
+
 async function cancelAppt(id){
   if(!confirm('نوبت '+toFa(id)+' لغو شود؟'))return;
   const res=await post(EP.main,{action:'cancel', channel:'website', sessionId:USER.token, appointment_id:id, cancel_appointment_id:id});
@@ -614,6 +663,7 @@ async function cancelAppt(id){
   toast(reply, reply.includes('⚠️')?'error':'success');
   loadMyAppointments();
 }
+
 function rescheduleAppt(id){
   rescheduleId = id;
   navigate('appointment');
@@ -658,7 +708,7 @@ async function loadDoctorDash(){
       '<div class="stat-card"><span class="label">کل بیماران</span><span class="value">'+toFa(res.stats.total_patients||0)+'</span></div>';
     renderTable('doctorAppointments', res.appointments||[], false);
   } else {
-    document.getElementById('doctorAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست یا این webhook هنوز ساخته نشده.</div>';
+    document.getElementById('doctorAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست.</div>';
   }
 }
 
@@ -676,11 +726,10 @@ async function loadAdminDash(){
       '<div class="stat-card"><span class="label">کل بیماران</span><span class="value">'+toFa(res.stats.total_patients||0)+'</span></div>';
     renderTable('adminAppointments', res.appointments||[], true);
   } else {
-    document.getElementById('adminAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست یا این webhook هنوز ساخته نشده.</div>';
+    document.getElementById('adminAppointments').innerHTML='<div class="empty-state">⚠️ ارتباط با سرور برقرار نیست.</div>';
   }
 }
 
-// 🆕 تابع بهبودیافته با تبدیل تاریخ شمسی
 function renderTable(id, rows, withPatient){
   const el = document.getElementById(id);
   if(!rows || !rows.length){ el.innerHTML = '<div class="empty-state">نوبتی ثبت نشده است.</div>'; return; }
@@ -707,3 +756,4 @@ window.addEventListener('DOMContentLoaded', ()=>{
 </script>
 </body>
 </html>
+```
